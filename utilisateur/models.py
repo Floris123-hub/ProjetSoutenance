@@ -97,3 +97,4 @@ class Prendre_Conge(models.Model):
     date = models.ForeignKey(Calendrier_Conge, on_delete=models.CASCADE)
     Duree = models.PositiveIntegerField()
     Status = models.CharField(choices=('En attente', 'Accordé', 'Rejeté'))
+
