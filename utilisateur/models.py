@@ -4,11 +4,10 @@ from django.utils import timezone
 
 # Create your models here.
 
-# LA TABLE UTILISATEUR
+#############################################################
+#                       UTILISATEUR                         #
+#############################################################
 class Utilisateur(models.Model):
-    #############################################################
-    #                       UTILISATEUR                         #
-    #############################################################
     Matricule = models.UUIDField(max_length=10, primary_key=True, unique=True, blank=False, auto_created=True)
     Nom = models.CharField(max_length=20, blank=False)
     Prenom = models.CharField(max_length=50, blank=False)
@@ -46,8 +45,6 @@ class Utilisateur(models.Model):
     Date_Sortie = models.DateField(blank=True)
     Nom_Contact_dUrgence = models.CharField()
     Telephone_Contact_dUrgence = models.CharField()
-
-    # Les Méthodes sur le table UTILISATEUR
 
 
 ##################################################################################
