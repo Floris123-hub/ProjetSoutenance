@@ -50,9 +50,9 @@ class Utilisateur(models.Model):
     # Les Méthodes sur le table UTILISATEUR
 
 
-#############################################################
-#                       PERMISSION                          #
-#############################################################
+##################################################################################
+#                                  PERMISSION                                    #
+##################################################################################
 class Permission(models.Model):
     Code_Permission = models.CharField(primary_key=True, auto_created=True)
     Date_Permission = models.DateTimeField(auto_created=True, default=timezone.now)
@@ -60,14 +60,40 @@ class Permission(models.Model):
     Date_Fin = models.DateField()
     Motif = models.CharField()
     Status = models.CharField()
+###################################################################################
 
 
-#############################################################
-#                     NOTES INTERNES                        #
-#############################################################
+###################################################################################
+#                                 NOTES INTERNES                                  #
+###################################################################################
 class Notes_Internes(models.Model):
     Code_Note = models.CharField(blank=False, primary_key=True)
     Destinateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING)
     Destinataire = models.ManyToManyField(Utilisateur)
     Titre = models.CharField(blank=True, max_length=200)
     Contenu = models.TextField(max_length=2500)
+###################################################################################
+
+
+################################################################
+#                            CONGES                            #
+################################################################
+class Conge(models.Model):
+    Code_Conge = models.CharField(primary_key=True, blank=False)
+    Type_Conge = models.CharField(blank=False)
+################################################################
+
+
+##########################################
+#           CALENDRIER CONGES            #
+##########################################
+class Calendrier_Conge(models.Model):
+    Date_Conge = models.DateField()
+##########################################
+
+
+#############################################################
+#                     PRENDRE CONGES                        #
+#############################################################
+
+
