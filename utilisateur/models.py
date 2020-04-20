@@ -8,7 +8,7 @@ from django.utils import timezone
 #                       UTILISATEUR                         #
 #############################################################
 class Utilisateur(models.Model):
-    Matricule = models.UUIDField(max_length=10, primary_key=True, unique=True, blank=False, auto_created=True)
+    Matricule = models.UUIDField(max_length=10, primary_key=True, unique=True, blank=False)
     Nom = models.CharField(max_length=20, blank=False)
     Prenom = models.CharField(max_length=50, blank=False)
     Sexe = models.CharField(max_length=1, choices=('M', 'F'), blank=False)
@@ -47,12 +47,21 @@ class Utilisateur(models.Model):
     Telephone_Contact_dUrgence = models.CharField()
 
 
+#############################################################
+#                          PHOTOS                           #
+#############################################################
+class Photo(models.Model):
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
+    Photo_Id = models.CharField(primary_key=True, blank=False)
+    Photo_Lien = models.CharField()
+
+
 ##################################################################################
 #                                  PERMISSION                                    #
 ##################################################################################
 class Permission(models.Model):
-    Code_Permission = models.CharField(primary_key=True, auto_created=True)
-    Date_Permission = models.DateTimeField(auto_created=True, default=timezone.now)
+    Code_Permission = models.CharField(primary_key=True)
+    Date_Permission = models.DateTimeField(default=timezone.now)
     Date_Debut = models.DateField()
     Date_Fin = models.DateField()
     Motif = models.CharField()
