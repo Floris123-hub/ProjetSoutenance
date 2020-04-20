@@ -59,8 +59,7 @@ class Permission(models.Model):
     Date_Debut = models.DateField()
     Date_Fin = models.DateField()
     Motif = models.CharField()
-    Status = models.CharField()
-###################################################################################
+    Status = models.CharField(choices=('Accordée', 'En attente', 'Refuser'))
 
 
 ###################################################################################
@@ -72,7 +71,6 @@ class Notes_Internes(models.Model):
     Destinataire = models.ManyToManyField(Utilisateur)
     Titre = models.CharField(blank=True, max_length=200)
     Contenu = models.TextField(max_length=2500)
-###################################################################################
 
 
 ################################################################
@@ -80,8 +78,7 @@ class Notes_Internes(models.Model):
 ################################################################
 class Conge(models.Model):
     Code_Conge = models.CharField(primary_key=True, blank=False)
-    Type_Conge = models.CharField(blank=False)
-################################################################
+    Type_Conge = models.CharField(choices=('Congés Spéciaux', 'Congés maladie', 'Repos Sanitaire', 'Personnel', 'Congés annuels', 'Reprise jours fériés'), blank=False)
 
 
 ##########################################
@@ -89,11 +86,14 @@ class Conge(models.Model):
 ##########################################
 class Calendrier_Conge(models.Model):
     Date_Conge = models.DateField()
-##########################################
 
 
 #############################################################
 #                     PRENDRE CONGES                        #
 #############################################################
-
-
+class Prendre_Conge(models.Model):
+    employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
+    conge = models.ForeignKey(Conge, on_delete=models.CASCADE)
+    date = models.ForeignKey(Calendrier_Conge, on_delete=models.CASCADE)
+    Duree = models.PositiveIntegerField()
+    Status = models.CharField(choices=('En attente', 'Accordé', 'Rejeté'))
