@@ -61,6 +61,7 @@ class Photo(models.Model):
 ##################################################################################
 class Permission(models.Model):
     Code_Permission = models.CharField(primary_key=True)
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     Date_Permission = models.DateTimeField(default=timezone.now)
     Date_Debut = models.DateField()
     Date_Fin = models.DateField()
