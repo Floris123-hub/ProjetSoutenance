@@ -88,9 +88,9 @@ class Calendrier_Conge(models.Model):
     Date_Conge = models.DateField()
 
 
-#############################################################
-#                     PRENDRE CONGES                        #
-#############################################################
+########################################################################
+#                           PRENDRE CONGES                             #
+########################################################################
 class Prendre_Conge(models.Model):
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     conge = models.ForeignKey(Conge, on_delete=models.CASCADE)
