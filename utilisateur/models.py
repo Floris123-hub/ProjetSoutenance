@@ -100,7 +100,7 @@ class Calendrier_Conge(models.Model):
 ########################################################################
 class Prendre_Conge(models.Model):
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-    conge = models.ForeignKey(Conge, on_delete=models.CASCADE)
+    conges = models.ForeignKey(Conge, on_delete=models.CASCADE)
     date = models.ForeignKey(Calendrier_Conge, on_delete=models.CASCADE)
     Duree = models.PositiveIntegerField()
     Status = models.CharField(choices=('En attente', 'Accordé', 'Rejeté'))
