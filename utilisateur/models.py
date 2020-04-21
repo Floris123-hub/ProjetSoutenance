@@ -150,7 +150,7 @@ class Conges(models.Model):
 #           CALENDRIER CONGES            #
 ##########################################
 class Calendrier_Conge(models.Model):
-    Date_Conge = models.DateField()
+    Date_Conge = models.DateField(primary_key=True)
 
 
 # Statut de la demande de congés
