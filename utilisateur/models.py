@@ -1,8 +1,15 @@
 from django.db import models
 from django.utils import timezone
 
-
 # Create your models here.
+
+
+# Choix de type d'utilisateur
+CHOIX_TYPE_UTILISATEUR = (
+    ('Stagiaire', 'Stagiaire'),
+    ('Employé', 'Employé')
+)
+
 
 #############################################################
 #                       UTILISATEUR                         #
@@ -21,7 +28,7 @@ class Utilisateur(models.Model):
     Superviseur = models.CharField(blank=True)
     Pseudo = models.CharField(max_length=10, blank=False, unique=True)
     MotDePasse = models.CharField(max_length=10, blank=False, unique=True)
-    Type_Utilisateur = models.CharField(choices=('Stagiaire', 'Employé'), blank=False)
+    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False)
 
     #############################################################
     #                         STAGIAIRE                         #
@@ -31,11 +38,19 @@ class Utilisateur(models.Model):
     LettreDeRecommandation_Lien = models.CharField(blank=True)
     LettreDeMotivation_Lien = models.CharField(blank=True)
 
+    # Choix Status Matrimoniel
+    CHOIX_SITUATION_MATRIMONIEL = (
+        ('Célibataire', 'Célibataire'),
+        ('En couple', 'En couple'),
+        ('Marié(e)', 'Marié(e)'),
+        ('Divorcé(e)', 'Divorcé(e)')
+    )
+
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
     CIN = models.PositiveIntegerField(blank=True)
-    Status_matrimoniel = models.CharField(choices=('Célibataire', 'En couple', 'Marié(e)', 'Divorcé(e)'), blank=True)
+    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True)
     Enfants = models.PositiveIntegerField(blank=True)
     Telephone_Fixe = models.CharField()
     Departement = models.CharField(choices=..., blank=True)
@@ -56,6 +71,14 @@ class Photo(models.Model):
     Photo_Lien = models.CharField()
 
 
+# Choix status permission
+STATUS_PERMISSION = (
+    ('Accordée', 'Accordée'),
+    ('En attente', 'En attente'),
+    ('Refuser', 'Refuser')
+)
+
+
 ##################################################################################
 #                                  PERMISSION                                    #
 ##################################################################################
@@ -66,7 +89,7 @@ class Permission(models.Model):
     Date_Debut = models.DateField()
     Date_Fin = models.DateField()
     Motif = models.CharField()
-    Status = models.CharField(choices=('Accordée', 'En attente', 'Refuser'))
+    Status = models.CharField(choices=STATUS_PERMISSION)
 
 
 ###################################################################################
@@ -80,12 +103,23 @@ class Notes_Internes(models.Model):
     Contenu = models.TextField(max_length=2500)
 
 
+# Choix des types de congés
+CHOIX_TYPE_CONGES = (
+    ('Congés Spéciaux', 'Congés Spéciaux'),
+    ('Congés maladie', 'Congés maladie'),
+    ('Repos Sanitaire', 'Repos Sanitaire'),
+    ('Personnel', 'Personnel'),
+    ('Congés annuels', 'Congés annuels'),
+    ('Reprise jours fériés', 'Reprise jours fériés')
+)
+
+
 ################################################################
 #                            CONGES                            #
 ################################################################
-class Conge(models.Model):
-    Code_Conge = models.CharField(primary_key=True, blank=False)
-    Type_Conge = models.CharField(choices=('Congés Spéciaux', 'Congés maladie', 'Repos Sanitaire', 'Personnel', 'Congés annuels', 'Reprise jours fériés'), blank=False)
+class Conges(models.Model):
+    Code_Conges = models.CharField(primary_key=True, blank=False)
+    Type_Conges = models.CharField(choices=CHOIX_TYPE_CONGES, blank=False)
 
 
 ##########################################
@@ -95,13 +129,20 @@ class Calendrier_Conge(models.Model):
     Date_Conge = models.DateField()
 
 
+# Statut de la demande de congés
+STATUS_CONGES = (
+    ('En attente', 'En attente'),
+    ('Accordé', 'Accordé'),
+    ('Rejeté', 'Rejeté')
+)
+
+
 ########################################################################
 #                           PRENDRE CONGES                             #
 ########################################################################
 class Prendre_Conge(models.Model):
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-    conges = models.ForeignKey(Conge, on_delete=models.CASCADE)
+    conges = models.ForeignKey(Conges, on_delete=models.CASCADE)
     date = models.ForeignKey(Calendrier_Conge, on_delete=models.CASCADE)
     Duree = models.PositiveIntegerField()
-    Status = models.CharField(choices=('En attente', 'Accordé', 'Rejeté'))
-
+    Status = models.CharField(choices=STATUS_CONGES)
