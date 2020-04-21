@@ -52,11 +52,29 @@ class Utilisateur(models.Model):
         ('Divorcé(e)', 'Divorcé(e)')
     )
 
+    # Choix du département
+    CHOIX_DEPARTEMENT = (
+        ('Informatique', 'Informatique'),
+        ('Marketing et Communication', 'Marketing et Communication')
+    )
+
+    # Choix de la fonction
+    CHOIX_FONCTION = (
+        ('DRH', 'Directeur des Ressources Humaines'),
+        ('DC', 'Directeur Commercial')
+    )
+
+    # Choix du type de contrat
+    TYPE_CONTRAT = (
+        ('CDD', 'Contrat Durée Déterminée'),
+        ('CDI', 'Contrat Durée Indéterminée')
+    )
+
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
     CIN = models.PositiveIntegerField(blank=True)
-    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=10)
+    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20)
     Enfants = models.PositiveIntegerField(blank=True)
     Telephone_Fixe = models.CharField(max_length=20)
     Departement = models.CharField(choices=..., blank=True, max_length=30)
@@ -81,7 +99,7 @@ class Photo(models.Model):
 STATUS_PERMISSION = (
     ('Accordée', 'Accordée'),
     ('En attente', 'En attente'),
-    ('Refuser', 'Refuser')
+    ('Refusée', 'Refusée')
 )
 
 
