@@ -54,20 +54,57 @@ class Utilisateur(models.Model):
 
     # Choix du département
     CHOIX_DEPARTEMENT = (
-        ('Informatique', 'Informatique'),
-        ('Marketing et Communication', 'Marketing et Communication')
+        ('Direction', 'Direction'),
+        ('Comptabilité', 'Service Comptable'),
+        ('Ressources Humaines', 'Ressources Humaines'),
+        ('Production et Développement', 'Production et Développement'),
+        ('Informatique', 'Service Informatique'),
+        ('Communication et Marketing', 'Communication et Marketing'),
+        ('Commercial', 'Service Commercial'),
+        ('Juridique', 'Service Juridique')
+
     )
 
     # Choix de la fonction
     CHOIX_FONCTION = (
-        ('DRH', 'Directeur des Ressources Humaines'),
-        ('DC', 'Directeur Commercial')
+        # Pour le département informatique
+        ('Dev Front', 'Développeur(euse) Front-End'),
+        ('Dev Back', 'Développeur(euse) Back-End'),
+        ('Dev Full', 'Développeur(euse) Full Stack'),
+        ('Graphiste', 'Graphiste'),
+        ('Maintenancier', 'Maintenancier'),
+
+        # Pour le département de la Communication
+        ('CM', 'Community Manager'),
+        ('CC', 'Chargé(e) de Communication'),
+
+        # Pour le département de la Comptabilité
+        ('GC', 'Gestionnnaire Comptable'),
+        ('AGC', 'Assistant(e) Gestionnaire Comptable'),
+        ('Audit', 'Auditeur(trice)'),
+        ('Commission', 'Commissaire aux comptes'),
+
+        # Pour le département Juridique
+        ('Juriste', 'Juriste'),
+
+        # Pour le département des Ressources Humaines
+        ('DRH', 'Directeur(trice) des Ressources Humaines'),
+        ('ARH', 'Assistant(e) de direction des Ressources Humaines'),
+
+        # Pour le service de la direction
+        ('DG', 'Directeur(trice) Général(e)'),
+        ('ADG', 'Assistant(e) de Direction Générale'),
+
+        # Pour le service Commercial
+        ('DC', 'Directeur(trice) Commercial(e)')
     )
 
     # Choix du type de contrat
     TYPE_CONTRAT = (
         ('CDD', 'Contrat Durée Déterminée'),
-        ('CDI', 'Contrat Durée Indéterminée')
+        ('CDI', 'Contrat Durée Indéterminée'),
+        ('CP', 'Contrat de Prestation'),
+        ('CS', 'Convention de Stage')
     )
 
     #############################################################
@@ -77,8 +114,8 @@ class Utilisateur(models.Model):
     Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20)
     Enfants = models.PositiveIntegerField(blank=True)
     Telephone_Fixe = models.CharField(max_length=20)
-    Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=True, max_length=30)
-    Fonction = models.CharField(choices=CHOIX_FONCTION, blank=True, max_length=30)
+    Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=True, max_length=50)
+    Fonction = models.CharField(choices=CHOIX_FONCTION, blank=True, max_length=50)
     Type_de_Contrat = models.CharField(choices=TYPE_CONTRAT, blank=True, max_length=20)
     Date_Entree = models.DateField(blank=True)
     Date_Sortie = models.DateField(blank=True)
