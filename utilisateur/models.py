@@ -17,6 +17,7 @@ CHOIX_SEXE = (
     ('F', 'F')
 )
 
+
 #############################################################
 #                       UTILISATEUR                         #
 #############################################################
@@ -179,7 +180,7 @@ CHOIX_TYPE_CONGES = (
 #                            CONGES                            #
 ################################################################
 class Conges(models.Model):
-    Code_Conges = models.CharField(primary_key=True, blank=False, max_length=5)
+    Code_Conges = models.CharField(primary_key=True, blank=False, max_length=10)
     Type_Conges = models.CharField(choices=CHOIX_TYPE_CONGES, blank=False, max_length=50)
 
 
