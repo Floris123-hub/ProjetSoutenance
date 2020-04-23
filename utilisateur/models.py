@@ -1,5 +1,12 @@
 from django.db import models
 from django.utils import timezone
+import datetime
+
+id = str(datetime.datetime.now())
+x = str(''.join(e for e in id if e.isalnum()))
+
+id2 = str(datetime.date.today())
+y = str(''.join(e for e in id2 if e.isalnum()))
 
 # Create your models here.
 
@@ -84,7 +91,7 @@ TYPE_CONTRAT = (
 #                       UTILISATEUR                         #
 #############################################################
 class Utilisateur(models.Model):
-    Matricule = models.UUIDField(max_length=10, primary_key=True, unique=True, blank=False)
+    Matricule = models.CharField(max_length=20, primary_key=True, unique=True, default=x, editable=False)
     Nom = models.CharField(max_length=20, blank=False)
     Prenom = models.CharField(max_length=50, blank=False)
     Sexe = models.CharField(max_length=1, choices=CHOIX_SEXE, blank=False)
@@ -93,7 +100,7 @@ class Utilisateur(models.Model):
     Mail = models.EmailField(blank=False)
     Pays = models.CharField(blank=False, max_length=30)
     Ville = models.CharField(blank=False, max_length=30)
-    Mobile = models.CharField(blank=False, max_length=20)
+    Mobile = models.CharField(blank=False, max_length=20, unique=True)
     Superviseur = models.CharField(blank=True, max_length=100)
     Pseudo = models.CharField(max_length=10, blank=False, unique=True)
     MotDePasse = models.CharField(max_length=10, blank=False, unique=True)
@@ -102,7 +109,7 @@ class Utilisateur(models.Model):
     #############################################################
     #                         STAGIAIRE                         #
     #############################################################
-    Filiere = models.CharField(max_length=20, blank=True)
+    Filiere = models.CharField(max_length=50, blank=True)
     CV_lien = models.CharField(blank=True, max_length=100)
     LettreDeRecommandation_Lien = models.CharField(blank=True, max_length=100)
     LettreDeMotivation_Lien = models.CharField(blank=True, max_length=100)
@@ -110,10 +117,10 @@ class Utilisateur(models.Model):
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
-    CIN = models.PositiveIntegerField(blank=True)
+    CIN = models.PositiveIntegerField(blank=True, unique=True)
     Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20)
     Enfants = models.PositiveIntegerField(blank=True)
-    Telephone_Fixe = models.CharField(max_length=20)
+    Telephone_Fixe = models.CharField(max_length=20, blank=True)
     Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=True, max_length=50)
     Fonction = models.CharField(choices=CHOIX_FONCTION, blank=True, max_length=50)
     Type_de_Contrat = models.CharField(choices=TYPE_CONTRAT, blank=True, max_length=20)
@@ -127,8 +134,8 @@ class Utilisateur(models.Model):
 #                          PHOTOS                           #
 #############################################################
 class Photo(models.Model):
-    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-    Photo_Id = models.CharField(primary_key=True, blank=False, max_length=10)
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, max_length=20, default=Utilisateur.Nom)
+    Photo_Id = models.UUIDField(primary_key=True, max_length=20, auto_created=True)
     Photo_Lien = models.CharField(max_length=100)
 
 
