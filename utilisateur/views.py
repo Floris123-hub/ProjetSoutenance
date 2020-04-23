@@ -52,6 +52,7 @@ class PermissionViewSet(viewsets.ModelViewSet):
     serializer_class = PermissionSerializer
 
 
+
 class CongesViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Conges to be viewed or edited.

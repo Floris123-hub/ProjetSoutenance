@@ -10,11 +10,73 @@ CHOIX_TYPE_UTILISATEUR = (
     ('Employé', 'Employé')
 )
 
-
 # Choix du sexe
 CHOIX_SEXE = (
     ('M', 'M'),
     ('F', 'F')
+)
+
+# Choix Status Matrimoniel
+CHOIX_SITUATION_MATRIMONIEL = (
+    ('Célibataire', 'Célibataire'),
+    ('En couple', 'En couple'),
+    ('Marié(e)', 'Marié(e)'),
+    ('Divorcé(e)', 'Divorcé(e)')
+)
+
+# Choix du département
+CHOIX_DEPARTEMENT = (
+    ('Direction', 'Direction'),
+    ('Comptabilité', 'Service Comptable'),
+    ('Ressources Humaines', 'Ressources Humaines'),
+    ('Production et Développement', 'Production et Développement'),
+    ('Informatique', 'Service Informatique'),
+    ('Communication et Marketing', 'Communication et Marketing'),
+    ('Commercial', 'Service Commercial'),
+    ('Juridique', 'Service Juridique')
+
+)
+
+# Choix de la fonction
+CHOIX_FONCTION = (
+    # Pour le département informatique
+    ('Dev Front', 'Développeur(euse) Front-End'),
+    ('Dev Back', 'Développeur(euse) Back-End'),
+    ('Dev Full', 'Développeur(euse) Full Stack'),
+    ('Graphiste', 'Graphiste'),
+    ('Maintenancier', 'Maintenancier'),
+
+    # Pour le département de la Communication
+    ('CM', 'Community Manager'),
+    ('CC', 'Chargé(e) de Communication'),
+
+    # Pour le département de la Comptabilité
+    ('GC', 'Gestionnnaire Comptable'),
+    ('AGC', 'Assistant(e) Gestionnaire Comptable'),
+    ('Audit', 'Auditeur(trice)'),
+    ('Commission', 'Commissaire aux comptes'),
+
+    # Pour le département Juridique
+    ('Juriste', 'Juriste'),
+
+    # Pour le département des Ressources Humaines
+    ('DRH', 'Directeur(trice) des Ressources Humaines'),
+    ('ARH', 'Assistant(e) de direction des Ressources Humaines'),
+
+    # Pour le service de la direction
+    ('DG', 'Directeur(trice) Général(e)'),
+    ('ADG', 'Assistant(e) de Direction Générale'),
+
+    # Pour le service Commercial
+    ('DC', 'Directeur(trice) Commercial(e)')
+)
+
+# Choix du type de contrat
+TYPE_CONTRAT = (
+    ('CDD', 'Contrat Durée Déterminée'),
+    ('CDI', 'Contrat Durée Indéterminée'),
+    ('CP', 'Contrat de Prestation'),
+    ('CS', 'Convention de Stage')
 )
 
 
@@ -41,72 +103,9 @@ class Utilisateur(models.Model):
     #                         STAGIAIRE                         #
     #############################################################
     Filiere = models.CharField(max_length=20, blank=True)
-    CV_lien = models.FilePathField(blank=True)
-    LettreDeRecommandation_Lien = models.FilePathField(blank=True)
-    LettreDeMotivation_Lien = models.FilePathField(blank=True)
-
-    # Choix Status Matrimoniel
-    CHOIX_SITUATION_MATRIMONIEL = (
-        ('Célibataire', 'Célibataire'),
-        ('En couple', 'En couple'),
-        ('Marié(e)', 'Marié(e)'),
-        ('Divorcé(e)', 'Divorcé(e)')
-    )
-
-    # Choix du département
-    CHOIX_DEPARTEMENT = (
-        ('Direction', 'Direction'),
-        ('Comptabilité', 'Service Comptable'),
-        ('Ressources Humaines', 'Ressources Humaines'),
-        ('Production et Développement', 'Production et Développement'),
-        ('Informatique', 'Service Informatique'),
-        ('Communication et Marketing', 'Communication et Marketing'),
-        ('Commercial', 'Service Commercial'),
-        ('Juridique', 'Service Juridique')
-
-    )
-
-    # Choix de la fonction
-    CHOIX_FONCTION = (
-        # Pour le département informatique
-        ('Dev Front', 'Développeur(euse) Front-End'),
-        ('Dev Back', 'Développeur(euse) Back-End'),
-        ('Dev Full', 'Développeur(euse) Full Stack'),
-        ('Graphiste', 'Graphiste'),
-        ('Maintenancier', 'Maintenancier'),
-
-        # Pour le département de la Communication
-        ('CM', 'Community Manager'),
-        ('CC', 'Chargé(e) de Communication'),
-
-        # Pour le département de la Comptabilité
-        ('GC', 'Gestionnnaire Comptable'),
-        ('AGC', 'Assistant(e) Gestionnaire Comptable'),
-        ('Audit', 'Auditeur(trice)'),
-        ('Commission', 'Commissaire aux comptes'),
-
-        # Pour le département Juridique
-        ('Juriste', 'Juriste'),
-
-        # Pour le département des Ressources Humaines
-        ('DRH', 'Directeur(trice) des Ressources Humaines'),
-        ('ARH', 'Assistant(e) de direction des Ressources Humaines'),
-
-        # Pour le service de la direction
-        ('DG', 'Directeur(trice) Général(e)'),
-        ('ADG', 'Assistant(e) de Direction Générale'),
-
-        # Pour le service Commercial
-        ('DC', 'Directeur(trice) Commercial(e)')
-    )
-
-    # Choix du type de contrat
-    TYPE_CONTRAT = (
-        ('CDD', 'Contrat Durée Déterminée'),
-        ('CDI', 'Contrat Durée Indéterminée'),
-        ('CP', 'Contrat de Prestation'),
-        ('CS', 'Convention de Stage')
-    )
+    CV_lien = models.CharField(blank=True, max_length=100)
+    LettreDeRecommandation_Lien = models.CharField(blank=True, max_length=100)
+    LettreDeMotivation_Lien = models.CharField(blank=True, max_length=100)
 
     #############################################################
     #                         EMPLOYE                           #
@@ -130,7 +129,7 @@ class Utilisateur(models.Model):
 class Photo(models.Model):
     utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     Photo_Id = models.CharField(primary_key=True, blank=False, max_length=10)
-    Photo_Lien = models.FilePathField()
+    Photo_Lien = models.CharField(max_length=100)
 
 
 # Choix status permission
