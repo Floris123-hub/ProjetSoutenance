@@ -6,8 +6,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
 from utilisateur.serializers import UserSerializer, GroupSerializer
-from .models import Utilisateur, Photo, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes
-from .serializers import UtilisateurSerializer, PhotoSerializer, PermissionSerializer, CongesSerializer, Calendrier_CongeSerializer, Prendre_CongeSerializer, Notes_InternesSerializer
+from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes
+from .serializers import UtilisateurSerializer, PermissionSerializer, CongesSerializer, Calendrier_CongeSerializer, Prendre_CongeSerializer, Notes_InternesSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -36,21 +36,12 @@ class UtilisateurViewSet(viewsets.ModelViewSet):
     serializer_class = UtilisateurSerializer
 
 
-class PhotoViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Photo to be viewed or edited.
-    """
-    queryset = Photo.objects.all()
-    serializer_class = PhotoSerializer
-
-
 class PermissionViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Permission to be viewed or edited.
     """
     queryset = Permission.objects.all()
     serializer_class = PermissionSerializer
-
 
 
 class CongesViewSet(viewsets.ModelViewSet):

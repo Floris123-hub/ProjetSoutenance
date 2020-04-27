@@ -5,7 +5,6 @@ from utilisateur import views
 router = routers.DefaultRouter()
 
 router.register(r'utilisateurs', views.UtilisateurViewSet)
-router.register(r'photos', views.PhotoViewSet)
 router.register(r'permissions', views.PermissionViewSet)
 router.register(r'conges', views.CongesViewSet)
 router.register(r'calendrier', views.Calendrier_CongeViewSet)

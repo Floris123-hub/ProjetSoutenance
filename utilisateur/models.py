@@ -1,13 +1,12 @@
 from django.db import models
 from django.utils import timezone
 import datetime
+from uuid import uuid4
 
 id = str(datetime.datetime.now())
 x = str(''.join(e for e in id if e.isalnum()))
 
-id2 = str(datetime.date.today())
-y = str(''.join(e for e in id2 if e.isalnum()))
-
+photo = str(uuid4())
 # Create your models here.
 
 
@@ -104,20 +103,21 @@ class Utilisateur(models.Model):
     Superviseur = models.CharField(blank=True, max_length=100)
     Pseudo = models.CharField(max_length=10, blank=False, unique=True)
     MotDePasse = models.CharField(max_length=10, blank=False, unique=True)
+    Photo = models.FileField(upload_to='Fichiers/photos')
     Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10)
 
     #############################################################
     #                         STAGIAIRE                         #
     #############################################################
     Filiere = models.CharField(max_length=50, blank=True)
-    CV_lien = models.CharField(blank=True, max_length=100)
-    LettreDeRecommandation_Lien = models.CharField(blank=True, max_length=100)
-    LettreDeMotivation_Lien = models.CharField(blank=True, max_length=100)
+    CV = models.FileField(blank=True, upload_to='GP/Fichiers/cv')
+    LettreDeRecommandation = models.FileField(blank=True, upload_to='Fichiers/recommandations')
+    LettreDeMotivation = models.FileField(blank=True, upload_to='Fichiers/motivations')
 
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
-    CIN = models.PositiveIntegerField(blank=True, unique=True)
+    CIN = models.PositiveIntegerField(blank=True, unique=True, max_length=7)
     Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20)
     Enfants = models.PositiveIntegerField(blank=True)
     Telephone_Fixe = models.CharField(max_length=20, blank=True)
@@ -128,15 +128,6 @@ class Utilisateur(models.Model):
     Date_Sortie = models.DateField(blank=True)
     Nom_Contact_dUrgence = models.CharField(max_length=30)
     Telephone_Contact_dUrgence = models.CharField(max_length=50)
-
-
-#############################################################
-#                          PHOTOS                           #
-#############################################################
-class Photo(models.Model):
-    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, max_length=20, default=Utilisateur.Nom)
-    Photo_Id = models.UUIDField(primary_key=True, max_length=20, auto_created=True)
-    Photo_Lien = models.CharField(max_length=100)
 
 
 # Choix status permission

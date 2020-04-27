@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Utilisateur, Photo, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes
+from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,11 +32,12 @@ class UtilisateurSerializer(serializers.ModelSerializer):
             'Superviseur',
             'Pseudo',
             'MotDePasse',
+            'Photo',
             'Type_Utilisateur',
             'Filiere',
-            #'CV_lien',
-            # 'LettreDeRecommandation_Lien',
-            # 'LettreDeMotivation_Lien',
+            'CV',
+            'LettreDeRecommandation',
+            'LettreDeMotivation',
             'CIN',
             'Status_matrimoniel',
             'Enfants',
@@ -48,16 +49,6 @@ class UtilisateurSerializer(serializers.ModelSerializer):
             'Date_Sortie',
             'Nom_Contact_dUrgence',
             'Telephone_Contact_dUrgence'
-        ]
-
-
-class PhotoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Photo
-        fields = [
-            'Photo_Id',
-            'Photo_Lien',
-            'utilisateur'
         ]
 
 
