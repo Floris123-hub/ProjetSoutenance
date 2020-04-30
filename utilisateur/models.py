@@ -104,7 +104,7 @@ class Utilisateur(models.Model):
     Pseudo = models.CharField(max_length=10, blank=False, unique=True)
     MotDePasse = models.CharField(max_length=10, blank=False, unique=True)
     Photo = models.FileField(upload_to='Fichiers/photos')
-    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10)
+    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10, verbose_name='Type')
 
     #############################################################
     #                         STAGIAIRE                         #

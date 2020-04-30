@@ -32,7 +32,7 @@ class UtilisateurViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Utilisateur to be viewed or edited.
     """
-    queryset = Utilisateur.objects.all()
+    queryset = Utilisateur.objects.all().order_by('Nom')
     serializer_class = UtilisateurSerializer
 
 
@@ -70,7 +70,7 @@ class Prendre_CongeViewSet(viewsets.ModelViewSet):
 
 class Notes_InternesViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows Notes_Internes to be viewed or edited.
     """
     queryset = Notes_Internes.objects.all()
     serializer_class = Notes_InternesSerializer
