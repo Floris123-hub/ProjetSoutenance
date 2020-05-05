@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 import datetime
 from uuid import uuid4
+# from passlib.hash import pbkdf2_sha256
+
 
 id = str(datetime.datetime.now())
 x = str(''.join(e for e in id if e.isalnum()))
@@ -91,43 +93,47 @@ TYPE_CONTRAT = (
 #############################################################
 class Utilisateur(models.Model):
     Matricule = models.CharField(max_length=20, primary_key=True, unique=True, default=x, editable=False)
-    Nom = models.CharField(max_length=20, blank=False)
-    Prenom = models.CharField(max_length=50, blank=False)
-    Sexe = models.CharField(max_length=1, choices=CHOIX_SEXE, blank=False)
-    DateDeNaissance = models.DateField()
-    Adresse = models.CharField(blank=False, max_length=255)
-    Mail = models.EmailField(blank=False)
-    Pays = models.CharField(blank=False, max_length=30)
-    Ville = models.CharField(blank=False, max_length=30)
-    Mobile = models.CharField(blank=False, max_length=20, unique=True)
+    Nom = models.CharField(max_length=50, blank=False, verbose_name="Nom *")
+    Prenom = models.CharField(max_length=50, blank=False, verbose_name="Prénom(s) *")
+    Sexe = models.CharField(max_length=1, choices=CHOIX_SEXE, blank=False, verbose_name="Sexe *")
+    DateDeNaissance = models.DateField(verbose_name="Date de naissance *")
+    Adresse = models.CharField(blank=False, max_length=255, verbose_name="Adresse *")
+    Mail = models.EmailField(blank=False, verbose_name="E-mail *")
+    Pays = models.CharField(blank=False, max_length=30, verbose_name="Pays *")
+    Ville = models.CharField(blank=False, max_length=30, verbose_name="Ville *")
+    Mobile = models.CharField(blank=False, max_length=20, unique=True, verbose_name="Téléphone *")
     Superviseur = models.CharField(blank=True, max_length=100)
-    Pseudo = models.CharField(max_length=10, blank=False, unique=True)
-    MotDePasse = models.CharField(max_length=10, blank=False, unique=True)
-    Photo = models.FileField(upload_to='Fichiers/photos')
-    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10, verbose_name='Type')
+    Pseudo = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Pseudo *", help_text="Votre pseudo pour votre authentification.")
+    MotDePasse = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Mot de passe *", help_text="Mot de passe de connexion.")
+
+    Photo = models.FileField(upload_to='Fichiers/photos', verbose_name="Photo *")
+    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10, verbose_name='Employé(e)/Stagiaire *')
 
     #############################################################
     #                         STAGIAIRE                         #
     #############################################################
-    Filiere = models.CharField(max_length=50, blank=True)
-    CV = models.FileField(blank=True, upload_to='GP/Fichiers/cv')
-    LettreDeRecommandation = models.FileField(blank=True, upload_to='Fichiers/recommandations')
-    LettreDeMotivation = models.FileField(blank=True, upload_to='Fichiers/motivations')
+    Filiere = models.CharField(max_length=50, blank=True, verbose_name="Filière *")
+    CV = models.FileField(blank=True, upload_to='Fichiers/cv', verbose_name="Curriculum Vitae")
+    LettreDeRecommandation = models.FileField(blank=True, upload_to='Fichiers/recommandations', verbose_name="Lettre de recommandation")
+    LettreDeMotivation = models.FileField(blank=True, upload_to='Fichiers/motivations', verbose_name="Lettre de motivation")
 
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
-    CIN = models.PositiveIntegerField(blank=True, unique=True, max_length=7)
-    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20)
-    Enfants = models.PositiveIntegerField(blank=True)
-    Telephone_Fixe = models.CharField(max_length=20, blank=True)
-    Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=True, max_length=50)
+    CIN = models.CharField(blank=True, unique=True, max_length=7, help_text="Numéro de votre Carte d'Identité Nationale")
+    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20, verbose_name="Status matrimoniel")
+    Enfants = models.PositiveIntegerField(blank=True, verbose_name="Enfant(s) *")
+    Telephone_Fixe = models.CharField(max_length=20, blank=True, verbose_name="Téléphone fixe")
+    Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=False, max_length=50, verbose_name="Département *")
     Fonction = models.CharField(choices=CHOIX_FONCTION, blank=True, max_length=50)
-    Type_de_Contrat = models.CharField(choices=TYPE_CONTRAT, blank=True, max_length=20)
-    Date_Entree = models.DateField(blank=True)
-    Date_Sortie = models.DateField(blank=True)
-    Nom_Contact_dUrgence = models.CharField(max_length=30)
-    Telephone_Contact_dUrgence = models.CharField(max_length=50)
+    Type_de_Contrat = models.CharField(choices=TYPE_CONTRAT, blank=False, max_length=20)
+    Date_Entree = models.DateField(blank=False, verbose_name="Date d'entrée *")
+    Date_Sortie = models.DateField(blank=True, verbose_name="Date de sortie")
+    Nom_Contact_dUrgence = models.CharField(max_length=30, verbose_name="Nom du Contact d'urgence")
+    Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
+
+    def __str__(self):
+        return self.Nom + " " + self.Prenom
 
 
 # Choix status permission
@@ -142,13 +148,16 @@ STATUS_PERMISSION = (
 #                                  PERMISSION                                    #
 ##################################################################################
 class Permission(models.Model):
-    Code_Permission = models.CharField(primary_key=True, max_length=10)
+    Code_Permission = models.CharField(primary_key=True, max_length=10, auto_created=True, editable=False)
     Permissionnaire = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     Date_Permission = models.DateTimeField(default=timezone.now)
     Date_Debut = models.DateField()
     Date_Fin = models.DateField()
     Motif = models.CharField(max_length=50)
     Status = models.CharField(choices=STATUS_PERMISSION, max_length=10)
+
+    def __str__(self):
+        return self.Code_Permission + " " + self.Permissionnaire
 
 
 ###################################################################################
@@ -160,6 +169,9 @@ class Notes_Internes(models.Model):
     Destinataire = models.ManyToManyField(Utilisateur, related_name='Destinataire')
     Titre = models.CharField(blank=True, max_length=200)
     Contenu = models.TextField(max_length=2500)
+
+    def __str__(self):
+        return self.Code_Note + " " + self.Titre
 
 
 # Choix des types de congés
@@ -205,3 +217,6 @@ class Prendre_Conge(models.Model):
     date = models.ForeignKey(Calendrier_Conge, on_delete=models.CASCADE)
     Duree = models.PositiveIntegerField()
     Status = models.CharField(choices=STATUS_CONGES, max_length=10)
+
+    def __str__(self):
+        return self.employe + " " + self.date

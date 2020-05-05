@@ -1,19 +1,33 @@
 <component name="ProjectDictionaryState">
   <dictionary name="ferjeux">
     <words>
+      <w>accordé</w>
       <w>adresse</w>
+      <w>attente</w>
+      <w>browsable</w>
+      <w>calendrier</w>
       <w>choix</w>
+      <w>conge</w>
+      <w>conges</w>
       <w>célibataire</w>
       <w>divorcé</w>
+      <w>duree</w>
+      <w>employe</w>
+      <w>internes</w>
+      <w>lconf</w>
       <w>marié</w>
       <w>matricule</w>
       <w>matrimoniel</w>
       <w>naissance</w>
+      <w>passlib</w>
+      <w>prendre</w>
       <w>prenom</w>
+      <w>rejeté</w>
       <w>sexe</w>
       <w>stagiaire</w>
       <w>superviseur</w>
       <w>utilisateur</w>
+      <w>utilisateurs</w>
     </words>
   </dictionary>
 </component>
