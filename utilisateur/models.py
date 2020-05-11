@@ -8,7 +8,6 @@ from uuid import uuid4
 id = str(datetime.datetime.now())
 x = str(''.join(e for e in id if e.isalnum()))
 
-photo = str(uuid4())
 # Create your models here.
 
 
@@ -105,7 +104,6 @@ class Utilisateur(models.Model):
     Superviseur = models.CharField(blank=True, max_length=100)
     Pseudo = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Pseudo *", help_text="Votre pseudo pour votre authentification.")
     MotDePasse = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Mot de passe *", help_text="Mot de passe de connexion.")
-
     Photo = models.FileField(upload_to='Fichiers/photos', verbose_name="Photo *")
     Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10, verbose_name='Employé(e)/Stagiaire *')
 
@@ -148,11 +146,11 @@ STATUS_PERMISSION = (
 #                                  PERMISSION                                    #
 ##################################################################################
 class Permission(models.Model):
-    Code_Permission = models.CharField(primary_key=True, max_length=10, auto_created=True, editable=False)
+    Code_Permission = models.CharField(primary_key=True, max_length=10, auto_created=True, editable=False, blank=False)
     Permissionnaire = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-    Date_Permission = models.DateTimeField(default=timezone.now)
-    Date_Debut = models.DateField()
-    Date_Fin = models.DateField()
+    Date_Permission = models.DateTimeField(auto_now_add=timezone.now)
+    Date_Debut = models.DateTimeField()
+    Date_Fin = models.DateTimeField()
     Motif = models.CharField(max_length=50)
     Status = models.CharField(choices=STATUS_PERMISSION, max_length=10)
 
@@ -165,8 +163,8 @@ class Permission(models.Model):
 ###################################################################################
 class Notes_Internes(models.Model):
     Code_Note = models.CharField(blank=False, primary_key=True, max_length=30)
-    Destinateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING, related_name='Destinateur')
-    Destinataire = models.ManyToManyField(Utilisateur, related_name='Destinataire')
+    Destinateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING, related_name='Destinateur', blank=True)
+    Destinataire = models.ManyToManyField(Utilisateur, related_name='Destinataire', blank=True)
     Titre = models.CharField(blank=True, max_length=200)
     Contenu = models.TextField(max_length=2500)
 
@@ -191,6 +189,9 @@ CHOIX_TYPE_CONGES = (
 class Conges(models.Model):
     Code_Conges = models.CharField(primary_key=True, blank=False, max_length=10)
     Type_Conges = models.CharField(choices=CHOIX_TYPE_CONGES, blank=False, max_length=50)
+
+    def __str__(self):
+        return self.Type_Conges
 
 
 ##########################################

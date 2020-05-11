@@ -5,6 +5,8 @@
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
 # from rest_framework import status
+from django.template import loader
+from django.http import HttpResponse
 
 #  from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
@@ -94,3 +96,8 @@ class Notes_InternesViewSet(viewsets.ModelViewSet):
     serializer_class = Notes_InternesSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
+
+def home(request):
+    template = loader.get_template('index.html')
+    return HttpResponse(template.render(request = request))
