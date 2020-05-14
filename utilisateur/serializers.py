@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
-from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes
+from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes, Presence
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -113,3 +113,9 @@ class Notes_InternesSerializer(serializers.ModelSerializer):
             'Titre',
             'Contenu'
         ]
+
+
+class PresenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Presence
+        fields = '__all__'

@@ -14,8 +14,8 @@ from rest_framework.authentication import BasicAuthentication, SessionAuthentica
 from rest_framework.permissions import IsAuthenticated
 # from rest_framework import permissions
 # from utilisateur.serializers import UserSerializer, GroupSerializer
-from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes
-from .serializers import UtilisateurSerializer, PermissionSerializer, CongesSerializer, Calendrier_CongeSerializer, Prendre_CongeSerializer, Notes_InternesSerializer
+from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes, Presence
+from .serializers import UtilisateurSerializer, PermissionSerializer, CongesSerializer, Calendrier_CongeSerializer, Prendre_CongeSerializer, Notes_InternesSerializer, PresenceSerializer
 
 
 # Create your views here.
@@ -94,6 +94,16 @@ class Notes_InternesViewSet(viewsets.ModelViewSet):
     """
     queryset = Notes_Internes.objects.all()
     serializer_class = Notes_InternesSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class PresenceViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Presence to be viewed or edited.
+    """
+    queryset = Presence.objects.all()
+    serializer_class = PresenceSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 

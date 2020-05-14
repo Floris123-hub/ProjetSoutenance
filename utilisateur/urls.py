@@ -10,6 +10,7 @@ router.register(r'conges', views.CongesViewSet)
 router.register(r'calendrier', views.Calendrier_CongeViewSet)
 router.register(r'prendre_conge', views.Prendre_CongeViewSet)
 router.register(r'notes', views.Notes_InternesViewSet)
+router.register(r'presence', views.PresenceSerializer)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -19,4 +20,5 @@ urlpatterns = [
     path('home/', views.home, name="homepage"),
     path('login/', views.login, name="signin"),
     path('register/', views.register, name="signup"),
+    path('presence/', views.PresenceViewSet)
 ]
