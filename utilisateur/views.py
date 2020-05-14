@@ -99,5 +99,15 @@ class Notes_InternesViewSet(viewsets.ModelViewSet):
 
 
 def home(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render(request = request))
+    homepage = loader.get_template('index.html')
+    return HttpResponse(homepage.render(request=request))
+
+
+def login(request):
+    loginpage = loader.get_template('login.html')
+    return HttpResponse(loginpage.render(request=request))
+
+
+def register(request):
+    registration = loader.get_template('form.html')
+    return HttpResponse(registration.render(request=request))

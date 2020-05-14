@@ -14,7 +14,9 @@ router.register(r'notes', views.Notes_InternesViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('home/', views.home),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # path('', include(router.urls)),
+    path('', views.home, name="homepage"),
+    path('index.html/', views.home, name="homepage"),
+    path('login.html/', views.login, name="signin"),
+    path('form.html/', views.register, name="signup"),
 ]

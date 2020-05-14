@@ -33,6 +33,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
+TINYMCE_DEFAULT_CONFIG = {
+
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +49,7 @@ INSTALLED_APPS = [
     'utilisateur',
     'rest_framework.authtoken',
     'rest_framework',
+    'tinymce',
 
 ]
 
@@ -128,6 +133,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 INTERNAL_IP = ['127.0.0.1']
 

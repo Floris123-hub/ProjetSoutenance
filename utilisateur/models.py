@@ -1,7 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
+from tinymce.widgets import TinyMCE
 from uuid import uuid4
+
 # from passlib.hash import pbkdf2_sha256
 
 
@@ -91,7 +94,7 @@ TYPE_CONTRAT = (
 #                       UTILISATEUR                         #
 #############################################################
 class Utilisateur(models.Model):
-    Matricule = models.CharField(max_length=20, primary_key=True, unique=True, default=x, editable=False)
+    Matricule = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, primary_key=True, unique=True, default=x, editable=False)
     Nom = models.CharField(max_length=50, blank=False, verbose_name="Nom *")
     Prenom = models.CharField(max_length=50, blank=False, verbose_name="Prénom(s) *")
     Sexe = models.CharField(max_length=1, choices=CHOIX_SEXE, blank=False, verbose_name="Sexe *")
@@ -102,24 +105,31 @@ class Utilisateur(models.Model):
     Ville = models.CharField(blank=False, max_length=30, verbose_name="Ville *")
     Mobile = models.CharField(blank=False, max_length=20, unique=True, verbose_name="Téléphone *")
     Superviseur = models.CharField(blank=True, max_length=100)
-    Pseudo = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Pseudo *", help_text="Votre pseudo pour votre authentification.")
-    MotDePasse = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Mot de passe *", help_text="Mot de passe de connexion.")
+    # Pseudo = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Pseudo *",
+    #                           help_text="Votre pseudo pour votre authentification.")
+    # MotDePasse = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Mot de passe *",
+    #                               help_text="Mot de passe de connexion.")
     Photo = models.FileField(upload_to='Fichiers/photos', verbose_name="Photo *")
-    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10, verbose_name='Employé(e)/Stagiaire *')
+    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10,
+                                        verbose_name='Employé(e)/Stagiaire *')
 
     #############################################################
     #                         STAGIAIRE                         #
     #############################################################
     Filiere = models.CharField(max_length=50, blank=True, verbose_name="Filière *")
     CV = models.FileField(blank=True, upload_to='Fichiers/cv', verbose_name="Curriculum Vitae")
-    LettreDeRecommandation = models.FileField(blank=True, upload_to='Fichiers/recommandations', verbose_name="Lettre de recommandation")
-    LettreDeMotivation = models.FileField(blank=True, upload_to='Fichiers/motivations', verbose_name="Lettre de motivation")
+    LettreDeRecommandation = models.FileField(blank=True, upload_to='Fichiers/recommandations',
+                                              verbose_name="Lettre de recommandation")
+    LettreDeMotivation = models.FileField(blank=True, upload_to='Fichiers/motivations',
+                                          verbose_name="Lettre de motivation")
 
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
-    CIN = models.CharField(blank=True, unique=True, max_length=7, help_text="Numéro de votre Carte d'Identité Nationale")
-    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20, verbose_name="Status matrimoniel")
+    CIN = models.CharField(blank=True, unique=True, max_length=7,
+                           help_text="Numéro de votre Carte d'Identité Nationale")
+    Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20,
+                                          verbose_name="Status matrimoniel")
     Enfants = models.PositiveIntegerField(blank=True, verbose_name="Enfant(s) *")
     Telephone_Fixe = models.CharField(max_length=20, blank=True, verbose_name="Téléphone fixe")
     Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=False, max_length=50, verbose_name="Département *")
@@ -155,7 +165,7 @@ class Permission(models.Model):
     Status = models.CharField(choices=STATUS_PERMISSION, max_length=10)
 
     def __str__(self):
-        return self.Code_Permission + " " + self.Permissionnaire
+        return str(self.Code_Permission) + " " + str(self.Permissionnaire)
 
 
 ###################################################################################
@@ -220,4 +230,4 @@ class Prendre_Conge(models.Model):
     Status = models.CharField(choices=STATUS_CONGES, max_length=10)
 
     def __str__(self):
-        return self.employe + " " + self.date
+        return str(self.employe) + " " + str(self.date)
