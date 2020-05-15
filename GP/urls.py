@@ -1,4 +1,5 @@
 """GP URL Configuration
+
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
@@ -29,7 +30,6 @@ import utilisateur.urls
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tinymce/', include('tinymce.urls')),
     path('', include(utilisateur.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

@@ -15,10 +15,6 @@ router.register(r'presence', views.PresenceViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    # path('', include(router.urls)),
-    path('', views.home, name="homepage"),
-    path('home/', views.home, name="homepage"),
-    path('login/', views.login, name="signin"),
-    path('register/', views.register, name="signup"),
-    path('presence/', views.PresenceViewSet)
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

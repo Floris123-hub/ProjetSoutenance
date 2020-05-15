@@ -5,8 +5,6 @@
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
 # from rest_framework import status
-from django.template import loader
-from django.http import HttpResponse
 
 #  from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
@@ -100,24 +98,9 @@ class Notes_InternesViewSet(viewsets.ModelViewSet):
 
 class PresenceViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Presence to be viewed or edited.
+    API endpoint that allows Presence to be viewed or edited
     """
     queryset = Presence.objects.all()
     serializer_class = PresenceSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
-
-
-def home(request):
-    homepage = loader.get_template('index.html')
-    return HttpResponse(homepage.render(request=request))
-
-
-def login(request):
-    loginpage = loader.get_template('login.html')
-    return HttpResponse(loginpage.render(request=request))
-
-
-def register(request):
-    registration = loader.get_template('form.html')
-    return HttpResponse(registration.render(request=request))
