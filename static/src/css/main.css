@@ -1,0 +1,154 @@
+/*
+header
+*/
+.header{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    height: 70px;
+    line-height: 70px;
+    background-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
+.header .header-logo{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    float: left;
+    margin-left: 30px;
+}
+
+.header .header-logo .logo{
+    margin-top: 10px;
+}
+
+.header .header-menu{
+    float: right;
+    margin-right: 30px;
+}
+
+.header .header-menu a{
+    margin-right: 50px;
+    color: white;
+}
+
+.header .header-menu .header-button{
+    height: 40px;
+    width: 40px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.header .header-menu .icon{
+    font-size: 15px;
+}
+
+.header .header-menu a:hover{
+    color: rgb(245, 49, 49);
+}
+
+/*
+banner
+*/
+.banner{
+    margin-top: -24px;
+}
+
+.banner .banner-image{
+    position: relative;
+}
+
+.banner .banner-content{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 40%;
+}
+
+.banner .banner-content button{
+    font-weight: bold;
+}
+
+.banner .banner-content button:hover{
+    background-color: rgb(245, 49, 49);
+    color: white;
+}
+
+.banner .banner-content h1, .banner .banner-content h2{
+    color: black;
+}
+
+/*
+footer
+*/
+.footer{
+    margin-top: -200px;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 100%;
+    height: 29%;
+}
+
+.footer .footer-informations{
+    text-align: center;
+}
+
+.footer .footer-informations ul{
+    padding-top: 30px;
+}
+
+.footer .footer-informations ul li{
+    display: inline-block;
+    list-style-type: none;
+}
+
+.footer .footer-informations a{
+    color: white;
+    font-weight: bolder;
+    font-size: large;
+}
+
+/*
+copyright
+*/
+.copyright{
+    background-color: rgb(212, 33, 33);
+    height: 70px;
+    margin-top: -30px;
+}
+
+.copyright p{
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    margin: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/*
+modal
+*/
+.modal-wrap{
+    background: white;
+    position: fixed;
+    width: 650px;
+    top: 30%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
