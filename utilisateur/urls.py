@@ -1,9 +1,11 @@
 from django.urls import include, path
-from rest_framework import routers
 from utilisateur import views
+from rest_framework import routers
 
 router = routers.DefaultRouter()
 
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 router.register(r'utilisateurs', views.UtilisateurViewSet)
 router.register(r'permissions', views.PermissionViewSet)
 router.register(r'conges', views.CongesViewSet)
