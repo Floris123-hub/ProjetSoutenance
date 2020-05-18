@@ -93,7 +93,7 @@ TYPE_CONTRAT = (
 #                       UTILISATEUR                         #
 #############################################################
 class Utilisateur(models.Model):
-    Matricule = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True, default=x, editable=False)
+    Matricule = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=x, editable=False)
     Nom = models.CharField(max_length=50, blank=False, verbose_name="Nom *")
     Prenom = models.CharField(max_length=50, blank=False, verbose_name="Prénom(s) *")
     Sexe = models.CharField(max_length=1, choices=CHOIX_SEXE, blank=False, verbose_name="Sexe *")
