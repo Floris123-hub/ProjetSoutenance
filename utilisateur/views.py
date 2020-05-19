@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-# from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse
 # from rest_framework.parsers import JSONParser
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.decorators import api_view
@@ -7,6 +7,7 @@
 # from rest_framework import status
 
 from django.contrib.auth.models import User, Group
+from django.template import loader
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -104,3 +105,18 @@ class PresenceViewSet(viewsets.ModelViewSet):
     serializer_class = PresenceSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
+
+def home(request):
+    template = loader.get_template('index.html')
+    return HttpResponse(template.render(request=request))
+
+
+def login(request):
+    template = loader.get_template('login.html')
+    return HttpResponse(template.render(request=request))
+
+
+def register(request):
+    template = loader.get_template('form.html')
+    return HttpResponse(template.render(request=request))

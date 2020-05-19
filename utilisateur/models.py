@@ -108,7 +108,7 @@ class Utilisateur(models.Model):
     # MotDePasse = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Mot de passe *", help_text="Mot de passe de connexion.")
 
     Photo = models.FileField(upload_to='Fichiers/photos', verbose_name="Photo *")
-    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=10, verbose_name='Employé(e)/Stagiaire *')
+    Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=50, verbose_name='Employé(e)/Stagiaire *')
 
     #############################################################
     #                         STAGIAIRE                         #

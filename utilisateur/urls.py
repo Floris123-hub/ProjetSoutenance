@@ -18,5 +18,8 @@ router.register(r'presence', views.PresenceViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
+    path('home/', views.home, name='accueil'),
+    path('login/', views.login, name='connexion'),
+    path('register/', views.register, name='inscription'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
