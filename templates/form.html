@@ -20,42 +20,42 @@
 
 <body>
 
-    <!--header-->
+    <div class="bg-img">
+        <!--header-->
 
-    <header class="header">
-        <a href="index.html" class="header-logo">
-            <img src="../static/src/img/osspo_logo.png" class="logo" alt="logo">
-        </a>
-        <nav class="header-menu">
-            <a class="button header-button" href="index.html">
-                <i class="fas fa-home icon" title="Accueil"></i>
+        <header class="header">
+            <a href="index.html" class="header-logo">
+                <img src="../static/src/img/osspo_logo.png" class="logo" alt="logo">
             </a>
+            <nav class="header-menu">
+                <a class="button header-button" href="index.html">
+                    <i class="fas fa-home icon" title="Accueil"></i>
+                </a>
 
-            <!--signin-->
+                <!--signin-->
 
-            <a class="button header-button" id="signin_btn" href="login.html">
-                <i class="fas fa-sign-in-alt icon" title="Connexion"></i>
-            </a>
+                <a class="button header-button" id="signin_btn" href="login.html">
+                    <i class="fas fa-sign-in-alt icon" title="Connexion"></i>
+                </a>
 
-            <!--signup-->
+                <!--signup-->
 
-            <a class="button header-button" id="signup_btn" href="form.html">
-                <i class="fas fa-user-plus icon" title="Inscription"></i>
-            </a>
-        </nav>
-    </header>
+                <a class="button header-button" id="signup_btn" href="form.html">
+                    <i class="fas fa-user-plus icon" title="Inscription"></i>
+                </a>
+            </nav>
+        </header>
 
-    <!--end header-->
+        <!--end header-->
 
-    <!--banner-->
-    <div class="block">
-        <div class="banner">
-            <img src="../static/src/img/bg.jpg" class="banner-image" alt="bannière">
-            <div class="banner-content">
+        <!--banner-->
+        <div class="">
+            <div class="content">
                 <div id="svg_wrap"></div>
 
                 <section>
                     <p>Informations personnelles</p>
+                    <hr>
                     <label>
                         <input type="text" name="nom" placeholder="Nom" required>
                     </label>
@@ -72,12 +72,13 @@
                         </label>
                     </div>
                     <label>
-                        <input type="date" name="birthday" required>
+                        <input type="date" name="birthday" required title="Date d'anniversaire">
                     </label>
                 </section>
 
                 <section>
                     <p>Adresse</p>
+                    <hr>
                     <label>
                         <input name="adresse" placeholder="Adresse de résidence" required>
                     </label>
@@ -85,7 +86,7 @@
                         <div class="select is-rounded">
                             <label>
                                 <select required>
-                                    <option selected>Sélectionner le pays de résidence</option>
+                                    <option selected>Pays de résidence</option>
                                     <option>Pays</option>
                                     <option>Pays</option>
                                 </select>
@@ -99,6 +100,7 @@
 
                 <section>
                     <p>Informations contacts</p>
+                    <hr>
                     <label>
                         <input type="email" name="email" placeholder="E-mail" required>
                     </label>
@@ -115,6 +117,7 @@
 
                 <section>
                     <p>Dossier</p>
+                    <hr>
                     <label>
                         <input type="text" name="filiere" placeholder="Filière" required>
                     </label>
@@ -125,6 +128,7 @@
 
                 <section>
                     <p> <strong>Informations de Connexion</strong></p>
+                    <hr>
                     <label>
                         <input type="email" name="username" placeholder="E-mail ou Pseudo" required>
                     </label>
@@ -139,27 +143,21 @@
                     </label> J'accepte les conditions
                 </section>
 
-                <div class="button form-button" id="prev">
+                <div class="button left" id="prev">
                     <i class="fas fa-arrow-circle-left icon"></i>
                 </div>
-                <div class="button form-button" id="next">
+                <div class="button right" id="next">
                     <i class="fas fa-arrow-circle-right icon"></i>
                 </div>
-                <div class="button form-button" id="submit">J'accepte et je valide</div>
+                <div class="button" id="submit">J'accepte et je valide</div>
             </div>
         </div>
-    </div>
-    <!--end banner-->
+        <!--end banner-->
 
-    <!--copyright-->
-    <div class="copyright">
-        <p> &copy; Mai 2020 by Floris <p>
+        <script src="../static/jquery/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="../static/src/js/form.js"></script>
+        <script src="../static/src/js/main.js"></script>
     </div>
-    <!--end copyright-->
-
-    <script src="../static/jquery/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../static/src/js/form.js"></script>
-    <script src="../static/src/js/main.js"></script>
 
 </body>
 
