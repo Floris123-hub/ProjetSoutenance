@@ -15,8 +15,8 @@ photo = str(uuid4())
 
 # Choix de type d'utilisateur
 CHOIX_TYPE_UTILISATEUR = (
-    ('Stagiaire', 'Stagiaire'),
-    ('Employé', 'Employé')
+    ('Stagiaire Pro', 'Stagiaire Pro'),
+    ('Stafiaire académique', 'Stagiaire académique')
 )
 
 # Choix du sexe
@@ -127,8 +127,9 @@ class Utilisateur(models.Model):
     Telephone_Fixe = models.CharField(max_length=20, blank=True, verbose_name="Téléphone fixe")
     Departement = models.CharField(choices=CHOIX_DEPARTEMENT, blank=False, max_length=50, verbose_name="Département *")
     Fonction = models.CharField(choices=CHOIX_FONCTION, blank=True, max_length=50)
+    Lettre_Demande_Emploi = models.FileField(blank=True, upload_to="Fichiers/demandes d'emploi", verbose_name="Lettre de Demande d'Emploi")
     Type_de_Contrat = models.CharField(choices=TYPE_CONTRAT, blank=False, max_length=20)
-    Date_Entree = models.DateField(blank=False, verbose_name="Date d'entrée *")
+    Date_Entree = models.DateField(blank=True, verbose_name="Date d'entrée *")
     Date_Sortie = models.DateField(blank=True, verbose_name="Date de sortie")
     Nom_Contact_dUrgence = models.CharField(max_length=30, verbose_name="Nom du Contact d'urgence")
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
