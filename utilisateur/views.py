@@ -7,6 +7,7 @@ from django.http import HttpResponse, JsonResponse
 # from rest_framework import status
 
 from django.contrib.auth.models import User, Group
+from django.shortcuts import redirect
 from django.template import loader
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
@@ -114,9 +115,70 @@ def home(request):
 
 def login(request):
     template = loader.get_template('login.html')
-    return HttpResponse(template.render(request=request))
+    if request.method == 'POST':
+        username = request.POST['username']
+        mdp = request.POST['password']
+        user = User.objects.filter(username=username, password=mdp)
+        if user:
+            request.session["user_id"] = user.id
+            return HttpResponse((loader.get_template('index.html')).render(request=request))
+        else:
+            return HttpResponse(template.render(request=request))
+    else:
+        return HttpResponse(template.render(request=request))
 
 
 def register(request):
-    template = loader.get_template('form.html')
-    return HttpResponse(template.render(request=request))
+    if request.method == 'POST':
+        nom = request.POST['nom']
+        prenoms = request.POST['prenoms']
+        sexe = request.POST['sexe']
+        Dnaissance = request.POST['birthday']
+        adresse = request.POST['adresse']
+        mail = request.POST['email']
+        ville = request.POST['ville']
+        pays = request.POST['pays']
+        mobile = request.POST['mobile']
+        Curgent = request.POST['contactUrgence']
+        TCurgent = request.POST['telUrgence']
+        cin = request.POST['cin']
+        statusMat = request.POST['statusMat']
+        enfants = request.POST['enfants']
+        fixe = request.POST['fixe']
+        departement = request.POST['departement']
+        fonction = request.POST['fonction']
+        demande = request.POST['demande']
+        filiere = request.POST['filiere']
+        cv = request.POST['cv']
+        recommandation = request.POST['recommandation']
+        motivation = request.POST['motivation']
+        pass1 = request.POST['password1']
+        pass2 = request.POST['password2']
+        username = request.POST['username']
+
+        if pass1 == pass2:
+            if User.objects.filter(username=username).exists():
+                print('Le Pseudo est déjà pris !')
+            elif Utilisateur.objects.filter(Mail=mail).exists():
+                print('Email déjà pris !')
+            else:
+                utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
+                                                         Adresse=adresse, Mail=mail, Ville=ville, Pays=pays, Mobile=mobile,
+                                                         Nom_Contact_dUrgence=Curgent, Telephone_Contact_dUrgence=TCurgent,
+                                                         CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
+                                                         Telephone_Fixe=fixe,
+                                                         Departement=departement, Fonction=fonction,
+                                                         Lettre_Demande_Emploi=demande,
+                                                         Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
+                                                         LettreDeMotivation=motivation)
+                user = User.objects.create_user(username=username, password=pass1)
+                utilisateur.save()
+                user.save()
+                print('Utilisateur créé !')
+        else:
+            print('Les mots de passe ne correspondent pas !')
+        return redirect('/')
+
+    else:
+        template = loader.get_template('form.html')
+        return HttpResponse(template.render(request=request))

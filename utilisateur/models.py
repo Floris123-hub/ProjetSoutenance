@@ -39,7 +39,7 @@ CHOIX_DEPARTEMENT = (
     ('Comptabilité', 'Service Comptable'),
     ('Ressources Humaines', 'Ressources Humaines'),
     ('Production et Développement', 'Production et Développement'),
-    ('Informatique', 'Service Informatique'),
+    ('Informatique', 'Service IT'),
     ('Communication et Marketing', 'Communication et Marketing'),
     ('Commercial', 'Service Commercial'),
     ('Juridique', 'Service Juridique')
@@ -93,7 +93,7 @@ TYPE_CONTRAT = (
 #                       UTILISATEUR                         #
 #############################################################
 class Utilisateur(models.Model):
-    Matricule = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=x)
+    Matricule = models.CharField(max_length=50, primary_key=True, default=x)
     Nom = models.CharField(max_length=50, blank=False, verbose_name="Nom *")
     Prenom = models.CharField(max_length=50, blank=False, verbose_name="Prénom(s) *")
     Sexe = models.CharField(max_length=1, choices=CHOIX_SEXE, blank=False, verbose_name="Sexe *")
@@ -133,6 +133,7 @@ class Utilisateur(models.Model):
     Date_Sortie = models.DateField(blank=True, verbose_name="Date de sortie")
     Nom_Contact_dUrgence = models.CharField(max_length=30, verbose_name="Nom du Contact d'urgence")
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.Nom + " " + self.Prenom

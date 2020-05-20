@@ -20,7 +20,8 @@
     <div class="bg-img">
         <div class="content">
             <header>Connexion</header>
-            <form>
+            <form action="login" method="post">
+                {% csrf_token %}
                 <div class="field">
                     <span class="fas fa-user"></span>
                     <input type="text" name="Username" placeholder="E-mail ou Pseudo" required>

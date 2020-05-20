@@ -50,107 +50,176 @@
 
         <!--banner-->
         <div class="">
-            <div class="content">
-                <div id="svg_wrap"></div>
+            <form action="../utilisateur/register" method="post">
+                {% csrf_token %}
+                <div class="content">
+                    <div id="svg_wrap"></div>
 
-                <section>
-                    <p>Informations personnelles</p>
-                    <hr>
-                    <label>
-                        <input type="text" name="nom" placeholder="Nom" required>
-                    </label>
-                    <label>
-                        <input type="text" name="prenoms" placeholder="Prénom(s)" required>
-                    </label>
-                    <div class="select is-rounded">
+                    <section>
+                        <p>Informations personnelles</p>
+                        <hr>
                         <label>
-                            <select required>
-                                <option selected>Sélectionner le sexe</option>
-                                <option>M</option>
-                                <option>F</option>
-                            </select>
+                            <input type="text" name="nom" placeholder="Nom" required>
                         </label>
-                    </div>
-                    <label>
-                        <input type="date" name="birthday" required title="Date d'anniversaire">
-                    </label>
-                </section>
-
-                <section>
-                    <p>Adresse</p>
-                    <hr>
-                    <label>
-                        <input name="adresse" placeholder="Adresse de résidence" required>
-                    </label>
-                    <div class="control has-icons-left">
+                        <label>
+                            <input type="text" name="prenoms" placeholder="Prénom(s)" required>
+                        </label>
                         <div class="select is-rounded">
                             <label>
-                                <select required>
-                                    <option selected>Pays de résidence</option>
-                                    <option>Pays</option>
-                                    <option>Pays</option>
+                                <select required name="sexe">
+                                    <option selected>Sélectionner le sexe</option>
+                                    <option>M</option>
+                                    <option>F</option>
                                 </select>
                             </label>
                         </div>
-                        <div class="icon is-small is-left">
-                            <i class="fas fa-globe"></i>
+                        <label>
+                            <input type="date" name="birthday" required title="Date d'anniversaire">
+                        </label>
+                    </section>
+
+                    <section>
+                        <p>Adresses et contacts</p>
+                        <hr>
+                        <label>
+                            <input type="text" name="adresse" placeholder="Adresse de résidence" required>
+                        </label>
+                        <label>
+                            <input type="email" name="email" placeholder="E-mail" required>
+                        </label>
+                        <label>
+                            <input type="text" name="ville" placeholder="Ville" required>
+                        </label>
+                        <div class="control has-icons-left">
+                            <div class="select is-rounded">
+                                <label>
+                                    <select required name="pays" title="Pays de résidence">
+                                        <option selected>Bénin</option>
+                                        <option>Togo</option>
+                                        <option>Nigeria</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="icon is-small is-left">
+                                <i class="fas fa-globe"></i>
+                            </div>
                         </div>
+                        <label>
+                            <input type="tel" name="mobile" placeholder="Mobile" required>
+                        </label>
+                    </section>
+
+                    <section>
+                        <p>Contact en cas d'urgence</p>
+                        <hr>
+                        <label>
+                            <input type="text" name="contactUrgence" placeholder="Contact d'urgence" required>
+                        </label>
+                        <label>
+                            <input type="tel" name="telUrgence" placeholder="Numéro du contact d'urgence" required>
+                        </label>
+                    </section>
+
+                    <section>
+                        <p>Autres informations</p>
+                        <hr>
+                        <label>
+                            <input type="number" name="cin" placeholder="N° CIN" required>
+                        </label>
+                        <div class="select is-rounded">
+                            <label>
+                                <select required name="statusMat" required title="Status matrimoniel">
+                                    <option>Célibataire</option>
+                                    <option>En couple</option>
+                                    <option>Marié(e)</option>
+                                    <option>Divorcé(e)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <label>
+                            <input type="number" name="enfants" placeholder="Enfants" required>
+                        </label>
+                        <label>
+                            <input type="tel" name="fixe" placeholder="Tél. Fixe">
+                        </label>
+                        <div class="select is-rounded">
+                            <label>
+                                <select required name="departement" required title="Département">
+                                    <option >Direction</option>
+                                    <option>Service Comptabilité</option>
+                                    <option>Ressources Humaines</option>
+                                    <option>Production et Développement</option>
+                                    <option>Service IT</option>
+                                    <option>Communication et Marketing</option>
+                                    <option>Service Commercial</option>
+                                    <option>Service Juridique</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="select is-rounded">
+                            <label>
+                                <select required name="fonction" required title="Fonction">
+                                    <option >Développeur(euse) Front-End</option>
+                                    <option>Développeur(euse) Back-End</option>
+                                    <option>Développeur(euse) Full Stack</option>
+                                    <option>Graphiste</option>
+                                    <option>Maintenancier</option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </label>
+                        </div>
+                        <input type="file" name="demande" title="Demande d'emploi" required>
+                    </section>
+
+                    <section>
+                        <p>Dossier</p>
+                        <hr>
+                        <label>
+                            <input type="text" name="filiere" placeholder="Filière" required>
+                        </label>
+                        <input type="file" name="cv" title="CV">
+                        <input type="file" name="recommandation" title="Lettre de recommandation" required>
+                        <input type="file" name="motivation" title="Lettre de motivation" required>
+                    </section>
+
+                    <section>
+                        <p> <strong>Informations de Connexion</strong></p>
+                        <hr>
+                        <label>
+                            <input type="text" name="username" placeholder="E-mail ou Pseudo" required>
+                        </label>
+                        <label>
+                            <input type="password" name="password1" placeholder="Mot de passe" required>
+                        </label>
+                        <label>
+                            <input type="password" name="password2" placeholder="Confirmez le mot de passe" required>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="accept" required>
+                        </label> J'accepte les conditions
+                    </section>
+
+                    <div class="button left" id="prev">
+                        <i class="fas fa-arrow-circle-left icon"></i>
                     </div>
-                </section>
-
-                <section>
-                    <p>Informations contacts</p>
-                    <hr>
-                    <label>
-                        <input type="email" name="email" placeholder="E-mail" required>
-                    </label>
-                    <label>
-                        <input type="tel" name="mobile" placeholder="Mobile" required>
-                    </label>
-                    <label>
-                        <input type="text" name="contactUrgence" placeholder="Contact d'urgence">
-                    </label>
-                    <label>
-                        <input type="tel" name="telUrgence" placeholder="Numéro du contact d'urgence">
-                    </label>
-                </section>
-
-                <section>
-                    <p>Dossier</p>
-                    <hr>
-                    <label>
-                        <input type="text" name="filiere" placeholder="Filière" required>
-                    </label>
-                    <input type="file" name="cv" title="CV">
-                    <input type="file" name="recommandation" title="Lettre de recommandation" required>
-                    <input type="file" name="motivation" title="Lettre de motivation" required>
-                </section>
-
-                <section>
-                    <p> <strong>Informations de Connexion</strong></p>
-                    <hr>
-                    <label>
-                        <input type="email" name="username" placeholder="E-mail ou Pseudo" required>
-                    </label>
-                    <label>
-                        <input type="password" name="password" placeholder="Mot de passe" required>
-                    </label>
-                    <label>
-                        <input type="password" name="passwordConfirm" placeholder="Confirmez le mot de passe" required>
-                    </label>
-                    <label>
-                        <input type="checkbox" name="accept" required>
-                    </label> J'accepte les conditions
-                </section>
-
-                <div class="button left" id="prev">
-                    <i class="fas fa-arrow-circle-left icon"></i>
+                    <div class="button right" id="next">
+                        <i class="fas fa-arrow-circle-right icon"></i>
+                    </div>
+                    <div class="button" id="submit">J'accepte et je valide</div>
                 </div>
-                <div class="button right" id="next">
-                    <i class="fas fa-arrow-circle-right icon"></i>
-                </div>
-                <div class="button" id="submit">J'accepte et je valide</div>
-            </div>
+            </form>
         </div>
         <!--end banner-->
 
