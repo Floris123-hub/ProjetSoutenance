@@ -1,4 +1,5 @@
 # from django.shortcuts import render
+from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 # from rest_framework.parsers import JSONParser
 # from django.views.decorators.csrf import csrf_exempt
@@ -116,14 +117,16 @@ def home(request):
 def login(request):
     template = loader.get_template('login.html')
     if request.method == 'POST':
-        username = request.POST['username']
-        mdp = request.POST['password']
+        username = request.POST.get('username')
+        mdp = request.POST.get('password')
         user = User.objects.filter(username=username, password=mdp)
         if user:
             request.session["user_id"] = user.id
-            return HttpResponse((loader.get_template('index.html')).render(request=request))
+            return redirect('accueil')
         else:
-            return HttpResponse(template.render(request=request))
+            msg = messages.MessageFailure("Somethig were wrong :(")
+            print(msg)
+            return HttpResponse(msg)
     else:
         return HttpResponse(template.render(request=request))
 

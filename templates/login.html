@@ -20,7 +20,7 @@
     <div class="bg-img">
         <div class="content">
             <header>Connexion</header>
-            <form action="login" method="post">
+            <form action="{% url 'connexion' %}" method="post">
                 {% csrf_token %}
                 <div class="field">
                     <span class="fas fa-user"></span>

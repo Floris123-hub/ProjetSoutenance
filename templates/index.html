@@ -35,19 +35,19 @@
 
           <!--home-->
 
-        <a class="button header-button" href="#">
+        <a class="button header-button" href="{% url 'accueil' %}">
           <i class="fas fa-home icon" title="Accueil"></i>
         </a>
 
         <!--signin-->
 
-        <a class="button header-button" id="signin_btn" href="login.html">
+        <a class="button header-button" id="signin_btn" href="{% url 'connexion' %}">
           <i class="fas fa-sign-in-alt icon" title="Connexion"></i>
         </a>
 
         <!--signup-->
 
-        <a class="button header-button" id="signup_btn" href="form.html">
+        <a class="button header-button" id="signup_btn" href="{% url 'inscription' %}">
           <i class="fas fa-user-plus icon" title="Inscription"></i>
         </a>
       </nav>

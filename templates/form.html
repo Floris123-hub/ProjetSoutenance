@@ -28,19 +28,19 @@
                 <img src="../static/src/img/osspo_logo.png" class="logo" alt="logo">
             </a>
             <nav class="header-menu">
-                <a class="button header-button" href="index.html">
+                <a class="button header-button" href="{% url 'accueil' %}">
                     <i class="fas fa-home icon" title="Accueil"></i>
                 </a>
 
                 <!--signin-->
 
-                <a class="button header-button" id="signin_btn" href="login.html">
+                <a class="button header-button" id="signin_btn" href="{% url 'connexion' %}">
                     <i class="fas fa-sign-in-alt icon" title="Connexion"></i>
                 </a>
 
                 <!--signup-->
 
-                <a class="button header-button" id="signup_btn" href="form.html">
+                <a class="button header-button" id="signup_btn" href="{% url 'inscription' %}">
                     <i class="fas fa-user-plus icon" title="Inscription"></i>
                 </a>
             </nav>
@@ -50,7 +50,7 @@
 
         <!--banner-->
         <div class="">
-            <form action="../utilisateur/register" method="post">
+            <form action="{% url 'inscription' %}" method="post">
                 {% csrf_token %}
                 <div class="content">
                     <div id="svg_wrap"></div>
@@ -217,7 +217,7 @@
                     <div class="button right" id="next">
                         <i class="fas fa-arrow-circle-right icon"></i>
                     </div>
-                    <div class="button" id="submit">J'accepte et je valide</div>
+                    <input type="submit" class="button" id="submit">J'accepte et je valide</input>
                 </div>
             </form>
         </div>

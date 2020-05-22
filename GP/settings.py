@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'utilisateur',
     'rest_framework.authtoken',
     'rest_framework',
+    'qr_code',
 
 ]
 
