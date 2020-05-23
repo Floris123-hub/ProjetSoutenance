@@ -10,8 +10,8 @@ background
 }
 
 .bg-img{
-  background: url('./img/bg.jpg');
-  height: 200vh;
+  background: url('../img/bg.jpg');
+  height: 120vh;
   background-size: cover;
   background-position: center;
 }
@@ -21,7 +21,7 @@ background
   content: '';
   top: 0;
   left: 0;
-  height: 200%;
+  height: 120%;
   width: 100%;
   background: rgba(0, 0, 0, 0.7);
 }
@@ -37,7 +37,7 @@ background
   text-align: center;
   padding: 60px 30px;
   background: rgba(255, 255, 255, 0.04);
-  box-shadow: -1px 4px 0px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75);
 }
 
 .content header{

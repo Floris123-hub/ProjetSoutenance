@@ -117,14 +117,13 @@ def home(request):
 def login(request):
     template = loader.get_template('login.html')
     if request.method == 'POST':
-        username = request.POST.get('username')
-        mdp = request.POST.get('password')
-        user = User.objects.filter(username=username, password=mdp)
+        Myusername = request.POST.get('username')
+        user = User.objects.get(username=Myusername)
         if user:
             request.session["user_id"] = user.id
             return redirect('accueil')
         else:
-            msg = messages.MessageFailure("Somethig were wrong :(")
+            msg = "Somethig were wrong :("
             print(msg)
             return HttpResponse(msg)
     else:
@@ -165,6 +164,9 @@ def register(request):
             elif Utilisateur.objects.filter(Mail=mail).exists():
                 print('Email déjà pris !')
             else:
+                user = User.objects.create_user(username=username, password=pass1)
+                user.save()
+                print(str(user.id))
                 utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
                                                          Adresse=adresse, Mail=mail, Ville=ville, Pays=pays, Mobile=mobile,
                                                          Nom_Contact_dUrgence=Curgent, Telephone_Contact_dUrgence=TCurgent,
@@ -173,14 +175,13 @@ def register(request):
                                                          Departement=departement, Fonction=fonction,
                                                          Lettre_Demande_Emploi=demande,
                                                          Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
-                                                         LettreDeMotivation=motivation)
-                user = User.objects.create_user(username=username, password=pass1)
+                                                         LettreDeMotivation=motivation, user_id_id=user.id)
                 utilisateur.save()
-                user.save()
+                print(utilisateur)
                 print('Utilisateur créé !')
         else:
             print('Les mots de passe ne correspondent pas !')
-        return redirect('/')
+        return redirect('accueil')
 
     else:
         template = loader.get_template('form.html')

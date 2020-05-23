@@ -2,14 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
-from uuid import uuid4
 # from passlib.hash import pbkdf2_sha256
 
 
 id = str(datetime.datetime.now())
 x = str(''.join(e for e in id if e.isalnum()))
 
-photo = str(uuid4())
+
 # Create your models here.
 
 
@@ -107,7 +106,7 @@ class Utilisateur(models.Model):
     # Pseudo = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Pseudo *", help_text="Votre pseudo pour votre authentification.")
     # MotDePasse = models.CharField(max_length=10, blank=False, unique=True, verbose_name="Mot de passe *", help_text="Mot de passe de connexion.")
 
-    Photo = models.FileField(upload_to='Fichiers/photos', verbose_name="Photo *")
+    Photo = models.ImageField(upload_to='Fichiers/photos', verbose_name="Photo *")
     Type_Utilisateur = models.CharField(choices=CHOIX_TYPE_UTILISATEUR, blank=False, max_length=50, verbose_name='Employé(e)/Stagiaire *')
 
     #############################################################
@@ -121,7 +120,7 @@ class Utilisateur(models.Model):
     #############################################################
     #                         EMPLOYE                           #
     #############################################################
-    CIN = models.CharField(blank=True, unique=True, max_length=7, help_text="Numéro de votre Carte d'Identité Nationale")
+    CIN = models.CharField(blank=True, unique=True, max_length=9, help_text="Numéro de votre Carte d'Identité Nationale")
     Status_matrimoniel = models.CharField(choices=CHOIX_SITUATION_MATRIMONIEL, blank=True, max_length=20, verbose_name="Status matrimoniel")
     Enfants = models.PositiveIntegerField(blank=True, verbose_name="Enfant(s) *")
     Telephone_Fixe = models.CharField(max_length=20, blank=True, verbose_name="Téléphone fixe")
@@ -129,11 +128,11 @@ class Utilisateur(models.Model):
     Fonction = models.CharField(choices=CHOIX_FONCTION, blank=True, max_length=50)
     Lettre_Demande_Emploi = models.FileField(blank=True, upload_to="Fichiers/demandes d'emploi", verbose_name="Lettre de Demande d'Emploi")
     Type_de_Contrat = models.CharField(choices=TYPE_CONTRAT, blank=False, max_length=20)
-    Date_Entree = models.DateField(blank=True, verbose_name="Date d'entrée *")
-    Date_Sortie = models.DateField(blank=True, verbose_name="Date de sortie")
+    Date_Entree = models.DateField(blank=True, verbose_name="Date d'entrée *", default=timezone.now)
+    Date_Sortie = models.DateField(blank=True, verbose_name="Date de sortie", null=True)
     Nom_Contact_dUrgence = models.CharField(max_length=30, verbose_name="Nom du Contact d'urgence")
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, auto_created=True, null=False)
 
     def __str__(self):
         return self.Nom + " " + self.Prenom

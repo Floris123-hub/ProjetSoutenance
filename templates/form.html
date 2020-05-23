@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -66,8 +66,8 @@
                         </label>
                         <div class="select is-rounded">
                             <label>
-                                <select required name="sexe">
-                                    <option selected>Sélectionner le sexe</option>
+                                <select required name="sexe" title="Sélectionner le sexe">
+                                    <option style="font-style: italic" disabled>--Sélectionner le sexe--</option>
                                     <option>M</option>
                                     <option>F</option>
                                 </select>
@@ -94,7 +94,9 @@
                             <div class="select is-rounded">
                                 <label>
                                     <select required name="pays" title="Pays de résidence">
-                                        <option selected>Bénin</option>
+                                        <option style="font-style: italic" disabled>--Pays--</option>
+                                        <option>Bénin</option>
+                                        <option>Ghana</option>
                                         <option>Togo</option>
                                         <option>Nigeria</option>
                                     </select>
@@ -106,6 +108,7 @@
                         </div>
                         <label>
                             <input type="tel" name="mobile" placeholder="Mobile" required>
+
                         </label>
                     </section>
 
@@ -124,11 +127,12 @@
                         <p>Autres informations</p>
                         <hr>
                         <label>
-                            <input type="number" name="cin" placeholder="N° CIN" required>
+                            <input type="number" name="cin" placeholder="N° CIN" required maxlength="9">
                         </label>
                         <div class="select is-rounded">
                             <label>
                                 <select required name="statusMat" required title="Status matrimoniel">
+                                    <option style="font-style: italic" disabled>--Status Matrimoniel--</option>
                                     <option>Célibataire</option>
                                     <option>En couple</option>
                                     <option>Marié(e)</option>
@@ -137,7 +141,7 @@
                             </label>
                         </div>
                         <label>
-                            <input type="number" name="enfants" placeholder="Enfants" required>
+                            <input type="number" name="enfants" placeholder="Enfants" min="0" required>
                         </label>
                         <label>
                             <input type="tel" name="fixe" placeholder="Tél. Fixe">
@@ -145,6 +149,7 @@
                         <div class="select is-rounded">
                             <label>
                                 <select required name="departement" required title="Département">
+                                    <option style="font-style: italic" disabled>--Département--</option>
                                     <option >Direction</option>
                                     <option>Service Comptabilité</option>
                                     <option>Ressources Humaines</option>
@@ -159,24 +164,25 @@
                         <div class="select is-rounded">
                             <label>
                                 <select required name="fonction" required title="Fonction">
-                                    <option >Développeur(euse) Front-End</option>
+                                    <option style="font-style: italic" disabled>--Fonction--</option>
+                                    <option>Développeur(euse) Front-End</option>
                                     <option>Développeur(euse) Back-End</option>
                                     <option>Développeur(euse) Full Stack</option>
                                     <option>Graphiste</option>
                                     <option>Maintenancier</option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
+                                    <option>Community Manager</option>
+                                    <option>Chargé(e) de Communication</option>
+                                    <option>Gestionnnaire Comptable</option>
+                                    <option>Assistant(e) Gestionnaire Comptable</option>
+                                    <option>Auditeur(trice)</option>
+                                    <option>Commissaire aux comptes</option>
+                                    <option>Juriste</option>
+                                    <option>Directeur(trice) des Ressources Humaines</option>
+                                    <option>Assistant(e) de direction des Ressources Humaines</option>
+                                    <option>Directeur(trice) Général(e)</option>
+                                    <option>Assistant(e) de Direction Générale</option>
+                                    <option>Directeur(trice) Commercial(e)</option>
+                                    <option>Assistant(e) de Direction Commercial(e)</option>
                                 </select>
                             </label>
                         </div>
@@ -217,7 +223,9 @@
                     <div class="button right" id="next">
                         <i class="fas fa-arrow-circle-right icon"></i>
                     </div>
-                    <input type="submit" class="button" id="submit">J'accepte et je valide</input>
+                    <div  id="submit">
+                       <input class="button" type="submit"value="J'accepte et je valide">
+                    </div>
                 </div>
             </form>
         </div>
