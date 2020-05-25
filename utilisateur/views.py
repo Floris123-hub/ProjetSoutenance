@@ -1,4 +1,3 @@
-# from django.shortcuts import render
 from django.contrib import messages, auth
 from django.http import HttpResponse, JsonResponse
 # from rest_framework.parsers import JSONParser
@@ -8,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 # from rest_framework import status
 
 from django.contrib.auth.models import User, Group
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template import loader
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
@@ -16,7 +15,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import permissions
 from utilisateur.serializers import UserSerializer, GroupSerializer
 from .models import Utilisateur, Permission, Conges, Calendrier_Conge, Prendre_Conge, Notes_Internes, Presence
-from .serializers import UtilisateurSerializer, PermissionSerializer, CongesSerializer, Calendrier_CongeSerializer, Prendre_CongeSerializer, Notes_InternesSerializer, PresenceSerializer
+from .serializers import UtilisateurSerializer, PermissionSerializer, CongesSerializer, Calendrier_CongeSerializer, \
+    Prendre_CongeSerializer, Notes_InternesSerializer, PresenceSerializer
 
 
 # Create your views here.
@@ -38,6 +38,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class UtilisateurViewSet(viewsets.ModelViewSet):
     """
@@ -171,8 +172,10 @@ def register(request):
                 user.save()
                 print(str(user.id))
                 utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
-                                                         Adresse=adresse, Mail=mail, Ville=ville, Pays=pays, Mobile=mobile,
-                                                         Nom_Contact_dUrgence=Curgent, Telephone_Contact_dUrgence=TCurgent,
+                                                         Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
+                                                         Mobile=mobile,
+                                                         Nom_Contact_dUrgence=Curgent,
+                                                         Telephone_Contact_dUrgence=TCurgent,
                                                          CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
                                                          Telephone_Fixe=fixe,
                                                          Departement=departement, Fonction=fonction,
@@ -204,3 +207,24 @@ def adminspace(request):
 def logout(request):
     auth.logout(request)
     return redirect('accueil')
+
+
+def utilisateurs(request):
+    users = Utilisateur.objects.all()
+    return HttpResponse(users)
+
+
+def permissions(request):
+    permis = Permission.objects.all()
+    return HttpResponse(permis)
+
+
+def conges(request):
+    con = Conges.objects.all()
+    return HttpResponse(con)
+
+
+def listePresence(request):
+    liste = Presence.objects.filter('aujourdhui')
+    return HttpResponse(liste)
+

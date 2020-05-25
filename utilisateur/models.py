@@ -194,12 +194,18 @@ class Conges(models.Model):
     Code_Conges = models.CharField(primary_key=True, blank=False, max_length=10)
     Type_Conges = models.CharField(choices=CHOIX_TYPE_CONGES, blank=False, max_length=50)
 
+    def __str__(self):
+        return self.Type_Conges
+
 
 ##########################################
 #           CALENDRIER CONGES            #
 ##########################################
 class Calendrier_Conge(models.Model):
     Date_Conge = models.DateField(primary_key=True)
+
+    def __str__(self):
+        return str(self.Date_Conge)
 
 
 # Statut de la demande de congés
@@ -235,6 +241,7 @@ STATUS_PRESENCE = (
 #                           LES PRÉSENCES                              #
 ########################################################################
 class Presence(models.Model):
+    aujourdhui = models.DateField(verbose_name="Aujourd'hui", default=datetime.datetime.today())
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, verbose_name="Employé")
     heureArrivee = models.DateTimeField(verbose_name="Heure d'Arrivée")
     heureDepart = models.DateTimeField(verbose_name="Heure de Départ")
