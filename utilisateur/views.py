@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.http import HttpResponse, JsonResponse
 # from rest_framework.parsers import JSONParser
 # from django.views.decorators.csrf import csrf_exempt
@@ -121,7 +121,10 @@ def login(request):
         user = User.objects.get(username=Myusername)
         if user:
             request.session["user_id"] = user.id
-            return redirect('accueil')
+            if user.is_superuser == 1:
+                return redirect('espace administateur')
+            else:
+                return redirect('espace utilisateur')
         else:
             msg = "Somethig were wrong :("
             print(msg)
@@ -181,8 +184,23 @@ def register(request):
                 print('Utilisateur créé !')
         else:
             print('Les mots de passe ne correspondent pas !')
-        return redirect('accueil')
+        return redirect('connexion')
 
     else:
         template = loader.get_template('form.html')
         return HttpResponse(template.render(request=request))
+
+
+def userspace(request):
+    template = loader.get_template('userspace.html')
+    return HttpResponse(template.render(request=request))
+
+
+def adminspace(request):
+    template = loader.get_template('adminspace.html')
+    return HttpResponse(template.render(request=request))
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('accueil')

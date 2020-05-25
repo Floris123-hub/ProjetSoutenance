@@ -20,6 +20,9 @@ urlpatterns = [
     path('', include(router.urls)),
     path('home/', views.home, name='accueil'),
     path('login/', views.login, name='connexion'),
+    path('logout/', views.logout, name='deconnexion'),
     path('register/', views.register, name='inscription'),
+    path('userspace/', views.userspace, name='espace utilisateur'),
+    path('adminspace/', views.adminspace, name='espace administateur'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
