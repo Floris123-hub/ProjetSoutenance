@@ -228,3 +228,7 @@ def listePresence(request):
     liste = Presence.objects.filter('aujourdhui')
     return HttpResponse(liste)
 
+
+def userDashboard(request):
+    page = loader.get_template('admin.html')
+    return HttpResponse(page.render(request=request))
