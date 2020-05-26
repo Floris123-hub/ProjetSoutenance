@@ -28,5 +28,4 @@ urlpatterns = [
     path('utilisateurs/', views.utilisateurs, name='membres'),
     path('conges/', views.conges, name='conges'),
     path('permissions/', views.permissions, name='permissions'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

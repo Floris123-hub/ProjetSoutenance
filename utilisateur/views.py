@@ -1,4 +1,5 @@
 from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 # from rest_framework.parsers import JSONParser
 # from django.views.decorators.csrf import csrf_exempt
@@ -194,11 +195,13 @@ def register(request):
         return HttpResponse(template.render(request=request))
 
 
+@login_required
 def userspace(request):
     template = loader.get_template('userspace.html')
     return HttpResponse(template.render(request=request))
 
 
+@login_required
 def adminspace(request):
     template = loader.get_template('adminspace.html')
     return HttpResponse(template.render(request=request))
@@ -209,26 +212,31 @@ def logout(request):
     return redirect('accueil')
 
 
+@login_required
 def utilisateurs(request):
     users = Utilisateur.objects.all()
     return HttpResponse(users)
 
 
+@login_required
 def permissions(request):
     permis = Permission.objects.all()
     return HttpResponse(permis)
 
 
+@login_required
 def conges(request):
     con = Conges.objects.all()
     return HttpResponse(con)
 
 
+@login_required
 def listePresence(request):
     liste = Presence.objects.filter('aujourdhui')
     return HttpResponse(liste)
 
 
+@login_required
 def userDashboard(request):
     page = loader.get_template('admin.html')
     return HttpResponse(page.render(request=request))
