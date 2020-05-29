@@ -111,7 +111,6 @@ class PresenceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
-@login_required()
 def home(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render(request=request))
@@ -202,31 +201,26 @@ def logout(request):
     return redirect('accueil')
 
 
-@login_required
 def utilisateurs(request):
     users = Utilisateur.objects.all()
     return HttpResponse(users)
 
 
-@login_required
 def permissions(request):
     permis = Permission.objects.all()
     return HttpResponse(permis)
 
 
-@login_required
 def conges(request):
     con = Conges.objects.all()
     return HttpResponse(con)
 
 
-@login_required
 def listePresence(request):
     liste = Presence.objects.filter('aujourdhui')
     return HttpResponse(liste)
 
 
-@login_required
 def userDashboard(request):
     page = loader.get_template('dashoard/index.html')
     return HttpResponse(page.render(request=request))
@@ -261,29 +255,37 @@ def addEmploye(request):
         cv = request.POST['cv']
         recommandation = request.POST['recommandation']
         motivation = request.POST['motivation']
+        pass1 = request.POST['password1']
+        pass2 = request.POST['password2']
+        username = request.POST['username']
 
-        print('Hey !')
-
-        utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
-                                                 Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
-                                                 Mobile=mobile,
-                                                 Nom_Contact_dUrgence=Curgent,
-                                                 Telephone_Contact_dUrgence=TCurgent,
-                                                 CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
-                                                 Telephone_Fixe=fixe,
-                                                 Departement=departement, Fonction=fonction,
-                                                 Lettre_Demande_Emploi=demande,
-                                                 Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
-                                                 LettreDeMotivation=motivation)
-        utilisateur.save()
-        print('Utilisateur Ajouté !')
-        return redirect('espace utilisateur')
-
-    else:
-        print("L'ajout à échoué")
-        page = loader.get_template('dashoard/addemployee.html')
-        return HttpResponse(page.render(request=request))
-
+        if pass1 == pass2:
+            if User.objects.filter(username=username).exists():
+                print('Le Pseudo est déjà pris !')
+            elif Utilisateur.objects.filter(Mail=mail).exists():
+                print('Adresse mail déjà utilisée !')
+            else:
+                user = User.objects.create_user(username=username, password=pass1)
+                user.save()
+                print(str(user.id))
+                utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
+                                                         Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
+                                                         Mobile=mobile,
+                                                         Nom_Contact_dUrgence=Curgent,
+                                                         Telephone_Contact_dUrgence=TCurgent,
+                                                         CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
+                                                         Telephone_Fixe=fixe,
+                                                         Departement=departement, Fonction=fonction,
+                                                         Lettre_Demande_Emploi=demande,
+                                                         Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
+                                                         LettreDeMotivation=motivation, user_id_id=user.id)
+                utilisateur.save()
+                print(utilisateur)
+                print('Employé(e) bien ajouté(e) !')
+                return redirect('espace utilisateur')
+        else:
+            print('Les mots de passe ne correspondent pas !')
+        return redirect('ajouter Employe')
 
 
 def blank(request):
@@ -312,6 +314,20 @@ def forgotPass(request):
 
 
 def demandePermis(request):
+    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
+    render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
+    if request.method == 'POST':
+        dateDebut = request.POST['dateDebut']
+        permis = request.POST['permis']
+        heureDebut = request.POST['heureDebut']
+        dateFin = request.POST['dateFin']
+        heureFin = request.POST['heureFin']
+        motif = request.POST['motif']
+
+        permission = Permission.objects.create(Permissionnaire_id=permis, Date_Debut=dateDebut, heure_Debut=heureDebut, Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
+        permission.save()
+    else:
+        print('Erreur !')
     page = loader.get_template('dashoard/permissionForm.html')
     return HttpResponse(page.render(request=request))
 
