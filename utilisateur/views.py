@@ -111,6 +111,7 @@ class PresenceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
+@login_required()
 def home(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render(request=request))
@@ -123,10 +124,11 @@ def login(request):
         user = User.objects.get(username=Myusername)
         if user:
             request.session["user_id"] = user.id
-            if user.is_superuser == 1:
-                return redirect('espace administateur')
-            else:
-                return redirect('espace utilisateur')
+            return redirect('espace utilisateur')
+            # if user.is_superuser == 1:
+            #     return redirect('espace administateur')
+            # else:
+            #     return redirect('espace utilisateur')
         else:
             msg = "Somethig were wrong :("
             print(msg)
@@ -195,18 +197,6 @@ def register(request):
         return HttpResponse(template.render(request=request))
 
 
-@login_required
-def userspace(request):
-    template = loader.get_template('userspace.html')
-    return HttpResponse(template.render(request=request))
-
-
-@login_required
-def adminspace(request):
-    template = loader.get_template('adminspace.html')
-    return HttpResponse(template.render(request=request))
-
-
 def logout(request):
     auth.logout(request)
     return redirect('accueil')
@@ -238,5 +228,124 @@ def listePresence(request):
 
 @login_required
 def userDashboard(request):
-    page = loader.get_template('admin.html')
+    page = loader.get_template('dashoard/index.html')
+    return HttpResponse(page.render(request=request))
+
+
+def page404(request):
+    page = loader.get_template('dashoard/404.html')
+    return HttpResponse(page.render(request=request))
+
+
+def addEmploye(request):
+    if request.method == 'POST':
+        nom = request.POST['nom']
+        prenoms = request.POST['prenoms']
+        sexe = request.POST['sex']
+        Dnaissance = request.POST['birthday']
+        adresse = request.POST['adresse']
+        mail = request.POST['email']
+        ville = request.POST['ville']
+        pays = request.POST['pays']
+        mobile = request.POST['mobile']
+        Curgent = request.POST['contactUrgence']
+        TCurgent = request.POST['telUrgence']
+        cin = request.POST['cin']
+        statusMat = request.POST['statusMat']
+        enfants = request.POST['enfants']
+        fixe = request.POST['fixe']
+        departement = request.POST['departement']
+        fonction = request.POST['fonction']
+        demande = request.POST['demande']
+        filiere = request.POST['filiere']
+        cv = request.POST['cv']
+        recommandation = request.POST['recommandation']
+        motivation = request.POST['motivation']
+
+        print('Hey !')
+
+        utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
+                                                 Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
+                                                 Mobile=mobile,
+                                                 Nom_Contact_dUrgence=Curgent,
+                                                 Telephone_Contact_dUrgence=TCurgent,
+                                                 CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
+                                                 Telephone_Fixe=fixe,
+                                                 Departement=departement, Fonction=fonction,
+                                                 Lettre_Demande_Emploi=demande,
+                                                 Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
+                                                 LettreDeMotivation=motivation)
+        utilisateur.save()
+        print('Utilisateur Ajouté !')
+        return redirect('espace utilisateur')
+
+    else:
+        print("L'ajout à échoué")
+        page = loader.get_template('dashoard/addemployee.html')
+        return HttpResponse(page.render(request=request))
+
+
+
+def blank(request):
+    page = loader.get_template('dashoard/blank.html')
+    return HttpResponse(page.render(request=request))
+
+
+def buttons(request):
+    page = loader.get_template('dashoard/buttons.html')
+    return HttpResponse(page.render(request=request))
+
+
+def cards(request):
+    page = loader.get_template('dashoard/cards.html')
+    return HttpResponse(page.render(request=request))
+
+
+def charts(request):
+    page = loader.get_template('dashoard/charts.html')
+    return HttpResponse(page.render(request=request))
+
+
+def forgotPass(request):
+    page = loader.get_template('dashoard/forgot-password.html')
+    return HttpResponse(page.render(request=request))
+
+
+def demandePermis(request):
+    page = loader.get_template('dashoard/permissionForm.html')
+    return HttpResponse(page.render(request=request))
+
+
+def CodeQR(request):
+    page = loader.get_template('dashoard/qrcode.html')
+    return HttpResponse(page.render(request=request))
+
+
+def notes(request):
+    page = loader.get_template('dashoard/service-notes.html')
+    return HttpResponse(page.render(request=request))
+
+
+def tables(request):
+    page = loader.get_template('dashoard/tables.html')
+    return HttpResponse(page.render(request=request))
+
+
+def animation(request):
+    page = loader.get_template('dashoard/utilities-animation.html')
+    return HttpResponse(page.render(request=request))
+
+
+def border(request):
+    page = loader.get_template('dashoard/utilities-border.html')
+    return HttpResponse(page.render(request=request))
+
+
+def color(request):
+    page = loader.get_template('dashoard/utilities-color.html')
+    return HttpResponse(page.render(request=request))
+
+
+def other(request):
+    page = loader.get_template('dashoard/utilities-other.html')
     return HttpResponse(page.render(request=request))

@@ -132,7 +132,7 @@ class Utilisateur(models.Model):
     Date_Sortie = models.DateField(blank=True, verbose_name="Date de sortie", null=True)
     Nom_Contact_dUrgence = models.CharField(max_length=30, verbose_name="Nom du Contact d'urgence")
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, auto_created=True, null=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, auto_created=True, null=True)
 
     def __str__(self):
         return self.Nom + " " + self.Prenom
@@ -150,7 +150,7 @@ STATUS_PERMISSION = (
 #                                  PERMISSION                                    #
 ##################################################################################
 class Permission(models.Model):
-    Code_Permission = models.CharField(primary_key=True, max_length=10, auto_created=True, editable=False)
+    Code_Permission = models.CharField(primary_key=True, max_length=10, auto_created=True, editable=False, null=False)
     Permissionnaire = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     Date_Permission = models.DateTimeField(default=timezone.now)
     Date_Debut = models.DateField()

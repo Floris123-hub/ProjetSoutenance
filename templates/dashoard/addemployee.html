@@ -9,15 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Dashboard - Ajouter Employé</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="css/addemployee.css">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/dashboard/css/addemployee.css">
+    <link href="../../static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -30,7 +30,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'espace utilisateur' %}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -42,7 +42,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{% url 'espace utilisateur' %}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Tableau de board</span></a>
             </li>
@@ -57,7 +57,7 @@
 
             <!-- Nav Item - PRESENCE Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="qrcode.html">
+                <a class="nav-link" href="{% url 'code qr' %}">
                     <i class="fas fa-qrcode fa-cog"></i>
                     <span>Présence</span>
                 </a>
@@ -65,7 +65,7 @@
 
             <!-- Nav Item - PERMISSION Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="permissionForm.html">
+                <a class="nav-link" href="{% url 'demande permission' %}">
                     <i class="fas fa-hand-paper"></i>
                     <span>Permission</span>
                 </a>
@@ -73,7 +73,7 @@
 
             <!-- Nav Item - CONGES Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="fas fa-bed"></i>
                     <span>Congés</span>
                 </a>
@@ -89,7 +89,7 @@
 
             <!-- Nav Item - CONTROLE DE LA PRESENCE -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="{% url 'tables' %}">
                     <i class="fas fa-fw fa-user-check"></i>
                     <span>Contrôle de la Présence</span>
                 </a>
@@ -97,7 +97,7 @@
 
             <!-- Nav Item - GERER LES DEMANDES DE PERMISSION -->
             <li class="nav-item">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="far fa-list-alt"></i>
                     <span>Gérer les demandes de Permission</span>
                 </a>
@@ -105,21 +105,21 @@
 
             <!-- Nav Item - GERER CONGES -->
             <li class="nav-item">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="fas fa-list-alt"></i>
                     <span>Gérer les congés</span></a>
             </li>
 
             <!-- Nav Item - AJOUTER EMPLOYE -->
             <li class="nav-item">
-                <a class="nav-link" href="addemployee.html">
+                <a class="nav-link" href="{% url 'ajouter Employe' %}">
                     <i class="fas fa-user-plus"></i>
                     <span>Ajouter un employé</span></a>
             </li>
 
             <!-- Nav Item - NOTES DE SERVICE -->
             <li class="nav-item">
-                <a class="nav-link" href="service-notes.html">
+                <a class="nav-link" href="{% url 'ajout note' %}">
                     <i class="far fa-file-alt"></i>
                     <span>Nouvelle Note de Service</span></a>
             </li>
@@ -306,7 +306,7 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Compte
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{% url 'deconnexion' %}" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Déconnexion
                                 </a>
                             </div>
@@ -321,7 +321,8 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <form action="" method="post">
+                    <form action="{% url 'ajouter Employe' %}" method="post">
+                        {% csrf_token %}
                         <div class="form">
 
                             <div class="content">
@@ -332,31 +333,31 @@
                                         Informations personnelles 
                                         <hr style="width: 200px;">
                                     </a>
-                                    
+
                                     <div id="IP" class="collapse">
                                         <label class="label">
                                         <span class="span">Nom</span>
                                         <input type="text" name="nom" class="input">
                                     </label>
-                                    <label class="label">
+                                        <label class="label">
                                         <span class="span">Prénoms(s)</span>
                                         <input type="text" name="prenoms" class="input">
                                     </label>
-                                    <div class="select is-rounded">
-                                        <label  class="label">
-                                            <span class="span">Sexe</span>
-                                            <select required>
-                                                <option>M</option>
-                                                <option>F</option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <label class="label">
-                                        <span class="span">Date d'Anniversaire</span>
+                                        <div class="select is-rounded">
+                                            <label class="label">
+                                                <span class="span" >Sexe</span>
+                                                <select name="sex" required>
+                                                    <option>M</option>
+                                                    <option>F</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <label class="label">
+                                        <span class="span">Date de naissance</span>
                                         <input class="input" type="date" name="birthday" required>
                                     </label>
                                     </div>
-                                    
+
                                 </section>
 
                                 <section>
@@ -364,27 +365,32 @@
                                         Adresse
                                         <hr style="width: 80px;">
                                     </a>
-                                    
+
                                     <div id="Ad" class="collapse">
                                         <label class="label">
                                         <span class="span">Adresse de résidence</span>
-                                        <input class="input" name="adresse" required>
-                                    </label>
-                                    <div class="control has-icons-left">
-                                        <div class="select is-rounded">
-                                            <label class="label">
+                                        <input type="text" class="input" name="adresse" required>
+                                        </label>
+                                        <div class="control has-icons-left">
+                                            <div class="select is-rounded">
+                                                <label class="label">
                                                 <span class="span">Pays de résidence</span>
                                                 <div>
                                                     <i class="fas fa-globe"></i>
-                                                    <select required>
-                                                        <option>Pays</option>
-                                                        <option>Pays</option>
+                                                    <select name="pays"required>
+                                                        <option>Bénin</option>
+                                                        <option>Ghana</option>
+                                                        <option>Togo</option>
+                                                        <option>Nigeria</option>
                                                     </select>
                                                 </div>
-                                                
                                             </label>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <label class="label">
+                                        <span class="span">Ville</span>
+                                        <input type="text" class="input" name="ville" required>
+                                        </label>
                                     </div>
                                 </section>
 
@@ -393,24 +399,99 @@
                                         Informations contacts
                                         <hr style="width: 170px;">
                                     </a>
-                                    
+
                                     <div id="IC" class="collapse">
                                         <label class="label">
                                         <span class="span">E-mail</span>
                                         <input class="input" type="email" name="email" required>
                                     </label>
-                                    <label class="label">
+                                        <label class="label">
                                         <span class="span">Téléphone</span>
                                         <input class="input" type="tel" name="mobile" required>
                                     </label>
-                                    <label class="label">
+                                        <label class="label">
                                         <span class="span">Contact d'urgence</span>
                                         <input class="input" type="text" name="contactUrgence">
                                     </label>
-                                    <label class="label">
+                                        <label class="label">
                                         <span class="span">Numéro du contact d'urgence</span>
                                         <input class="input" type="tel" name="telUrgence">
                                     </label>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <a href="#AI" data-toggle="collapse">Autres informations</a>
+                                    <hr style="width: 160px;">
+                                    <div id="AI" class="collapse">
+                                        <label class="label">
+                                            <span class="span">N° CIN</span>
+                                            <input class="input" type="number" name="cin" required maxlength="9">
+                                        </label>
+                                        <div class="select is-rounded">
+                                            <label class="label">
+                                                <span class="span">Status matrimoniel</span>
+                                                <select required name="statusMat" required>
+                                                    <option>Célibataire</option>
+                                                    <option>En couple</option>
+                                                    <option>Marié(e)</option>
+                                                    <option>Divorcé(e)</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <label class="label">
+                                            <span class="span">Enfants</span>
+                                            <input class="input" type="number" name="enfants" min="0" required>
+                                        </label>
+                                        <label class="label">
+                                            <span class="span">Tél. Fixe</span>
+                                            <input class="input" type="tel" name="fixe">
+                                        </label>
+                                        <div class="select is-rounded">
+                                            <label class="label">
+                                                <span class="span">Département</span>
+                                                <select required name="departement" required>
+                                                    <option >Direction</option>
+                                                    <option>Service Comptabilité</option>
+                                                    <option>Ressources Humaines</option>
+                                                    <option>Production et Développement</option>
+                                                    <option>Service IT</option>
+                                                    <option>Communication et Marketing</option>
+                                                    <option>Service Commercial</option>
+                                                    <option>Service Juridique</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <div class="select is-rounded">
+                                            <label class="label">
+                                                <span class="span">Fonction</span>
+                                                <select required name="fonction" required>
+                                                    <option>Développeur(euse) Front-End</option>
+                                                    <option>Développeur(euse) Back-End</option>
+                                                    <option>Développeur(euse) Full Stack</option>
+                                                    <option>Graphiste</option>
+                                                    <option>Maintenancier</option>
+                                                    <option>Community Manager</option>
+                                                    <option>Chargé(e) de Communication</option>
+                                                    <option>Gestionnnaire Comptable</option>
+                                                    <option>Assistant(e) Gestionnaire Comptable</option>
+                                                    <option>Auditeur(trice)</option>
+                                                    <option>Commissaire aux comptes</option>
+                                                    <option>Juriste</option>
+                                                    <option>Directeur(trice) des Ressources Humaines</option>
+                                                    <option>Assistant(e) de direction des Ressources Humaines</option>
+                                                    <option>Directeur(trice) Général(e)</option>
+                                                    <option>Assistant(e) de Direction Générale</option>
+                                                    <option>Directeur(trice) Commercial(e)</option>
+                                                    <option>Assistant(e) de Direction Commercial(e)</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <label class="label">
+                                            <span class="span">Lettre de Demande d'emploi</span>
+                                            <input type="file" name="demande" required>
+                                        </label>
+
                                     </div>
                                 </section>
 
@@ -419,30 +500,30 @@
                                         Dossier
                                         <hr style="width: 70px;">
                                     </a>
-                                    
+
                                     <div id="Dos" class="collapse">
                                         <label class="label">
-                                        <span class="span">Filière</span>
-                                        <input class="input" type="text" name="filiere" required>
-                                    </label>
-                                    <label class="label">
-                                        <span class="span">CV</span>
-                                        <input class="input" type="file" name="cv">
-                                    </label>
-                                    <label class="label">
-                                        <span class="span">Lettre de recommandation</span>
-                                        <input class="input" type="file" name="recommandation" required>
-                                    </label>
-                                    <label class="label">
-                                        <span class="span">Lettre de motivation</span>
-                                        <input class="input" type="file" name="motivation" required>
-                                    </label>
+                                            <span class="span">Filière</span>
+                                            <input class="input" type="text" name="filiere" required>
+                                        </label>
+                                        <label class="label">
+                                            <span class="span">CV</span>
+                                            <input class="input" type="file" name="cv">
+                                        </label>
+                                        <label class="label">
+                                            <span class="span">Lettre de recommandation</span>
+                                            <input class="input" type="file" name="recommandation" required>
+                                        </label>
+                                        <label class="label">
+                                            <span class="span">Lettre de motivation</span>
+                                            <input class="input" type="file" name="motivation" required>
+                                        </label>
                                     </div>
                                 </section>
 
                                 <button type="submit" class="add submit">
                                     <i class="fas fa-plus"></i>
-                                </i></button>
+                                </button>
                             </div>
 
                         </div>
@@ -482,37 +563,35 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Prêt à partir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            <span aria-hidden="true">×</span>
+          </button>
                 </div>
                 <div class="modal-body">Cliquez sur "Déconnexion" si vous souhaitez fermer la session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Déconnexion</a>
+                    <a class="btn btn-primary" href="{% url 'accueil' %}">Déconnexion</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="../../static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../../static/dashboard/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="../../static/dashboard/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="../../static/dashboard/js/demo/chart-area-demo.js"></script>
+    <script src="../../static/dashboard/js/demo/chart-pie-demo.js"></script>
 
 </body>
-
-</html>
 
 </html>

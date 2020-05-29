@@ -13,11 +13,11 @@
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -30,7 +30,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'espace utilisateur' %}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -42,7 +42,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{% url 'espace utilisateur' %}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Tableau de board</span></a>
             </li>
@@ -57,7 +57,7 @@
 
             <!-- Nav Item - PRESENCE Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="qrcode.html">
+                <a class="nav-link" href="{% url 'code qr' %}">
                     <i class="fas fa-qrcode fa-cog"></i>
                     <span>Présence</span>
                 </a>
@@ -65,7 +65,7 @@
 
             <!-- Nav Item - PERMISSION Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="permissionForm.html">
+                <a class="nav-link" href="{% url 'demande permission' %}">
                     <i class="fas fa-hand-paper"></i>
                     <span>Permission</span>
                 </a>
@@ -73,7 +73,7 @@
 
             <!-- Nav Item - CONGES Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="fas fa-bed"></i>
                     <span>Congés</span>
                 </a>
@@ -89,7 +89,7 @@
 
             <!-- Nav Item - CONTROLE DE LA PRESENCE -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="{% url 'tables' %}">
                     <i class="fas fa-fw fa-user-check"></i>
                     <span>Contrôle de la Présence</span>
                 </a>
@@ -97,7 +97,7 @@
 
             <!-- Nav Item - GERER LES DEMANDES DE PERMISSION -->
             <li class="nav-item">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="far fa-list-alt"></i>
                     <span>Gérer les demandes de Permission</span>
                 </a>
@@ -105,21 +105,21 @@
 
             <!-- Nav Item - GERER CONGES -->
             <li class="nav-item">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="fas fa-list-alt"></i>
                     <span>Gérer les congés</span></a>
             </li>
 
             <!-- Nav Item - AJOUTER EMPLOYE -->
             <li class="nav-item">
-                <a class="nav-link" href="addemployee.html">
+                <a class="nav-link" href="{% url 'ajouter Employe' %}">
                     <i class="fas fa-user-plus"></i>
                     <span>Ajouter un employé</span></a>
             </li>
 
             <!-- Nav Item - NOTES DE SERVICE -->
             <li class="nav-item">
-                <a class="nav-link" href="service-notes.html">
+                <a class="nav-link" href="{% url 'ajout note' %}">
                     <i class="far fa-file-alt"></i>
                     <span>Nouvelle Note de Service</span></a>
             </li>
@@ -306,7 +306,7 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Compte
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{% url 'deconnexion' %}" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Déconnexion
                                 </a>
                             </div>
@@ -349,7 +349,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; OSSPO 2020</span>
                     </div>
                 </div>
             </footer>
@@ -371,29 +371,29 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Prêt à partir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            <span aria-hidden="true">×</span>
+          </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Cliquez sur "Déconnexion" si vous souhaitez fermer la session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="{% url 'accueil' %}">Déconnexion</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="../../static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../../static/dashboard/js/sb-admin-2.min.js"></script>
 
 </body>
 
