@@ -134,8 +134,8 @@ class Utilisateur(models.Model):
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, auto_created=True, null=True)
 
-    def __str__(self):
-        return self.Nom + " " + self.Prenom
+    #def __str__(self):
+        #return self.Nom + " " + self.Prenom
 
 
 # Choix status permission
@@ -152,7 +152,7 @@ STATUS_PERMISSION = (
 class Permission(models.Model):
     Code_Permission = models.AutoField(primary_key=True)
     Permissionnaire = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-    Date_Permission = models.DateTimeField(default=timezone.now)
+    Date_Permission = models.DateField(default=datetime.date.today())
     Date_Debut = models.DateField()
     heure_Debut = models.TimeField()
     Date_Fin = models.DateField()
@@ -169,8 +169,6 @@ class Permission(models.Model):
 ###################################################################################
 class Notes_Internes(models.Model):
     Code_Note = models.CharField(blank=False, primary_key=True, max_length=30)
-    Destinateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING, related_name='Destinateur')
-    Destinataire = models.ManyToManyField(Utilisateur, related_name='Destinataire')
     Titre = models.CharField(blank=True, max_length=200)
     Contenu = models.TextField(max_length=2500)
 

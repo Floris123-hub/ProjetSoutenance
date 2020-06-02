@@ -329,15 +329,18 @@
                                 <label class="label">
                                     <span class="span">Code de la Note</span>
                                     <input type="text" name="codenote" class="input"
-                                        placeholder="N°XXX/MM/YYYY/OSSPO/DEP">
+                                        placeholder="N°XXX/MM/YYYY/OSSPO/DEP" maxlength="30" required>
                                 </label>
+
                                 <label class="label">
-                                    <span class="span">Destinataire(s)</span>
-                                    <input type="text" name="destinataire" class="input">
+                                    <span class="span">Intitulé</span>
+                                    <input type="text" name="titre" class="input" required>
+                                </label>
+
                                 </label>
                                 <label class="label">
                                     <span class="span">Contenu</span>
-                                    <input type="text" name="contenu" class="input">
+                                    <input type="text" name="contenu" class="input" required>
                                 </label>
                                 <button type="submit" class="notes submit">
                                     <i class="fas fa-paper-plane"></i>

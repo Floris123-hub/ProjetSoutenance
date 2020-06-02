@@ -330,9 +330,8 @@
                                 <span class="span" required>Permissionnaire</span>
                                 <select name="permis">
                                     {% for permis in permissionnaire %}
-                                        <option  value="{{ permis.Matricule }}">{{ permis.Nom }} {{permis.Prenom }}</option>
+                                        <option value="{{ permis.Matricule }}">{{ permis.Nom }} {{ permis.Prenom }}</option>
                                     {% endfor %}
-
                                 </select>
                             </label>
                             <label class="label">

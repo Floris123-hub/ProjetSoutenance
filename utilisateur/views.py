@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -232,10 +234,11 @@ def page404(request):
 
 
 def addEmploye(request):
+    template = loader.get_template('dashoard/addemployee.html')
     if request.method == 'POST':
         nom = request.POST['nom']
         prenoms = request.POST['prenoms']
-        sexe = request.POST['sex']
+        sexe = request.POST['sexe']
         Dnaissance = request.POST['birthday']
         adresse = request.POST['adresse']
         mail = request.POST['email']
@@ -258,6 +261,7 @@ def addEmploye(request):
         pass1 = request.POST['password1']
         pass2 = request.POST['password2']
         username = request.POST['username']
+
 
         if pass1 == pass2:
             if User.objects.filter(username=username).exists():
@@ -286,6 +290,7 @@ def addEmploye(request):
         else:
             print('Les mots de passe ne correspondent pas !')
         return redirect('ajouter Employe')
+    return HttpResponse(template.render(request=request))
 
 
 def blank(request):
@@ -314,9 +319,12 @@ def forgotPass(request):
 
 
 def demandePermis(request):
-    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
+    page = loader.get_template('dashoard/permissionForm.html')
+    permissionnaire = Utilisateur.objects.values("Matricule", "Nom", "Prenom")
+    print(permissionnaire)
     render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
     if request.method == 'POST':
+        dateP = date.today()
         dateDebut = request.POST['dateDebut']
         permis = request.POST['permis']
         heureDebut = request.POST['heureDebut']
@@ -324,11 +332,17 @@ def demandePermis(request):
         heureFin = request.POST['heureFin']
         motif = request.POST['motif']
 
-        permission = Permission.objects.create(Permissionnaire_id=permis, Date_Debut=dateDebut, heure_Debut=heureDebut, Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
-        permission.save()
+        permission = Permission.objects.create(Permissionnaire_id=permis, Date_Permission=dateP,
+                                               Date_Debut=dateDebut, heure_Debut=heureDebut,
+                                               Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
+        if permission.Date_Debut.day == permission.Date_Permission.day + 3:
+            permission.save()
+        else:
+            print('Erreur !')
+            print('La permission doit être demandée trois jours plus tôt !')
+            return HttpResponse(page.render(request=request))
     else:
-        print('Erreur !')
-    page = loader.get_template('dashoard/permissionForm.html')
+        pass
     return HttpResponse(page.render(request=request))
 
 
@@ -339,7 +353,24 @@ def CodeQR(request):
 
 def notes(request):
     page = loader.get_template('dashoard/service-notes.html')
+    destinataires = Utilisateur.objects.only("Matricule", "Departement")
+    render(request, 'dashoard/service-notes.html', {'destinataire': destinataires})
+
+    if request.method == 'POST':
+        code = request.POST['codenote']
+        titre = request.POST['titre']
+        contenu = request.POST['contenu']
+
+        note = Notes_Internes.objects.create(Code_Note=code, Titre=titre, Contenu=contenu)
+        note.save()
+    else:
+        print('Erreur !')
     return HttpResponse(page.render(request=request))
+
+
+def listeNotes(request):
+    lstNotes = Notes_Internes.objects.all()
+    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
 
 
 def tables(request):
