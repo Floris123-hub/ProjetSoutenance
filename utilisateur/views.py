@@ -1,5 +1,13 @@
 from datetime import date
 
+import socket
+
+
+import geocoder
+import cv2
+import numpy as np
+import pyzbar.pyzbar as pyzbar
+
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -320,13 +328,13 @@ def forgotPass(request):
 
 def demandePermis(request):
     page = loader.get_template('dashoard/permissionForm.html')
-    permissionnaire = Utilisateur.objects.values("Matricule", "Nom", "Prenom")
-    print(permissionnaire)
+    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
     render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
+    print(permissionnaire)
     if request.method == 'POST':
         dateP = date.today()
-        dateDebut = request.POST['dateDebut']
         permis = request.POST['permis']
+        dateDebut = request.POST['dateDebut']
         heureDebut = request.POST['heureDebut']
         dateFin = request.POST['dateFin']
         heureFin = request.POST['heureFin']
@@ -349,6 +357,41 @@ def demandePermis(request):
 def CodeQR(request):
     page = loader.get_template('dashoard/qrcode.html')
     return HttpResponse(page.render(request=request))
+
+
+def qrscan(request):
+    # Récuperér la position de l'utilisateur
+    g = geocoder.ip('me')
+    Ucoord = g.latlng
+
+    # si la postion est bien récupérée
+    if Ucoord:
+        # 
+        cap = cv2.VideoCapture(0)
+
+        while True:
+            _, frame = cap.read()
+
+            decodeObj = pyzbar.decode(frame)
+
+            for obj in decodeObj:
+                string = str(obj.data)
+                ready = string.strip("b'")
+                # print(ready)
+                exit()
+
+            cv2.imshow("Scanner", frame)
+
+            key = cv2.waitKey(1)
+
+        # When everything is done, release the capture
+        cv2.destroyAllWindows()
+        cap.release()
+
+            
+    else:
+        print("pas de connexion")
+    return request
 
 
 def notes(request):

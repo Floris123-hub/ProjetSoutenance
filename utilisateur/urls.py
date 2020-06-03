@@ -33,6 +33,7 @@ urlpatterns = [
     path('forgotpass/', views.forgotPass, name='Mot de passe oublie'),
     path('demandepermis/', views.demandePermis, name='demande permission'),
     path('qr/', views.CodeQR, name='code qr'),
+    path('qrscan/', views.qrscan, name='scan qr'),
     path('notes/', views.notes, name='ajout note'),
     path('tables/', views.tables, name='tables'),
     path('animation/', views.animation, name='animations'),

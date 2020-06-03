@@ -134,8 +134,8 @@ class Utilisateur(models.Model):
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, auto_created=True, null=True)
 
-    #def __str__(self):
-        #return self.Nom + " " + self.Prenom
+    def __str__(self):
+        return self.Nom + " " + self.Prenom
 
 
 # Choix status permission
