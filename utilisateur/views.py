@@ -360,38 +360,73 @@ def CodeQR(request):
 
 
 def qrscan(request):
-    # Récuperér la position de l'utilisateur
+    # Get user's position : lon and lat
     g = geocoder.ip('me')
     Ucoord = g.latlng
 
-    # si la postion est bien récupérée
-    if Ucoord:
-        # 
-        cap = cv2.VideoCapture(0)
+    # # si la postion est bien récupérée
+    # cap = cv2.VideoCapture(0)
 
-        while True:
-            _, frame = cap.read()
+    # while True:
+    #     _, frame = cap.read()
 
-            decodeObj = pyzbar.decode(frame)
+    #     decodeObj = pyzbar.decode(frame)
 
-            for obj in decodeObj:
-                string = str(obj.data)
-                ready = string.strip("b'")
-                # print(ready)
-                exit()
+    #     for obj in decodeObj:
+    #         string = str(obj.data)
+    #         ready = string.strip("b'")
+    #         # print(ready)
+    #         break
 
-            cv2.imshow("Scanner", frame)
+    #     cv2.imshow("Scanner", frame)
 
-            key = cv2.waitKey(1)
+    #     key = cv2.waitKey(1)
 
-        # When everything is done, release the capture
-        cv2.destroyAllWindows()
+    # # When everything is done, release the capture
+    # cv2.destroyAllWindows()
+    # cap.release()
+
+    cap = cv2.VideoCapture(0)
+    # initialize the cv2 QRCode detector
+    detector = cv2.QRCodeDetector()
+    while True:
+        _, img = cap.read()
+        # detect and decode
+        data, bbox, _ = detector.detectAndDecode(img)
+        # check if there is a QRCode in the image
+        if bbox is not None:
+            # display the image with lines
+            for i in range(len(bbox)):
+                # draw all lines
+                cv2.line(img, tuple(bbox[i][0]), tuple(bbox[(i+1) % len(bbox)][0]), color=(255, 0, 0), thickness=2)
+            if data:
+                try:
+                    # convert data (string) into data(list)
+                    data = data.split(',')
+                    # display it and it's type
+                    print(data)
+                    letype = type(data)
+                    print(letype)
+                    # convert new data's content into float
+                    data[0] = float(data[0])
+                    data[1] = float(data[1])
+                except:
+                    cap.release()
+                    cv2.destroyAllWindows()
+                    print("Something were wrong !!")
+                    return redirect('scan qr')
+                break
+        # display the result
+        cv2.imshow("img", img)    
+        if cv2.waitKey(1) == ord("q"):
+            break
+    if Ucoord[0] == data[0] and Ucoord[1] == data[1]:
         cap.release()
-
-            
+        cv2.destroyAllWindows()
+        # Redirection to userspace
+        return redirect('espace utilisateur')
     else:
-        print("pas de connexion")
-    return request
+        return redirect('scan qr')
 
 
 def notes(request):
