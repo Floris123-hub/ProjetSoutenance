@@ -1,16 +1,15 @@
 from datetime import date
 
-import socket
-
+# import socket
 
 import geocoder
 import cv2
-import numpy as np
-import pyzbar.pyzbar as pyzbar
+# import numpy as np
+# import pyzbar.pyzbar as pyzbar
 
-from django.contrib import messages, auth
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.contrib import auth
+# from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 # from rest_framework.parsers import JSONParser
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.decorators import api_view
@@ -139,9 +138,7 @@ def login(request):
             # else:
             #     return redirect('espace utilisateur')
         else:
-            msg = "Somethig were wrong :("
-            print(msg)
-            return HttpResponse(msg)
+            return redirect('erreur')
     else:
         return HttpResponse(template.render(request=request))
 
@@ -216,7 +213,7 @@ def utilisateurs(request):
     return HttpResponse(users)
 
 
-def permissions(request):
+def Listpermissions(request):
     permis = Permission.objects.all()
     return HttpResponse(permis)
 
@@ -240,6 +237,9 @@ def page404(request):
     page = loader.get_template('dashoard/404.html')
     return HttpResponse(page.render(request=request))
 
+def error(request):
+    page = loader.get_template('errorpages/wrong.html')
+    return HttpResponse(page.render(request=request))
 
 def addEmploye(request):
     template = loader.get_template('dashoard/addemployee.html')
@@ -269,7 +269,6 @@ def addEmploye(request):
         pass1 = request.POST['password1']
         pass2 = request.POST['password2']
         username = request.POST['username']
-
 
         if pass1 == pass2:
             if User.objects.filter(username=username).exists():
@@ -398,7 +397,7 @@ def qrscan(request):
             # display the image with lines
             for i in range(len(bbox)):
                 # draw all lines
-                cv2.line(img, tuple(bbox[i][0]), tuple(bbox[(i+1) % len(bbox)][0]), color=(255, 0, 0), thickness=2)
+                cv2.line(img, tuple(bbox[i][0]), tuple(bbox[(i + 1) % len(bbox)][0]), color=(255, 0, 0), thickness=2)
             if data:
                 try:
                     # convert data (string) into data(list)
@@ -413,11 +412,10 @@ def qrscan(request):
                 except:
                     cap.release()
                     cv2.destroyAllWindows()
-                    print("Something were wrong !!")
-                    return redirect('scan qr')
+                    return redirect('erreur')
                 break
         # display the result
-        cv2.imshow("img", img)    
+        cv2.imshow("img", img)
         if cv2.waitKey(1) == ord("q"):
             break
     if Ucoord[0] == data[0] and Ucoord[1] == data[1]:
@@ -428,9 +426,11 @@ def qrscan(request):
     else:
         return redirect('scan qr')
 
+def notesform(request):
+    page = loader.get_template('dashoard/service-notes.html')
+    return HttpResponse(page.render(request=request))
 
 def notes(request):
-    page = loader.get_template('dashoard/service-notes.html')
     destinataires = Utilisateur.objects.only("Matricule", "Departement")
     render(request, 'dashoard/service-notes.html', {'destinataire': destinataires})
 
@@ -442,8 +442,8 @@ def notes(request):
         note = Notes_Internes.objects.create(Code_Note=code, Titre=titre, Contenu=contenu)
         note.save()
     else:
-        print('Erreur !')
-    return HttpResponse(page.render(request=request))
+        return redirect('erreur')
+
 
 
 def listeNotes(request):
