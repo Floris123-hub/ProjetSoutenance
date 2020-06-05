@@ -132,6 +132,11 @@ def login(request):
         user = User.objects.get(username=Myusername)
         if user:
             request.session["user_id"] = user.id
+            personne = Utilisateur.objects.filter(user_id_id=user.id)
+            Personne = str(personne[0])
+            print(type(personne))
+            print(personne)
+            render(request, 'dashoard/index.html', {'Personne': Personne})
             return redirect('espace utilisateur')
             # if user.is_superuser == 1:
             #     return redirect('espace administateur')
