@@ -177,13 +177,10 @@ class Notes_Internes(models.Model):
 
 
 # Choix des types de congés
-CHOIX_TYPE_CONGES = (
-    ('Congés Spéciaux', 'Congés Spéciaux'),
-    ('Congés maladie', 'Congés maladie'),
-    ('Repos Sanitaire', 'Repos Sanitaire'),
-    ('Personnel', 'Personnel'),
-    ('Congés annuels', 'Congés annuels'),
-    ('Reprise jours fériés', 'Reprise jours fériés')
+CHOIX_CATEGORIE_CONGES = (
+    ('Congés Déductibles', 'Congés Déductibles'),
+    ('Congés Non Déductibles', 'Congés Non Déductibles'),
+    ('Congés Annuels', 'Congés Annuels')
 )
 
 
@@ -192,10 +189,11 @@ CHOIX_TYPE_CONGES = (
 ################################################################
 class Conges(models.Model):
     Code_Conges = models.CharField(primary_key=True, blank=False, max_length=10)
-    Type_Conges = models.CharField(choices=CHOIX_TYPE_CONGES, blank=False, max_length=50)
+    Categorie_Conges = models.CharField(choices=CHOIX_CATEGORIE_CONGES, max_length=100, default=CHOIX_CATEGORIE_CONGES)
+    Motif = models.CharField(max_length=2500, blank=False, default="")
 
     def __str__(self):
-        return self.Type_Conges
+        return self.Categorie_Conges
 
 
 ##########################################
@@ -251,4 +249,3 @@ class Presence(models.Model):
 
     def __str__(self):
         return self.employe
-

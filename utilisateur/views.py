@@ -128,15 +128,25 @@ def home(request):
 def login(request):
     template = loader.get_template('login.html')
     if request.method == 'POST':
+        # context = {}
         Myusername = request.POST.get('username')
+        # Mypassword = request.POST.get('password')
         user = User.objects.get(username=Myusername)
         if user:
             request.session["user_id"] = user.id
-            personne = Utilisateur.objects.filter(user_id_id=user.id)
-            Personne = str(personne[0])
-            print(type(personne))
-            print(personne)
-            render(request, 'dashoard/index.html', {'Personne': Personne})
+            nom = Utilisateur.objects.get(user_id_id=user.id).Nom
+            prenom = Utilisateur.objects.get(user_id_id=user.id).Prenom
+            request.session["nom"] = nom
+            request.session["prenom"] = prenom
+
+            # Personne = str(personne[0])
+            # print(type(nom))
+            # print(nom)
+            # print(type(prenom))
+            # print(prenom)
+            # context["nom"] = nom
+            # context["prenom"] = prenom
+            # print(context["prenom"])
             return redirect('espace utilisateur')
             # if user.is_superuser == 1:
             #     return redirect('espace administateur')
@@ -242,9 +252,11 @@ def page404(request):
     page = loader.get_template('dashoard/404.html')
     return HttpResponse(page.render(request=request))
 
+
 def error(request):
     page = loader.get_template('errorpages/wrong.html')
     return HttpResponse(page.render(request=request))
+
 
 def addEmploye(request):
     template = loader.get_template('dashoard/addemployee.html')
@@ -331,10 +343,6 @@ def forgotPass(request):
 
 
 def demandePermis(request):
-    page = loader.get_template('dashoard/permissionForm.html')
-    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
-    render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
-    print(permissionnaire)
     if request.method == 'POST':
         dateP = date.today()
         permis = request.POST['permis']
@@ -347,15 +355,18 @@ def demandePermis(request):
         permission = Permission.objects.create(Permissionnaire_id=permis, Date_Permission=dateP,
                                                Date_Debut=dateDebut, heure_Debut=heureDebut,
                                                Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
+
         if permission.Date_Debut.day == permission.Date_Permission.day + 3:
             permission.save()
         else:
             print('Erreur !')
             print('La permission doit être demandée trois jours plus tôt !')
+            page = loader.get_template('dashoard/permissionForm.html')
             return HttpResponse(page.render(request=request))
     else:
-        pass
-    return HttpResponse(page.render(request=request))
+        permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
+        print(permissionnaire)
+        return render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
 
 
 def CodeQR(request):
@@ -431,28 +442,27 @@ def qrscan(request):
     else:
         return redirect('scan qr')
 
+
 def notesform(request):
     page = loader.get_template('dashoard/service-notes.html')
     return HttpResponse(page.render(request=request))
 
-def notes(request):
-    destinataires = Utilisateur.objects.only("Matricule", "Departement")
-    render(request, 'dashoard/service-notes.html', {'destinataire': destinataires})
 
+def notes(request):
     if request.method == 'POST':
         code = request.POST['codenote']
         titre = request.POST['titre']
         contenu = request.POST['contenu']
-
         note = Notes_Internes.objects.create(Code_Note=code, Titre=titre, Contenu=contenu)
         note.save()
     else:
         return redirect('erreur')
-
+    return render(request, 'dashoard/service-notes.html')
 
 
 def listeNotes(request):
-    lstNotes = Notes_Internes.objects.all()
+    lstNotes = Notes_Internes.objects.get("Code_Note", "Titre", "Contenu")
+    print(lstNotes)
     return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
 
 

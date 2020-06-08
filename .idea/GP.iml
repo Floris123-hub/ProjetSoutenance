@@ -22,6 +22,9 @@
     <orderEntry type="library" name="8463fd0c3d" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
