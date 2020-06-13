@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 
 # import socket
@@ -435,6 +436,8 @@ def qrscan(request):
         if cv2.waitKey(1) == ord("q"):
             break
     if Ucoord[0] == data[0] and Ucoord[1] == data[1]:
+        arrivee = datetime.datetime.now()
+        Presence.objects.create(heureArrivee=arrivee, heureDepart="", debutPause="", finPause="")
         cap.release()
         cv2.destroyAllWindows()
         # Redirection to userspace
@@ -457,7 +460,7 @@ def notes(request):
         note.save()
     else:
         return redirect('erreur')
-    return render(request, 'dashoard/service-notes.html')
+    return redirect('espace utilisateur')
 
 
 def listeNotes(request):

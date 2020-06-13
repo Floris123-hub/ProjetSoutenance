@@ -5,7 +5,7 @@
 {% block content %}
 <!-- Page Heading -->
     <link rel="stylesheet" href="../../static/dashboard/css/service-notes.css">
-    <form action="" method="post">
+    <form action="{% url 'ajouter' %}" method="post">
         {% csrf_token %}
 
         <div class="form">
@@ -33,7 +33,7 @@
                                  box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
                                  border: 0;" class="input autoExpand" required></textarea>
             </label>
-            <a href="{% url 'ajouter' %}">
+            <a>
                 <button type="submit" class="notes submit">
                     <i class="fas fa-paper-plane"></i>
                 </button>

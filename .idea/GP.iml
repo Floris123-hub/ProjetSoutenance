@@ -21,6 +21,8 @@
     <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="8463fd0c3d" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="Chart.js" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="renderExternalDocumentation" value="true" />
