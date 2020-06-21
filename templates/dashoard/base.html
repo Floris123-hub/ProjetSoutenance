@@ -54,7 +54,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface Utilisateur
+                Espace Utilisateur
             </div>
 
             <!-- Nav Item - PRESENCE Menu -->
@@ -84,6 +84,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            {% if request.session.admin %}
+
+            {% endif %}
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Espace Admin
@@ -93,7 +97,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'tables' %}">
                     <i class="fas fa-fw fa-user-check"></i>
-                    <span>Contrôle de la Présence</span>
+                    <span>Point de la Présence</span>
                 </a>
             </li>
 
@@ -380,13 +384,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../../static/dashboard/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../../static/dashboard/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../static/dashboard/js/demo/chart-area-demo.js"></script>
-    <script src="../../static/dashboard/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

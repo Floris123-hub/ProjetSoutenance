@@ -37,6 +37,7 @@ urlpatterns = [
     path('notes/', views.notesform, name='ajout note'),
     path('sendnote/', views.notes, name='ajouter'),
     path('tables/', views.tables, name='tables'),
+    path('pointage/', views.tablePresence, name='pointage'),
     path('animation/', views.animation, name='animations'),
     path('border/', views.border, name='borders'),
     path('color/', views.color, name='couleurs'),

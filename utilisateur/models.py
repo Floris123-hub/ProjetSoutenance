@@ -133,6 +133,7 @@ class Utilisateur(models.Model):
     Nom_Contact_dUrgence = models.CharField(max_length=30, verbose_name="Nom du Contact d'urgence")
     Telephone_Contact_dUrgence = models.CharField(max_length=50, verbose_name="Téléphone du contact d'urgence")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, auto_created=True, null=True)
+    admin = models.BooleanField(default=False)
 
     def __str__(self):
         return self.Nom + " " + self.Prenom
@@ -242,10 +243,10 @@ class Presence(models.Model):
     aujourdhui = models.DateField(verbose_name="Aujourd'hui", default=datetime.datetime.today())
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, verbose_name="Employé")
     heureArrivee = models.DateTimeField(verbose_name="Heure d'Arrivée")
-    heureDepart = models.DateTimeField(verbose_name="Heure de Départ")
-    status = models.CharField(max_length=100, choices=STATUS_PRESENCE)
-    debutPause = models.DateTimeField(verbose_name="Heure de début de la Pause")
-    finPause = models.DateTimeField(verbose_name="Heure de fin de la Pause")
+    heureDepart = models.DateTimeField(verbose_name="Heure de Départ", null=True)
+    status = models.CharField(max_length=100, choices=STATUS_PRESENCE, null=True)
+    debutPause = models.DateTimeField(verbose_name="Heure de début de la Pause", null=True)
+    finPause = models.DateTimeField(verbose_name="Heure de fin de la Pause", null=True)
 
     def __str__(self):
         return self.employe

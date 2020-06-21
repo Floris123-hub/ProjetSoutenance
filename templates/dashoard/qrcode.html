@@ -3,16 +3,44 @@
     <title>Dashboard - Présence</title>
 {% endblock %}
 {% block content %}
+    <link rel="stylesheet" href="../../static/dashboard/css/buttonqr.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <h2 style="text-align: center;">
+    <h3 style="text-align: center;">
         Cliquez pour scanner le codeQR
-        <br>
-        <br>
+        <br><br>
         <i class="fas fa-arrow-down"></i>
-    </h2>
+    </h3>
 
-    <!-- Page Heading -->
-    <button type="button" class="btn btn-primary" style="display: block;position: relative;top:auto;bottom: auto;margin: auto;">
-        <a style="color: aliceblue;" href="{% url 'scan qr'%}"><i class="fas fa-qrcode fa-10x"></i></a>
+    <br><br>
+
+    <!-- QR Code Start Work Day Button -->
+    <button type="button" class="btn btn-primary buttonCli" style="display: block;position: relative;top:auto;bottom: auto;margin: auto; border-radius: 25px">
+        <a style="color: aliceblue;" href="{% url 'scan qr'%}">
+            <i class="fas fa-qrcode fa-10x"></i>
+        </a>
     </button>
+
+    <section class="pause">
+        <!-- Rest Starting Button -->
+        <button title="Début de pause" type="button" class="btn btn-success buttonCli" style="display: block;position: relative;top:auto;bottom: auto; border-radius: 50px; height: 100px; width: 100px; margin-left: 10%">
+        <a href="#" style="color: aliceblue">
+            <i class="fas fa-hamburger fa-2x"></i> <i class="fas fa-pizza-slice fa-2x"></i><br>
+            <i class="fas fa-apple-alt fa-2x"></i> <i class="fas fa-pepper-hot fa-2x"></i>
+        </a>
+        </button>
+
+        <!-- Rest Ending Button -->
+        <button title="Fin de pause" type="button" class="btn btn-danger buttonCli" style="display: block;position: relative;top:auto;bottom: auto; border-radius: 50px; height: 100px; width: 100px; margin-left: 80%; top: -100px">
+        <a href="#" style="color: aliceblue">
+            <i class="fas fa-hamburger fa-2x"></i> <i class="fas fa-pizza-slice fa-2x"></i><br>
+            <i class="fas fa-apple-alt fa-2x"></i> <i class="fas fa-pepper-hot fa-2x"></i>
+        </a>
+        </button>
+    </section>
+
+    <!-- QR Code End Work Day Button -->
+    <button type="button" class="btn btn-primary buttonCli" style="display: block;position: relative;top:auto;margin: auto; border-radius: 30px; height: 150px; width: 150px">
+        <a style="color: aliceblue;" href="#"><i class="fas fa-home fa-7x"></i></a>
+    </button>
+
 {% endblock %}

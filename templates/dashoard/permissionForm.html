@@ -15,6 +15,7 @@
                             <label class="label">
                                 <span class="span" required>Permissionnaire</span>
                                 <select name="permis">
+                                    <option selected disabled>Veuillez sélectionner votre nom ...</option>
                                     {% for permis in permissionnaire %}
                                         <option value="{{ permis.Matricule }}">{{ permis.Nom }} {{ permis.Prenom }}</option>
                                     {% endfor %}

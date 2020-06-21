@@ -137,8 +137,10 @@ def login(request):
             request.session["user_id"] = user.id
             nom = Utilisateur.objects.get(user_id_id=user.id).Nom
             prenom = Utilisateur.objects.get(user_id_id=user.id).Prenom
+            # admin = Utilisateur.objects.get(user_id_id=user.id).admin
             request.session["nom"] = nom
             request.session["prenom"] = prenom
+            # request.session["admin"] = admin
 
             # Personne = str(personne[0])
             # print(type(nom))
@@ -239,14 +241,18 @@ def conges(request):
     return HttpResponse(con)
 
 
-def listePresence(request):
-    liste = Presence.objects.filter('aujourdhui')
-    return HttpResponse(liste)
+def tablePresence(request):
+    liste = Presence.objects.all()
+    print(liste)
+    return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
 
 
 def userDashboard(request):
-    page = loader.get_template('dashoard/index.html')
-    return HttpResponse(page.render(request=request))
+    lstNotes = Notes_Internes.objects.all()
+    n = 1
+    n += 1
+    print(lstNotes)
+    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes, 'n': n})
 
 
 def page404(request):
@@ -436,10 +442,11 @@ def qrscan(request):
         if cv2.waitKey(1) == ord("q"):
             break
     if Ucoord[0] == data[0] and Ucoord[1] == data[1]:
-        arrivee = datetime.datetime.now()
-        Presence.objects.create(heureArrivee=arrivee, heureDepart="", debutPause="", finPause="")
         cap.release()
         cv2.destroyAllWindows()
+        arrivee = datetime.datetime.now()
+        print(arrivee)
+        Presence.objects.create(heureArrivee=arrivee, employe_id=0000000000000)
         # Redirection to userspace
         return redirect('espace utilisateur')
     else:
@@ -463,10 +470,10 @@ def notes(request):
     return redirect('espace utilisateur')
 
 
-def listeNotes(request):
-    lstNotes = Notes_Internes.objects.get("Code_Note", "Titre", "Contenu")
-    print(lstNotes)
-    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
+# def listeNotes(request):
+#     lstNotes = Notes_Internes.objects.all()
+#     print(lstNotes)
+#     return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
 
 
 def tables(request):
