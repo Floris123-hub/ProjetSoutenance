@@ -248,7 +248,7 @@ def conges(request):
 
 
 def tablePresence(request):
-    liste = Presence.objects.all()
+    liste = Presence.objects.all().order_by('aujourdhui')
     print(type(liste))
     return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
 
@@ -461,6 +461,36 @@ def qrscan(request):
         return redirect('espace utilisateur')
     else:
         return redirect('scan qr')
+
+
+def PauseDej_Debut(request):
+    debut = datetime.datetime.now()
+    print(debut)
+    emp_id = request.session["user_id"]
+    print(emp_id)
+    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+    print(emp)
+    Presence.objects.filter(employe_id=emp).create(debutPause=debut)
+
+
+def PauseDej_Fin(request):
+    fin = datetime.datetime.now()
+    print(fin)
+    emp_id = request.session["user_id"]
+    print(emp_id)
+    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+    print(emp)
+    Presence.objects.create(finPause=fin, employe_id=emp)
+
+
+def Depart(request):
+    depart = datetime.datetime.now()
+    print(depart)
+    emp_id = request.session["user_id"]
+    print(emp_id)
+    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+    print(emp)
+    Presence.objects.create(heureDepart=depart, employe_id=emp)
 
 
 def notesform(request):

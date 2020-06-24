@@ -229,13 +229,6 @@ class Prendre_Conge(models.Model):
         return self.employe + " " + self.date
 
 
-# STATUS DE LA PRESENCE
-STATUS_PRESENCE = (
-    ("avance", "En avance"),
-    ("retard", "En retard")
-)
-
-
 ########################################################################
 #                           LES PRÉSENCES                              #
 ########################################################################
@@ -244,7 +237,6 @@ class Presence(models.Model):
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, verbose_name="Employé")
     heureArrivee = models.DateTimeField(verbose_name="Heure d'Arrivée")
     heureDepart = models.DateTimeField(verbose_name="Heure de Départ", null=True)
-    status = models.CharField(max_length=100, choices=STATUS_PRESENCE, null=True)
     debutPause = models.DateTimeField(verbose_name="Heure de début de la Pause", null=True)
     finPause = models.DateTimeField(verbose_name="Heure de fin de la Pause", null=True)
 
