@@ -223,7 +223,7 @@ def register(request):
 
 def logout(request):
     try:
-        del request.session['member_id']
+        del request.session['user_id']
     except KeyError:
         pass
     print("You're logged out.")
@@ -452,9 +452,11 @@ def qrscan(request):
         cv2.destroyAllWindows()
         arrivee = datetime.datetime.now()
         print(arrivee)
-        emp_id = request.user.id
+        emp_id = request.session["user_id"]
         print(emp_id)
-        Presence.objects.create(heureArrivee=arrivee, employe_id=emp_id)
+        emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+        print(emp)
+        Presence.objects.create(heureArrivee=arrivee, employe_id=emp)
         # Redirection to userspace
         return redirect('espace utilisateur')
     else:
