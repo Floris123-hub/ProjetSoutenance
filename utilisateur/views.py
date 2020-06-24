@@ -1,5 +1,5 @@
 import datetime
-from datetime import date
+# from datetime import date
 
 # import socket
 
@@ -8,7 +8,7 @@ import cv2
 # import numpy as np
 # import pyzbar.pyzbar as pyzbar
 
-from django.contrib import auth
+# from django.contrib import auth
 # from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 # from rest_framework.parsers import JSONParser
@@ -197,7 +197,6 @@ def register(request):
             else:
                 user = User.objects.create_user(username=username, password=pass1)
                 user.save()
-                print(str(user.id))
                 utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
                                                          Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
                                                          Mobile=mobile,
@@ -210,7 +209,6 @@ def register(request):
                                                          Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
                                                          LettreDeMotivation=motivation, user_id_id=user.id)
                 utilisateur.save()
-                print(utilisateur)
                 print('Utilisateur créé !')
         else:
             print('Les mots de passe ne correspondent pas !')
@@ -236,29 +234,25 @@ def utilisateurs(request):
 
 
 def Listpermissions(request):
-    permis = Permission.objects.all()
-    print(permis)
-    return render(request, 'dashoard/permissions.html', {'listeP': permis})
+    permis = Permission.objects.all().order_by('Date_Permission')
+    return render(request, 'dashoard/permissions.html', {'listePermis': permis})
 
 
 def conges(request):
-    con = Conges.objects.all()
-    print(con)
-    return render(request, 'dashoard/calendrier.html', {'conges': con})
+    emp_id = request.session["user_id"]
+    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+    con = Permission.objects.order_by('Date_Permission').filter(Permissionnaire_id=emp, Status="Accordée")
+    return render(request, 'dashoard/mes_conges.html', {'conges': con})
 
 
 def tablePresence(request):
     liste = Presence.objects.all().order_by('aujourdhui')
-    print(type(liste))
     return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
 
 
 def userDashboard(request):
     lstNotes = Notes_Internes.objects.all()
-    n = 1
-    n += 1
-    print(lstNotes)
-    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes, 'n': n})
+    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
 
 
 def page404(request):
@@ -308,7 +302,6 @@ def addEmploye(request):
             else:
                 user = User.objects.create_user(username=username, password=pass1)
                 user.save()
-                print(str(user.id))
                 utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
                                                          Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
                                                          Mobile=mobile,
@@ -321,7 +314,6 @@ def addEmploye(request):
                                                          Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
                                                          LettreDeMotivation=motivation, user_id_id=user.id)
                 utilisateur.save()
-                print(utilisateur)
                 print('Employé(e) bien ajouté(e) !')
                 return redirect('espace utilisateur')
         else:
@@ -357,29 +349,27 @@ def forgotPass(request):
 
 def demandePermis(request):
     if request.method == 'POST':
-        dateP = date.today()
+        dateP = datetime.datetime.now()
         permis = request.POST['permis']
         dateDebut = request.POST['dateDebut']
         heureDebut = request.POST['heureDebut']
         dateFin = request.POST['dateFin']
         heureFin = request.POST['heureFin']
         motif = request.POST['motif']
+        dateDebut = datetime.datetime.strptime(dateDebut, '%Y-%m-%d')
 
-        permission = Permission.objects.create(Permissionnaire_id=permis, Date_Permission=dateP,
-                                               Date_Debut=dateDebut, heure_Debut=heureDebut,
-                                               Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
-
-        if permission.Date_Debut.day == permission.Date_Permission.day + 3:
+        if dateDebut >= dateP + datetime.timedelta(days=3):
+            permission = Permission.objects.create(Permissionnaire_id=permis, Date_Permission=dateP,
+                                                   Date_Debut=dateDebut, heure_Debut=heureDebut,
+                                                   Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
             permission.save()
         else:
             print('Erreur !')
             print('La permission doit être demandée trois jours plus tôt !')
             page = loader.get_template('dashoard/permissionForm.html')
             return HttpResponse(page.render(request=request))
-    else:
-        permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
-        print(permissionnaire)
-        return render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
+    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
+    return render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
 
 
 def CodeQR(request):
@@ -392,29 +382,8 @@ def qrscan(request):
     g = geocoder.ip('me')
     Ucoord = g.latlng
 
-    # # si la postion est bien récupérée
-    # cap = cv2.VideoCapture(0)
-
-    # while True:
-    #     _, frame = cap.read()
-
-    #     decodeObj = pyzbar.decode(frame)
-
-    #     for obj in decodeObj:
-    #         string = str(obj.data)
-    #         ready = string.strip("b'")
-    #         # print(ready)
-    #         break
-
-    #     cv2.imshow("Scanner", frame)
-
-    #     key = cv2.waitKey(1)
-
-    # # When everything is done, release the capture
-    # cv2.destroyAllWindows()
-    # cap.release()
-
     cap = cv2.VideoCapture(0)
+
     # initialize the cv2 QRCode detector
     detector = cv2.QRCodeDetector()
     while True:
@@ -431,14 +400,10 @@ def qrscan(request):
                 try:
                     # convert data (string) into data(list)
                     data = data.split(',')
-                    # display it and it's type
-                    print(data)
-                    letype = type(data)
-                    print(letype)
                     # convert new data's content into float
                     data[0] = float(data[0])
                     data[1] = float(data[1])
-                except:
+                except KeyError:
                     cap.release()
                     cv2.destroyAllWindows()
                     return redirect('erreur')
@@ -451,11 +416,8 @@ def qrscan(request):
         cap.release()
         cv2.destroyAllWindows()
         arrivee = datetime.datetime.now()
-        print(arrivee)
         emp_id = request.session["user_id"]
-        print(emp_id)
         emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-        print(emp)
         Presence.objects.create(heureArrivee=arrivee, employe_id=emp)
         # Redirection to userspace
         return redirect('espace utilisateur')
@@ -465,36 +427,27 @@ def qrscan(request):
 
 def PauseDej_Debut(request):
     debut = datetime.datetime.now()
-    print(debut)
     jour = datetime.datetime.today()
     emp_id = request.session["user_id"]
-    print(emp_id)
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    print(emp)
     Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(debutPause=debut)
     return redirect('espace utilisateur')
 
 
 def PauseDej_Fin(request):
     fin = datetime.datetime.now()
-    print(fin)
     jour = datetime.datetime.today()
     emp_id = request.session["user_id"]
-    print(emp_id)
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    print(emp)
     Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(finPause=fin)
     return redirect('espace utilisateur')
 
 
 def Depart(request):
     depart = datetime.datetime.now()
-    print(depart)
     jour = datetime.datetime.today()
     emp_id = request.session["user_id"]
-    print(emp_id)
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    print(emp)
     Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(heureDepart=depart)
     return redirect('espace utilisateur')
 
@@ -514,12 +467,6 @@ def notes(request):
     else:
         return redirect('erreur')
     return redirect('espace utilisateur')
-
-
-# def listeNotes(request):
-#     lstNotes = Notes_Internes.objects.all()
-#     print(lstNotes)
-#     return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
 
 
 def tables(request):

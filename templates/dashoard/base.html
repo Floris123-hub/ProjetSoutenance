@@ -72,9 +72,9 @@
 
             <!-- Nav Item - CONGES Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'page vierge' %}">
+                <a class="nav-link" href="{% url 'conges' %}">
                     <i class="fas fa-bed"></i>
-                    <span>Congés</span>
+                    <span>Historique des Congés</span>
                 </a>
             </li>
 
@@ -102,12 +102,12 @@
                 </a>
             </li>
 
-            <!-- Nav Item - GERER CONGES -->
+            {% comment %}<!-- Nav Item - GERER CONGES -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'page vierge' %}">
                     <i class="fas fa-list-alt"></i>
                     <span>Gérer les congés</span></a>
-            </li>
+            </li>{% endcomment %}
 
             <!-- Nav Item - AJOUTER EMPLOYE -->
             <li class="nav-item">

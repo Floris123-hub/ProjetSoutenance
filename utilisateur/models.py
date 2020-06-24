@@ -159,7 +159,7 @@ class Permission(models.Model):
     Date_Fin = models.DateField()
     heure_Fin = models.TimeField()
     Motif = models.CharField(max_length=50)
-    Status = models.CharField(choices=STATUS_PERMISSION, max_length=10)
+    Status = models.CharField(choices=STATUS_PERMISSION, max_length=10, default="Accordée")
 
     def __str__(self):
         return self.Code_Permission + " " + self.Permissionnaire
