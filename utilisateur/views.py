@@ -249,7 +249,7 @@ def conges(request):
 
 def tablePresence(request):
     liste = Presence.objects.all()
-    print(liste)
+    print(type(liste))
     return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
 
 
