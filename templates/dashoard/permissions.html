@@ -1,0 +1,68 @@
+{% extends "dashoard/base.html" %}
+
+{% block title %}
+    <title>Dashboard - Permissions</title>
+{% endblock %}
+
+{% block css %}
+    <link type="text/css" rel="stylesheet" href="../../static/dashboard/css/permissions.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Permissionnaire</th>
+            <th scope="col">Période</th>
+            <th scope="col">Motif</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Bootstrap 4 CDN and Starter Template</td>
+            <td>Cristina</td>
+            <td>2.846</td>
+            <td>
+              <button type="button" class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+              <button type="button" class="btn btn-success"><i class="fas fa-check"></i></button>
+            <button type="button" class="btn btn-danger"><i class="fas fa-times"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Bootstrap Grid 4 Tutorial and Examples</td>
+            <td>Cristina</td>
+            <td>3.417</td>
+            <td>
+              <button type="button" class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+              <button type="button" class="btn btn-success"><i class="fas fa-check"></i></button>
+            <button type="button" class="btn btn-danger"><i class="fas fa-times"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Bootstrap Flexbox Tutorial and Examples</td>
+            <td>Cristina</td>
+            <td>1.234</td>
+            <td>
+              <button type="button" class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+              <button type="button" class="btn btn-success"><i class="fas fa-check"></i></button>
+            <button type="button" class="btn btn-danger"><i class="fas fa-times"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

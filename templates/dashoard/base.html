@@ -7,11 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
-
-    {% block title %}
-
-    {% endblock %}
+    <meta name="author" content=""> {% block title %} {% endblock %}
 
     <!-- Custom fonts for this template-->
     <link href="../../static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +15,8 @@
 
     <!-- Custom styles for this template-->
     <link href="../../static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
-    <title></title>
+
+    {% block css %} {% endblock %}
 
 </head>
 
@@ -82,11 +79,7 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            {% if request.session.admin %}
-
-            {% endif %}
+            <hr class="sidebar-divider"> {% if request.session.admin %} {% endif %}
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -95,7 +88,7 @@
 
             <!-- Nav Item - CONTROLE DE LA PRESENCE -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'tables' %}">
+                <a class="nav-link" href="{% url 'pointage' %}">
                     <i class="fas fa-fw fa-user-check"></i>
                     <span>Point de la Présence</span>
                 </a>
@@ -103,7 +96,7 @@
 
             <!-- Nav Item - GERER LES DEMANDES DE PERMISSION -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'page vierge' %}">
+                <a class="nav-link" href="{% url 'permissions' %}">
                     <i class="far fa-list-alt"></i>
                     <span>Gérer les demandes de Permission</span>
                 </a>
@@ -326,9 +319,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    {% block content %}
-
-                    {% endblock %}
+                    {% block content %} {% endblock %}
                 </div>
                 <!-- /.container-fluid -->
 
@@ -369,7 +360,7 @@
                 <div class="modal-body">Cliquez sur "Déconnexion" si vous souhaitez fermer la session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-                    <a class="btn btn-primary" href="{% url 'accueil' %}">Déconnexion</a>
+                    <a class="btn btn-primary" href="{% url 'deconnexion' %}">Déconnexion</a>
                 </div>
             </div>
         </div>
@@ -384,6 +375,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../../static/dashboard/js/sb-admin-2.min.js"></script>
+
+    {% block script %} {% endblock %}
 
 </body>
 

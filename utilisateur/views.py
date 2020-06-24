@@ -222,7 +222,11 @@ def register(request):
 
 
 def logout(request):
-    auth.logout(request)
+    try:
+        del request.session['member_id']
+    except KeyError:
+        pass
+    print("You're logged out.")
     return redirect('accueil')
 
 
@@ -233,12 +237,14 @@ def utilisateurs(request):
 
 def Listpermissions(request):
     permis = Permission.objects.all()
-    return HttpResponse(permis)
+    print(permis)
+    return render(request, 'dashoard/permissions.html', {'listeP': permis})
 
 
 def conges(request):
     con = Conges.objects.all()
-    return HttpResponse(con)
+    print(con)
+    return render(request, 'dashoard/calendrier.html', {'conges': con})
 
 
 def tablePresence(request):
@@ -446,7 +452,9 @@ def qrscan(request):
         cv2.destroyAllWindows()
         arrivee = datetime.datetime.now()
         print(arrivee)
-        Presence.objects.create(heureArrivee=arrivee, employe_id=0000000000000)
+        emp_id = request.user.id
+        print(emp_id)
+        Presence.objects.create(heureArrivee=arrivee, employe_id=emp_id)
         # Redirection to userspace
         return redirect('espace utilisateur')
     else:
