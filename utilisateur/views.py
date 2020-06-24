@@ -466,31 +466,37 @@ def qrscan(request):
 def PauseDej_Debut(request):
     debut = datetime.datetime.now()
     print(debut)
+    jour = datetime.datetime.today()
     emp_id = request.session["user_id"]
     print(emp_id)
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
     print(emp)
-    Presence.objects.filter(employe_id=emp).create(debutPause=debut)
+    Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(debutPause=debut)
+    return redirect('espace utilisateur')
 
 
 def PauseDej_Fin(request):
     fin = datetime.datetime.now()
     print(fin)
+    jour = datetime.datetime.today()
     emp_id = request.session["user_id"]
     print(emp_id)
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
     print(emp)
-    Presence.objects.create(finPause=fin, employe_id=emp)
+    Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(finPause=fin)
+    return redirect('espace utilisateur')
 
 
 def Depart(request):
     depart = datetime.datetime.now()
     print(depart)
+    jour = datetime.datetime.today()
     emp_id = request.session["user_id"]
     print(emp_id)
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
     print(emp)
-    Presence.objects.create(heureDepart=depart, employe_id=emp)
+    Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(heureDepart=depart)
+    return redirect('espace utilisateur')
 
 
 def notesform(request):
