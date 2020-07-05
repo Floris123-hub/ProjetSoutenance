@@ -24,6 +24,7 @@ urlpatterns = [
     path('logout/', views.logout, name='deconnexion'),
     path('register/', views.register, name='inscription'),
     path('userspace/', views.userDashboard, name='espace utilisateur'),
+    path('profile/', views.profile, name='profile'),
     path('404/', views.page404, name='not found'),
     path('addEmploye/', views.addEmploye, name='ajouter Employe'),
     path('permissions/', views.Listpermissions, name='permissions'),

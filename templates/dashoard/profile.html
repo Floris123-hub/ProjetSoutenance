@@ -1,0 +1,343 @@
+{% extends "dashoard/base.html" %}
+
+{% block title %}
+    <title>Dashboard - Profile</title>
+{% endblock %}
+
+{% block css %}
+    <!-- Custom fonts for this template-->
+    <link href="../../static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../../static/dashboard/css/addemployee.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block" style="text-align: center;border: dashed">Photo de l'employé</div>
+                    <div class="col-lg-7">
+                        <div class="leftbox">
+                            <nav>
+                                <a onclick="tabs(0)" class="tab active a">
+                                    <i class="fa fa-address-card"></i>
+                                </a>
+                                <a onclick="tabs(1)" class="tab a">
+                                    <i class="fa fa-info"></i>
+                                </a>
+                                <a onclick="tabs(2)" class="tab a">
+                                    <i class="fa fa-user-tie"></i>
+                                </a>
+                                <a onclick="tabs(3)" class="tab a">
+                                    <i class="fa fa-user-graduate"></i>
+                                </a>
+                                <a onclick="tabs(4)" class="tab a">
+                                    <i class="fa fa-user"></i>
+                                </a>
+                                <a onclick="tabs(5)" class="tab a">
+                                    <i class="fa fa-user"></i>
+                                </a>
+                            </nav>
+                        </div>
+                        <div class="rightbox">
+                            <!-- Informations de connexion -->
+                            <div class="tabShow">
+                                <div class="text-center">
+                                    <h5 class="label text-uppercase text-dark">Connexion</h5>
+                                </div>
+                                <label>
+                                    <i class="fa fa-file">
+                                        <input class="photo" type="file" value="{{ user.Photo }}">
+                                    </i>
+                                </label>
+                                <div>
+                                    <label class="label">
+                                        <span class="span">Pseudo</span>
+                                        <input class="input" type="text" name="username" value="{{ usr.username }}">
+                                    </label>
+
+                                    <label class="label">
+                                        <span class="span">Mot de passe</span>
+                                        <input class="input" type="password" name="password" value="{{ usr.password }}">
+                                    </label>
+                                </div>
+                                <button type="submit" class="Btn" style="margin-top: 50%">Modifier</button>
+                            </div>
+
+                            <!-- Informations d'identification -->
+                            <div class="tabShow">
+                                <div class="text-center">
+                                    <h5 class="label text-uppercase text-dark">Identité</h5>
+                                </div>
+                                <label class="label">
+                                    <span class="span">Nom</span>
+                                    <input type="text" name="nom" class="input" value="{{ user.Nom }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Prénoms(s)</span>
+                                    <input type="text" name="prenoms" class="input" value="{{ user.Prenom }}">
+                                </label>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Sexe</span><br>
+                                        <select name="sexe">
+                                            <option selected>{{ user.Sexe }} *</option>
+                                            <option>F</option>
+                                            <option>M</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Date de naissance</span>
+                                    <input class="input" type="date" name="birthday" value="{{ user.DateDeNaissance }}">
+                                </label>
+                                <label class="label">
+                                    <span class="span">Adresse de résidence</span>
+                                    <input type="text" class="input" name="adresse" value="{{ user.Adresse }}">
+                                </label>
+
+                                <div class="control has-icons-left">
+                                    <div class="select is-rounded">
+                                        <label class="label">
+                                            <span class="span">Pays de résidence</span>
+                                            <div>
+                                                <i class="fas fa-globe"></i>
+                                                <select name="pays">
+                                                    <option selected>{{ user.Pays }} *</option>
+                                                    <option>Ghana</option>
+                                                    <option>Togo</option>
+                                                    <option>Nigeria</option>
+                                                    <option>Bénin</option>
+                                                </select>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Ville</span>
+                                    <input type="text" class="input" name="ville" value="{{ user.Ville }}">
+                                </label>
+                                <button class="Btn modifier">Modifier</button>
+                            </div>
+
+                            <!-- Informations Statut et Contacts -->
+                            <div class="tabShow">
+                                <div class="text-center">
+                                    <h5 class="label text-uppercase text-dark">Statut & Contacts</h5>
+                                </div>
+                                <label class="label">
+                                    <span class="span">N° CIN</span>
+                                    <input class="input" type="number" name="cin" maxlength="9" MIN="0" value="{{ user.CIN }}">
+                                </label>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Status matrimoniel</span>
+                                        <select name="statusMat">
+                                            <option selected>{{ user.Status_matrimoniel }} *</option>
+                                            <option>Célibataire</option>
+                                            <option>En couple</option>
+                                            <option>Marié(e)</option>
+                                            <option>Divorcé(e)</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Enfants</span>
+                                    <input class="input" type="number" name="enfants" min="0" value="{{ user.Enfants }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Téléphone</span>
+                                    <input class="input" type="tel" name="mobile" value="{{ user.Mobile }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Contact d'urgence</span>
+                                    <input class="input" type="text" name="contactUrgence" value="{{ user.Nom_Contact_dUrgence }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Numéro du contact d'urgence</span>
+                                    <input class="input" type="tel" name="telUrgence" value="{{ user.Telephone_Contact_dUrgence }}">
+                                </label>
+
+                                <button class="Btn">Modifier</button>
+                            </div>
+
+                            <!-- Informations dossier-->
+                            <div class="tabShow">
+                                <div class="text-center">
+                                    <h5 class="label text-uppercase text-dark">Dossier</h5>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Filière</span>
+                                    <input class="input" type="text" name="filiere" value="{{ user.Filiere }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">CV</span>
+                                    <input class="input" type="file" name="cv" value="{{ user.CV }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Lettre de recommandation</span>
+                                    <input class="input" type="file" name="recommandation" value="{{ user.LettreDeRecommandation }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Lettre de motivation</span>
+                                    <input class="input" type="file" name="motivation" value="{{ user.LettreDeMotivation }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">demande d'emploi</span>
+                                    <input class="input" type="file" name="emploi" value="{{ user.Lettre_Demande_Emploi }}">
+                                </label>
+
+                                <button class="Btn">Modifier</button>
+                            </div>
+
+                            <!-- Informations professionnelles (Poste) -->
+                            <div class="tabShow">
+                                <div class="text-center">
+                                    <h5 class="label text-uppercase text-dark">Statut & Poste</h5>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Statut</span><br>
+                                    <select name="TypeUtil">
+                                        <option selected>{{ user.Type_Utilisateur }} *</option>
+                                        <option>Employé(e)</option>
+                                        <option>Stagiaire</option>
+                                    </select>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Tél. Fixe</span>
+                                    <input class="input" type="tel" name="fixe" value="{{ user.Telephone_Fixe }}">
+                                </label>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Département</span>
+                                        <select name="departement" style="max-width: 250px">
+                                            <option selected>{{ user.Departement }} *</option>
+                                            <option>Direction</option>
+                                            <option>Service Comptabilité</option>
+                                            <option>Ressources Humaines</option>
+                                            <option>Production et Développement</option>
+                                            <option>Service IT</option>
+                                            <option>Communication et Marketing</option>
+                                            <option>Service Commercial</option>
+                                            <option>Service Juridique</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Fonction</span>
+                                        <select name="fonction" style="max-width: 250px">
+                                            <option selected>{{ user.Fonction }} *</option>
+                                            <option>Développeur(euse) Front-End</option>
+                                            <option>Développeur(euse) Back-End</option>
+                                            <option>Développeur(euse) Full Stack</option>
+                                            <option>Graphiste</option>
+                                            <option>Maintenancier</option>
+                                            <option>Community Manager</option>
+                                            <option>Chargé(e) de Communication</option>
+                                            <option>Gestionnnaire Comptable</option>
+                                            <option>Assistant(e) Gestionnaire Comptable</option>
+                                            <option>Auditeur(trice)</option>
+                                            <option>Commissaire aux comptes</option>
+                                            <option>Juriste</option>
+                                            <option>Directeur(trice) des Ressources Humaines</option>
+                                            <option>Assistant(e) de direction des Ressources Humaines</option>
+                                            <option>Directeur(trice) Général(e)</option>
+                                            <option>Assistant(e) de Direction Générale</option>
+                                            <option>Directeur(trice) Commercial(e)</option>
+                                            <option>Assistant(e) de Direction Commercial(e)</option>
+                                        </select>
+                                    </label>
+
+                                    <label class="label">
+                                        <span class="span">E-mail</span>
+                                        <input class="input" type="email" name="email" value="{{ user.Mail }}" disabled>
+                                    </label>
+                                </div>
+                            <button class="Btn">Modifier</button>
+                        </div>
+
+                            <!-- Informations professionnelles (Durée) -->
+                            <div class="tabShow">
+                                <div class="text-center">
+                                    <h5 class="label text-uppercase text-dark">Contrat & Durée</h5>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Superviseur</span>
+                                    <input class="input" type="text" name="superviseur" value="{{ user.Superviseur }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Type de contract</span>
+                                    <select name="contrat">
+                                        <option selected>{{ user.Type_de_Contrat }}</option>
+                                        <option>Contrat à durée déterminée (CDD)</option>
+                                        <option>Contrat à durée indéterminée (CDI)</option>
+                                        <option>Convention de stage</option>
+                                    </select>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Date d'entrée (Fonction)</span>
+                                    <input class="input" type="date" name="debutContrat" value="{{ user.Date_Entree }}">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Date de Sortie (Fonction)</span>
+                                    <input class="input" type="date" name="finContrat" value="{{ user.Date_Sortie }}">
+                                </label>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block script %}
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../static/dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="../../static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../../static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script>
+        const tabBtn = document.querySelectorAll(".tab");
+        const tab = document.querySelectorAll(".tabShow");
+
+        function tabs(panelIndex) {
+            tab.forEach(function(node) {
+                node.style.display = "none";
+            });
+            tab[panelIndex].style.display = "block";
+        }
+
+        tabs(0);
+    </script>
+    <script>
+        $(".tab").click(function() {
+            $(this).addClass("active").siblings().removeClass("active");
+        })
+    </script>
+{% endblock %}

@@ -87,10 +87,7 @@ header
 .header .header-menu .header-button{
   height: 40px;
   width: 40px;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
+  border-radius: 50%;
   background-color: Transparent;
   background-repeat:no-repeat;
   border: none;
@@ -146,10 +143,7 @@ modal
   position: fixed;
   width: 650px;
   top: 30%;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
 }
 
 
@@ -226,10 +220,7 @@ p {
 
 .button {
   margin-top: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 20px;
   background-color: rgb(218, 20, 20);
   color: white;
 }

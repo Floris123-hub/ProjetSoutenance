@@ -7,12 +7,12 @@
     <div class="col-lg-5" style="margin-left: auto; margin-right: auto;">
                     <div class="p-5 ">
                         <div class="text-center ">
-                            <h1 class="h4 text-gray-900 mb-4 ">Veuillez remplir ce formulaire</h1>
+                            <h3>Veuillez remplir ce formulaire</h3>
                         </div>
                         <form class="user" style="text-align: center;" action="{% url 'demande permission' %}" method="post">
                             {% csrf_token %}
 
-                            <label class="label">
+                            {% comment %}<label class="label">
                                 <span class="span" required>Permissionnaire</span>
                                 <select name="permis">
                                     <option selected disabled>Veuillez sélectionner votre nom ...</option>
@@ -20,7 +20,7 @@
                                         <option value="{{ permis.Matricule }}">{{ permis.Nom }} {{ permis.Prenom }}</option>
                                     {% endfor %}
                                 </select>
-                            </label>
+                            </label>{% endcomment %}
                             <label class="label">
                                 <span class="span">Date de début</span>
                                 <input type="date" name="dateDebut" class="input">

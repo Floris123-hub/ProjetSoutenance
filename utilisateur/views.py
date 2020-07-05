@@ -10,6 +10,7 @@ import cv2
 
 # from django.contrib import auth
 # from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
 from django.http import HttpResponse
 # from rest_framework.parsers import JSONParser
 # from django.views.decorators.csrf import csrf_exempt
@@ -131,9 +132,11 @@ def login(request):
     if request.method == 'POST':
         # context = {}
         Myusername = request.POST.get('username')
-        # Mypassword = request.POST.get('password')
-        user = User.objects.get(username=Myusername)
+        Mypassword = request.POST.get('password')
+        # user = User.objects.get(username=Myusername)
+        user = authenticate(username=Myusername, password=Mypassword)
         if user:
+            print("You're authenticated !")
             request.session["user_id"] = user.id
             nom = Utilisateur.objects.get(user_id_id=user.id).Nom
             prenom = Utilisateur.objects.get(user_id_id=user.id).Prenom
@@ -150,6 +153,7 @@ def login(request):
             # context["nom"] = nom
             # context["prenom"] = prenom
             # print(context["prenom"])
+            print("You're logged in !")
             return redirect('espace utilisateur')
             # if user.is_superuser == 1:
             #     return redirect('espace administateur')
@@ -226,6 +230,15 @@ def logout(request):
         pass
     print("You're logged out.")
     return redirect('accueil')
+
+
+def profile(request):
+    emp_id = request.session["user_id"]
+    usr = User.objects.get(id=emp_id)
+    print(usr)
+    emp = Utilisateur.objects.get(user_id=emp_id)
+    print(emp)
+    return render(request, 'dashoard/profile.html', {'user': emp, 'usr': usr})
 
 
 def utilisateurs(request):
@@ -350,7 +363,9 @@ def forgotPass(request):
 def demandePermis(request):
     if request.method == 'POST':
         dateP = datetime.datetime.now()
-        permis = request.POST['permis']
+        # permis = request.POST['permis']
+        emp_id = request.session["user_id"]
+        emp = Utilisateur.objects.get(user_id=emp_id).Matricule
         dateDebut = request.POST['dateDebut']
         heureDebut = request.POST['heureDebut']
         dateFin = request.POST['dateFin']
@@ -359,7 +374,7 @@ def demandePermis(request):
         dateDebut = datetime.datetime.strptime(dateDebut, '%Y-%m-%d')
 
         if dateDebut >= dateP + datetime.timedelta(days=3):
-            permission = Permission.objects.create(Permissionnaire_id=permis, Date_Permission=dateP,
+            permission = Permission.objects.create(Permissionnaire_id=emp, Date_Permission=dateP,
                                                    Date_Debut=dateDebut, heure_Debut=heureDebut,
                                                    Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
             permission.save()

@@ -8,10 +8,9 @@ background
 }
 
 .bg-img{
-    background: url('../img/bg.jpg');
     height: 100vh;
     background-size: cover;
-    background-position: center;
+    background: url('../img/bg.jpg') center;
 }
 
 .bg-img::after{
@@ -64,10 +63,7 @@ header
 .header .header-menu .header-button{
     height: 40px;
     width: 40px;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
+    border-radius: 50%;
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
@@ -157,7 +153,6 @@ p{
     color: white;
     text-align: center;
     padding-top: 0px;
-    margin: 0;
     margin: 10px;
     font-size: 0.9em;
     font-weight: lighter;
@@ -171,8 +166,5 @@ modal
     position: fixed;
     width: 650px;
     top: 30%;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-radius: 5px;
 }
