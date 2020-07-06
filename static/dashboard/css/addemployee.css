@@ -168,11 +168,13 @@ nav .a .active {
     color: #0681ad;
 }
 
-i{
+.i{
     color: white;
 }
 
 .photo{
+    min-width: 100px;
+    min-height: 100px;
     height: 170px;
     width: 170px;
     max-width: 400px;
@@ -184,6 +186,23 @@ i{
     border-radius: 50%;
 }
 
-.modifier{
+.icon-photo{
+    margin-top: -47px;
+    height: 48px;
+    width: 48px;
+    background-color: #0681ad;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 2px 5px 20px rgba(30, 67, 92, 0.69);
+}
 
+.icon-photo:hover{
+    box-shadow: 2px 5px 20px rgba(50, 49, 49, 0.5);
+    transform: scale(1.2);
+}
+
+.ico{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
 }

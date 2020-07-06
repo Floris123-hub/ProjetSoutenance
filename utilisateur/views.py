@@ -235,10 +235,17 @@ def logout(request):
 def profile(request):
     emp_id = request.session["user_id"]
     usr = User.objects.get(id=emp_id)
-    print(usr)
+    # print(usr)
     emp = Utilisateur.objects.get(user_id=emp_id)
-    print(emp)
-    return render(request, 'dashoard/profile.html', {'user': emp, 'usr': usr})
+    # print(emp)
+    anniv = str(emp.DateDeNaissance).split('-', 3)
+    # print(anniv)
+    # print(type(anniv))
+    entree = str(emp.Date_Entree).split('-', 3)
+    print(entree)
+    sortie = str(emp.Date_Sortie).split('-', 3)
+    print(sortie)
+    return render(request, 'dashoard/profile.html', {'user': emp, 'usr': usr, 'anniv': anniv, 'entree': entree, 'sortie': sortie})
 
 
 def utilisateurs(request):
