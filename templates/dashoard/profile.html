@@ -18,27 +18,29 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block" style="text-align: center;border: dashed">Photo de l'employé</div>
+                    <div class="col-lg-5 d-none d-lg-block" style="text-align: center">
+                        <img src="../../static/dashboard/img/undraw_personalization_triu.svg" style="height: 100%; width: 100%">
+                    </div>
                     <div class="col-lg-7">
                         <div class="leftbox">
                             <nav>
                                 <a onclick="tabs(0)" class="tab active a">
-                                    <i class="fa fa-address-card"></i>
+                                    <i class="fa fa-shield-alt"></i>
                                 </a>
                                 <a onclick="tabs(1)" class="tab a">
-                                    <i class="fa fa-info"></i>
+                                    <i class="far fa-id-badge"></i>
                                 </a>
                                 <a onclick="tabs(2)" class="tab a">
-                                    <i class="fa fa-user-tie"></i>
+                                    <i class="far fa-address-card"></i>
                                 </a>
                                 <a onclick="tabs(3)" class="tab a">
-                                    <i class="fa fa-user-graduate"></i>
+                                    <i class="far fa-folder"></i>
                                 </a>
                                 <a onclick="tabs(4)" class="tab a">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fas fa-user-tie"></i>
                                 </a>
                                 <a onclick="tabs(5)" class="tab a">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fas fa-business-time"></i>
                                 </a>
                             </nav>
                         </div>
@@ -49,10 +51,21 @@
                                     <h5 class="label text-uppercase text-dark">Connexion</h5>
                                 </div>
                                 <label>
-                                    <i class="fa fa-file">
-                                        <input class="photo" type="file" value="{{ user.Photo }}">
-                                    </i>
+                                    {% if not user.Photo %}
+                                        {% if user.Sexe == 'M' %}
+                                            <img class="photo" src="../../static/dashboard/img/undraw_male_avatar_323b.svg">
+                                        {% endif %}
+                                        {% if user.Sexe == 'F' %}
+                                            <img class="photo" src="../../static/dashboard/img/undraw_female_avatar_w3jk.svg">
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if user.Photo %}
+                                        <label class="photo">{{ user.Photo }}</label>
+                                    {% endif %}
                                 </label>
+                                <div class="icon-photo">
+                                    <i></i>
+                                </div>
                                 <div>
                                     <label class="label">
                                         <span class="span">Pseudo</span>

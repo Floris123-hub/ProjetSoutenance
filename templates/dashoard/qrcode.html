@@ -1,17 +1,21 @@
 {% extends "dashoard/base.html" %}
 {% block title %}
-    <title>Dashboard - Présence</title>
+    <title xmlns:color="http://www.w3.org/1999/xhtml">Dashboard - Présence</title>
 {% endblock %}
-{% block content %}
-    <link rel="stylesheet" href="../../static/dashboard/css/buttonqr.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+{% block css %}
+    <link rel="stylesheet" href="../../static/dashboard/css/buttonqr.css">
+    <link rel="stylesheet" href="../../static/dashboard/css/illustrations.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
     <!-- QR Code Start Work Day Button -->
-    <button type="button" class="btn btn-primary buttonCli" style="display: block;position: relative;top:auto;bottom: auto;margin: auto; border-radius: 25px">
+    <div type="button" class="btn buttonCli" style="display: block;position: relative;top:auto;bottom: auto;margin: auto; border-radius: 25px; height:150px; width: 150px;">
         <a style="color: aliceblue;" href="{% url 'scan qr'%}">
-            <i class="fas fa-qrcode fa-10x"></i>
+            <img src="../../static/dashboard/img/qr_code_flatline.svg" class="svg-btn">
         </a>
-    </button>
+    </div>
 
     <br>
 
