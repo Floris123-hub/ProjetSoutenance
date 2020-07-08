@@ -1,4 +1,4 @@
-#!/home/ferjeux/PycharmProjects/GP/venv/bin/python3
+#!/home/ferjeux/PycharmProjects/GP/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
