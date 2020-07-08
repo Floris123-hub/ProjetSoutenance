@@ -1,0 +1,17 @@
+@-webkit-keyframes clignote {
+0%{box-shadow:0 0 10px #4183C4;}
+50%{box-shadow:0 0 0 #4183C4;}
+100%{box-shadow:0 0 10px #4183C4;}
+}
+
+.buttonCli{
+font-weight: bold;
+text-shadow: 0 1px 0 white;
+border-radius: 3px;
+padding: 5px 10px;
+border: 1px solid #DDD;
+box-shadow:0 0 10px #4183C4;
+-webkit-animation-name: clignote;
+-webkit-animation-duration: 1s;
+-webkit-animation-iteration-count:infinite;
+}

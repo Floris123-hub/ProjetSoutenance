@@ -1,0 +1,15 @@
+.svg{
+    margin-right: 5%;
+    padding: 2px;
+    border-radius: 29%;
+    height: 100%;
+    width: 7%;
+    border: solid 1px #0681ad;
+}
+
+.svg-btn{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
