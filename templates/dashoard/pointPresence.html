@@ -18,30 +18,36 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Employés</th>
-                        <th>Heure d'Arrivée</th>
-                        <th>Heure de Début de Pause</th>
-                        <th>Heure de fin de Pause</th>
-                        <th>Heure de Départ</th>
+                        <th>Arrivée</th>
+                        <th>Début de Pause</th>
+                        <th>Fin de Pause</th>
+                        <th>Départ</th>
+                        <th>Statut</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>Date</th>
                         <th>Employés</th>
-                        <th>Heure d'Arrivée</th>
-                        <th>Heure de Début de Pause</th>
-                        <th>Heure de fin de Pause</th>
-                        <th>Heure de Départ</th>
+                        <th>Arrivée</th>
+                        <th>Début de Pause</th>
+                        <th>Fin de Pause</th>
+                        <th>Départ</th>
+                        <th>Statut</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     {% for lst in listeP %}
                         <tr>
+                            <td>{{ lst.date }}</td>
                             <td>{{ lst.employe }}</td>
                             <td>{{ lst.heureArrivee }}</td>
                             <td>{{ lst.debutPause }}</td>
                             <td>{{ lst.finPause }}</td>
                             <td>{{ lst.heureDepart }}</td>
+                            <td>{{ lst.statut }}</td>
                         </tr>
                     {% endfor %}
 

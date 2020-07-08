@@ -266,7 +266,7 @@ def conges(request):
 
 
 def tablePresence(request):
-    liste = Presence.objects.all().order_by('aujourdhui')
+    liste = Presence.objects.all().order_by('date', 'heureArrivee')
     return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
 
 
@@ -437,10 +437,21 @@ def qrscan(request):
     if Ucoord[0] == data[0] and Ucoord[1] == data[1]:
         cap.release()
         cv2.destroyAllWindows()
-        arrivee = datetime.datetime.now()
+        arrivee = datetime.datetime.now().time()
+        print(arrivee)
+        heure = datetime.time(8, 00, 00, 00)
+        print(heure)
         emp_id = request.session["user_id"]
         emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-        Presence.objects.create(heureArrivee=arrivee, employe_id=emp)
+        pres = Presence.objects.create(heureArrivee=arrivee, employe_id=emp, date=datetime.date.today())
+        print(str(pres.employe) + " " + str(pres.heureArrivee) + " " + str(pres.debutPause) + " " + str(pres.finPause) + " " + str(pres.heureDepart) + " " + str(pres.statut))
+        dif = heure - arrivee
+        print(str(dif))
+        if arrivee <= heure:
+            Presence.objects.filter(heureArrivee=arrivee, employe_id=emp, date=datetime.date.today()).update(statut="Présent ! (À l'heure)")
+        elif arrivee > heure:
+            Presence.objects.filter(heureArrivee=arrivee, employe_id=emp, date=datetime.date.today()).update(statut="Présent ! (En retard)")
+        print(str(pres.employe) + " " + str(pres.heureArrivee) + " " + str(pres.debutPause) + " " + str(pres.finPause) + " " + str(pres.heureDepart) + " " + str(pres.statut))
         # Redirection to userspace
         return redirect('espace utilisateur')
     else:
@@ -449,19 +460,19 @@ def qrscan(request):
 
 def PauseDej_Debut(request):
     debut = datetime.datetime.now()
-    jour = datetime.datetime.today()
+    jour = datetime.date.today()
     emp_id = request.session["user_id"]
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(debutPause=debut)
+    Presence.objects.filter(employe_id=emp, date=jour).update(debutPause=debut)
     return redirect('espace utilisateur')
 
 
 def PauseDej_Fin(request):
     fin = datetime.datetime.now()
-    jour = datetime.datetime.today()
+    jour = datetime.date.today()
     emp_id = request.session["user_id"]
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(finPause=fin)
+    Presence.objects.filter(employe_id=emp, date=jour).update(finPause=fin)
     return redirect('espace utilisateur')
 
 

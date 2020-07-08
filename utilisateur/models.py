@@ -223,7 +223,7 @@ class Prendre_Conge(models.Model):
     conges = models.ForeignKey(Conges, on_delete=models.CASCADE)
     date = models.ForeignKey(Calendrier_Conge, on_delete=models.CASCADE)
     Duree = models.PositiveIntegerField()
-    Status = models.CharField(choices=STATUS_CONGES, max_length=10)
+    Status = models.CharField(choices=STATUS_CONGES, max_length=30)
 
     def __str__(self):
         return self.employe + " " + self.date
@@ -233,12 +233,13 @@ class Prendre_Conge(models.Model):
 #                           LES PRÉSENCES                              #
 ########################################################################
 class Presence(models.Model):
-    aujourdhui = models.DateField(verbose_name="Aujourd'hui", default=datetime.datetime.today())
+    date = models.DateField(verbose_name="Date", null=True)
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, verbose_name="Employé")
-    heureArrivee = models.DateTimeField(verbose_name="Heure d'Arrivée")
-    heureDepart = models.DateTimeField(verbose_name="Heure de Départ", null=True)
-    debutPause = models.DateTimeField(verbose_name="Heure de début de la Pause", null=True)
-    finPause = models.DateTimeField(verbose_name="Heure de fin de la Pause", null=True)
+    heureArrivee = models.TimeField(verbose_name="Heure d'Arrivée")
+    heureDepart = models.TimeField(verbose_name="Heure de Départ", null=True)
+    debutPause = models.TimeField(verbose_name="Heure de début de la Pause", null=True)
+    finPause = models.TimeField(verbose_name="Heure de fin de la Pause", null=True)
+    statut = models.CharField(verbose_name="Statut", null=True, max_length=50)
 
     def __str__(self):
         return self.employe
