@@ -1,6 +1,10 @@
 from .settings import *
 
+import dj_database_url
+
 DEBUG = False
+
+DATABASES['default'] = dj_database_url.config()
 
 ALLOWED_HOSTS = ['127.0.0.1', 'gest-perso.herokuapp.com']
 
