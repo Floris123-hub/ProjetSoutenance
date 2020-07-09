@@ -4,7 +4,11 @@ import dj_database_url
 
 DEBUG = False
 
-DATABASES['default'] = dj_database_url.config('CLEARDB_DATABASE_URL')
+DATABASES['default'] = dj_database_url.config()
+
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'gest-perso.herokuapp.com']
 
