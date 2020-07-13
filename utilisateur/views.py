@@ -478,11 +478,18 @@ def PauseDej_Fin(request):
 
 def Depart(request):
     depart = datetime.datetime.now()
-    jour = datetime.datetime.today()
+    jour = datetime.date.today()
     emp_id = request.session["user_id"]
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    Presence.objects.filter(employe_id=emp, aujourdhui=jour).update(heureDepart=depart)
+    Presence.objects.filter(employe_id=emp, date=jour).update(heureDepart=depart)
     return redirect('espace utilisateur')
+
+
+def affichageBouton(request):
+    emp_id = request.session["user_id"]
+    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+    cond = Presence.objects.get(employe_id=emp, date=datetime.date.today)
+    return render(request, 'dashoard/qrcode.html', {'cond': cond})
 
 
 def notesform(request):
