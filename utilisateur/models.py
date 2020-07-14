@@ -153,7 +153,7 @@ STATUS_PERMISSION = (
 class Permission(models.Model):
     Code_Permission = models.AutoField(primary_key=True)
     Permissionnaire = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-    Date_Permission = models.DateField(default=datetime.date.today())
+    Date_Permission = models.DateField(default=datetime.date.today)
     Date_Debut = models.DateField()
     heure_Debut = models.TimeField()
     Date_Fin = models.DateField()

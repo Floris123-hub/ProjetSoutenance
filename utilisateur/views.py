@@ -404,7 +404,7 @@ def qrscan(request):
     g = geocoder.ip('me')
     Ucoord = g.latlng
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(-1)
 
     # initialize the cv2 QRCode detector
     detector = cv2.QRCodeDetector()
