@@ -10,6 +10,7 @@ import cv2
 
 # from django.contrib import auth
 # from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
 # from rest_framework.parsers import JSONParser
@@ -130,35 +131,31 @@ def home(request):
 def login(request):
     template = loader.get_template('login.html')
     if request.method == 'POST':
-        # context = {}
         Myusername = request.POST.get('username')
         Mypassword = request.POST.get('password')
         # user = User.objects.get(username=Myusername)
         user = authenticate(username=Myusername, password=Mypassword)
         if user:
-            print("You're authenticated !")
+            messages.success(request, "Connecté(e)", extra_tags='alert')
             request.session["user_id"] = user.id
             nom = Utilisateur.objects.get(user_id_id=user.id).Nom
             prenom = Utilisateur.objects.get(user_id_id=user.id).Prenom
-            # admin = Utilisateur.objects.get(user_id_id=user.id).admin
+            admin = Utilisateur.objects.get(user_id_id=user.id).admin
+            Count = Notes_Internes.objects.filter(Date=datetime.date.today())
+            print(Count)
+            # Count1 = Presence.objects.get(date=datetime.date.today())
+            # print(Count1)
+            badgeCount = Count.count()
+            print(badgeCount)
+            request.session["count"] = badgeCount
+            # request.session["count1"] = Count1
             request.session["nom"] = nom
             request.session["prenom"] = prenom
-            # request.session["admin"] = admin
-
-            # Personne = str(personne[0])
-            # print(type(nom))
-            # print(nom)
-            # print(type(prenom))
-            # print(prenom)
-            # context["nom"] = nom
-            # context["prenom"] = prenom
-            # print(context["prenom"])
+            request.session["admin"] = admin
             print("You're logged in !")
+
             return redirect('espace utilisateur')
-            # if user.is_superuser == 1:
-            #     return redirect('espace administateur')
-            # else:
-            #     return redirect('espace utilisateur')
+            # return render(request, 'dashoard/index.html', {'popup': message})
         else:
             return redirect('erreur')
     else:
@@ -195,9 +192,9 @@ def register(request):
 
         if pass1 == pass2:
             if User.objects.filter(username=username).exists():
-                print('Le Pseudo est déjà pris !')
+                messages.error(request, "Le PSEUDO est déjà pris !", extra_tags='alert')
             elif Utilisateur.objects.filter(Mail=mail).exists():
-                print('Email déjà pris !')
+                messages.error(request, "Erreur d'Adresse Mail", extra_tags='alert')
             else:
                 user = User.objects.create_user(username=username, password=pass1)
                 user.save()
@@ -213,9 +210,9 @@ def register(request):
                                                          Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
                                                          LettreDeMotivation=motivation, user_id_id=user.id)
                 utilisateur.save()
-                print('Utilisateur créé !')
+                messages.success(request, "Utilisateur créé avec succès !", extra_tags='alert')
         else:
-            print('Les mots de passe ne correspondent pas !')
+            messages.error(request, "Les mots de passe ne correspondent pas!", extra_tags='alert')
         return redirect('connexion')
 
     else:
@@ -228,23 +225,17 @@ def logout(request):
         del request.session['user_id']
     except KeyError:
         pass
-    print("You're logged out.")
+    messages.error(request, "Déconnexion réussie !", extra_tags='alert')
     return redirect('accueil')
 
 
 def profile(request):
     emp_id = request.session["user_id"]
     usr = User.objects.get(id=emp_id)
-    # print(usr)
     emp = Utilisateur.objects.get(user_id=emp_id)
-    # print(emp)
     anniv = str(emp.DateDeNaissance).split('-', 3)
-    # print(anniv)
-    # print(type(anniv))
     entree = str(emp.Date_Entree).split('-', 3)
-    print(entree)
     sortie = str(emp.Date_Sortie).split('-', 3)
-    print(sortie)
     return render(request, 'dashoard/profile.html', {'user': emp, 'usr': usr, 'anniv': anniv, 'entree': entree, 'sortie': sortie})
 
 
@@ -316,9 +307,9 @@ def addEmploye(request):
 
         if pass1 == pass2:
             if User.objects.filter(username=username).exists():
-                print('Le Pseudo est déjà pris !')
+                messages.error(request, "Le PSEUDO est déjà pris !", extra_tags='alert')
             elif Utilisateur.objects.filter(Mail=mail).exists():
-                print('Adresse mail déjà utilisée !')
+                messages.error(request, "Erreur d'Adresse Mail !", extra_tags='alert')
             else:
                 user = User.objects.create_user(username=username, password=pass1)
                 user.save()
@@ -334,10 +325,10 @@ def addEmploye(request):
                                                          Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
                                                          LettreDeMotivation=motivation, user_id_id=user.id)
                 utilisateur.save()
-                print('Employé(e) bien ajouté(e) !')
+                messages.success(request, "Employé(e) bien ajouté(e) !", extra_tags='alert')
                 return redirect('espace utilisateur')
         else:
-            print('Les mots de passe ne correspondent pas !')
+            messages.error(request, "Les mots de passe ne correspondent pas!", extra_tags='alert')
         return redirect('ajouter Employe')
     return HttpResponse(template.render(request=request))
 
@@ -380,14 +371,14 @@ def demandePermis(request):
         motif = request.POST['motif']
         dateDebut = datetime.datetime.strptime(dateDebut, '%Y-%m-%d')
 
-        if dateDebut >= dateP + datetime.timedelta(days=3):
+        if dateDebut >= dateP + datetime.timedelta(days=2):
             permission = Permission.objects.create(Permissionnaire_id=emp, Date_Permission=dateP,
                                                    Date_Debut=dateDebut, heure_Debut=heureDebut,
                                                    Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
             permission.save()
+            messages.success(request, 'Demande envoyée avec succes !', extra_tags='alert')
         else:
-            print('Erreur !')
-            print('La permission doit être demandée trois jours plus tôt !')
+            messages.error(request, "Erreur!!! La permission doit être demandée trois (03) jours plus tôt.", extra_tags='alert')
             page = loader.get_template('dashoard/permissionForm.html')
             return HttpResponse(page.render(request=request))
     permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
@@ -443,7 +434,7 @@ def qrscan(request):
         print(heure)
         emp_id = request.session["user_id"]
         emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-        pres = Presence.objects.create(heureArrivee=arrivee, employe_id=emp, date=datetime.date.today())
+        pres = Presence.objects.create(heureArrivee=arrivee, employe_id=emp, date=datetime.date.today)
         print(str(pres.employe) + " " + str(pres.heureArrivee) + " " + str(pres.debutPause) + " " + str(pres.finPause) + " " + str(pres.heureDepart) + " " + str(pres.statut))
         dif = heure - arrivee
         print(str(dif))
@@ -504,8 +495,9 @@ def notes(request):
         contenu = request.POST['contenu']
         note = Notes_Internes.objects.create(Code_Note=code, Titre=titre, Contenu=contenu)
         note.save()
+        messages.success(request, "La note a bien été envoyé !", extra_tags='alert')
     else:
-        return redirect('erreur')
+        messages.error(request, "Quelque chose s'est mal passé :(", extra_tags='alert')
     return redirect('espace utilisateur')
 
 

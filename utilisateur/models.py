@@ -172,6 +172,7 @@ class Notes_Internes(models.Model):
     Code_Note = models.CharField(blank=False, primary_key=True, max_length=30)
     Titre = models.CharField(blank=True, max_length=200)
     Contenu = models.TextField(max_length=2500)
+    Date = models.DateTimeField(default=datetime.date.today)
 
     def __str__(self):
         return self.Code_Note + " " + self.Titre
@@ -233,9 +234,9 @@ class Prendre_Conge(models.Model):
 #                           LES PRÉSENCES                              #
 ########################################################################
 class Presence(models.Model):
-    date = models.DateField(verbose_name="Date", null=True)
+    date = models.DateField(verbose_name="Date", default=datetime.date.today)
     employe = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, verbose_name="Employé")
-    heureArrivee = models.TimeField(verbose_name="Heure d'Arrivée")
+    heureArrivee = models.DateTimeField(verbose_name="Heure d'Arrivée")
     heureDepart = models.TimeField(verbose_name="Heure de Départ", null=True)
     debutPause = models.TimeField(verbose_name="Heure de début de la Pause", null=True)
     finPause = models.TimeField(verbose_name="Heure de fin de la Pause", null=True)

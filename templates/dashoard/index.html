@@ -15,11 +15,11 @@
                 <!-- Collapsable Card Example -->
                 <div class="card shadow mb-4">
                     <!-- Card Header - Accordion -->
-                    <a class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                    <a href="#collapseCardExample{{ forloop.counter }}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-primary" style="text-decoration: underline; text-transform: uppercase">{{ listeNote.Code_Note }}</h6>
                     </a>
                     <!-- Card Content - Collapse -->
-                    <div class="collapse show">
+                    <div id="collapseCardExample{{ forloop.counter }}" class="collapse show">
                         <div class="card-body"> <strong style="font-size:large; text-decoration: underline; text-transform: uppercase">{{ listeNote.Titre }}</strong> <br> {{ listeNote.Contenu }}</div>
                     </div>
                 </div>
