@@ -13,82 +13,281 @@
 
     <!-- Custom fonts for this template-->
     <link href="../../static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../../static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../static/src/css/formulaire.css" rel="stylesheet">
+    <link href="../../static/src/css/style.css" rel="stylesheet">
 
 </head>
 
 <body class="bg-gradient-primary">
 
-    <div class="container">
+<div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                            </div>
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h3 text-gray-900 mb-4">INSCRIPTION</h1>
+                        </div>
+                        <form class="user">
+                            <div id="svg_wrap"></div>
+                            <section>
+                                <label class=" form-group label">
+                                    <span class="span">Nom</span>
+                                    <input type="text" class="input" name="nom" required>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Prénom(s)</span>
+                                    <input type="text" class="input" name="prenoms" required>
+                                </label>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Sexe</span><br>
+                                        <select name="sexe">
+                                            <option>F</option>
+                                            <option>M</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <label class="label">
+                                    <span class="span">Date de naissance</span>
+                                    <input class="input" type="date" name="birthday">
+                                </label>
+                                <label class="label">
+                                    <span class="span">Adresse de résidence</span>
+                                    <input type="text" class="input" name="adresse">
+                                </label>
+
+                                <div class="control has-icons-left">
+                                    <div class="select is-rounded">
+                                        <label class="label">
+                                            <span class="span">Pays de résidence</span>
+                                            <div>
+                                                <i class="fas fa-globe"></i>
+                                                <select name="pays">
+                                                    <option style="font-style: italic" selected disabled>--Pays--</option>
+                                                    <option>Bénin</option>
+                                                    <option>Ghana</option>
+                                                    <option>Togo</option>
+                                                    <option>Nigeria</option>
+                                                </select>
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+
+                                <label class="label">
+                                    <span class="span">Ville</span>
+                                    <input type="text" class="input" name="ville">
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="label">
+                                    <span class="span">N° CIN</span>
+                                    <input class="input" type="number" name="cin" maxlength="9" MIN="0">
+                                </label>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Status matrimoniel</span>
+                                        <select name="statusMat">
+                                            <option>Célibataire</option>
+                                            <option>En couple</option>
+                                            <option>Marié(e)</option>
+                                            <option>Divorcé(e)</option>
+                                        </select>
+                                    </label>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
+
+                                <label class="label">
+                                    <span class="span">Enfants</span>
+                                    <input class="input" type="number" name="enfants" min="0">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Téléphone</span>
+                                    <input class="input" type="tel" name="mobile">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Contact d'urgence</span>
+                                    <input class="input" type="text" name="contactUrgence">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Numéro du contact d'urgence</span>
+                                    <input class="input" type="tel" name="telUrgence">
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="label">
+                                    <span class="span">Filière</span>
+                                    <input class="input" type="text" name="filiere">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">CV</span>
+                                    <input class="input" type="file" name="cv">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Lettre de recommandation</span>
+                                    <input class="input" type="file" name="recommandation">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Lettre de motivation</span>
+                                    <input class="input" type="file" name="motivation">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">demande d'emploi</span>
+                                    <input class="input" type="file" name="emploi">
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="label">
+                                    <span class="span">Statut</span><br>
+                                    <select name="TypeUtil">
+                                        <option>Employé</option>
+                                        <option>Stagiaire</option>
+                                    </select>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Tél. Fixe</span>
+                                    <input class="input" type="tel" name="fixe">
+                                </label>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Département</span>
+                                        <select name="departement" style="max-width: 250px">
+                                            <option style="font-style: italic"selected disabled>--Département--</option>
+                                            <option >Direction</option>
+                                            <option>Service Comptabilité</option>
+                                            <option>Ressources Humaines</option>
+                                            <option>Production et Développement</option>
+                                            <option>Service IT</option>
+                                            <option>Communication et Marketing</option>
+                                            <option>Service Commercial</option>
+                                            <option>Service Juridique</option>
+                                        </select>
+                                    </label>
                                 </div>
-                                <a href="index.html" class="btn btn-primary btn-user btn-block">
-                  Register Account
-                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+
+                                <div class="select is-rounded">
+                                    <label class="label">
+                                        <span class="span">Fonction</span>
+                                        <select name="fonction" style="max-width: 250px">
+                                            <option style="font-style: italic" selected disabled>--Fonction--</option>
+                                            <option>Développeur(euse) Front-End</option>
+                                            <option>Développeur(euse) Back-End</option>
+                                            <option>Développeur(euse) Full Stack</option>
+                                            <option>Graphiste</option>
+                                            <option>Maintenancier</option>
+                                            <option>Community Manager</option>
+                                            <option>Chargé(e) de Communication</option>
+                                            <option>Gestionnnaire Comptable</option>
+                                            <option>Assistant(e) Gestionnaire Comptable</option>
+                                            <option>Auditeur(trice)</option>
+                                            <option>Commissaire aux comptes</option>
+                                            <option>Juriste</option>
+                                            <option>Directeur(trice) des Ressources Humaines</option>
+                                            <option>Assistant(e) de direction des Ressources Humaines</option>
+                                            <option>Directeur(trice) Général(e)</option>
+                                            <option>Assistant(e) de Direction Générale</option>
+                                            <option>Directeur(trice) Commercial(e)</option>
+                                            <option>Assistant(e) de Direction Commercial(e)</option>
+                                        </select>
+                                    </label>
+
+                                    <label class="label">
+                                        <span class="span">E-mail</span>
+                                        <input class="input" type="email" name="email">
+                                    </label>
+                                </div>
+                            </section>
+
+                            <section>
+                                <label class="label">
+                                    <span class="span">Superviseur</span>
+                                    <input class="input" type="text" name="superviseur">
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Type de contract</span>
+                                    <select name="contrat">
+                                        <option>Contrat à durée Déterminée</option>
+                                        <option>Contrat à durée Indéterminée</option>
+                                        <option>Convention de stage</option>
+                                        <option>Contrat de Prestation</option>
+                                    </select>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Date d'entrée (Fonction)</span>
+                                    <input class="input" type="date" name="debutContrat" required>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Date de Sortie (Fonction)</span>
+                                    <input class="input" type="text" name="finContrat">
+                                </label>
+                            </section>
+
+                            <div class="arrows">
+                                <div class="button left" id="prev">
+                                    <i class="fas fa-arrow-circle-left icon" style="margin-top: 4px;"></i>
+                                </div>
+                                <div class="button right" id="next">
+                                    <i class="fas fa-arrow-circle-right icon" style="margin-top: 4px;"></i>
+                                </div>
                             </div>
-                            <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
-                            </div>
+
+                            <button id="submit" href="{% url 'inscription' %}" class="button bouton submit">S'inscrire
+                            </button>
+
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="{% url 'Mot de passe oublie' %}">Mot de passe oublié ?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="{% url 'connexion' %}">Vous avez déjà un compte ? Connectez-vous
+                                !</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../static/dashboard/vendor/jquery/jquery.min.js"></script>
-    <script src="../../static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</div>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../../static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../../static/dashboard/js/sb-admin-2.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="../../static/dashboard/vendor/jquery/jquery.min.js"></script>
+<script src="../../static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../../static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../../static/src/js/formulaire.js"></script>
 
 </body>
 

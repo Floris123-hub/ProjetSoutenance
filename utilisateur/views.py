@@ -124,12 +124,12 @@ class PresenceViewSet(viewsets.ModelViewSet):
 
 
 def home(request):
-    template = loader.get_template('index.html')
+    template = loader.get_template('dashoard/login.html')
     return HttpResponse(template.render(request=request))
 
 
 def login(request):
-    template = loader.get_template('login.html')
+    template = loader.get_template('dashoard/login.html')
     if request.method == 'POST':
         Myusername = request.POST.get('username')
         Mypassword = request.POST.get('password')
@@ -216,7 +216,7 @@ def register(request):
         return redirect('connexion')
 
     else:
-        template = loader.get_template('form.html')
+        template = loader.get_template('dashoard/register.html')
         return HttpResponse(template.render(request=request))
 
 
