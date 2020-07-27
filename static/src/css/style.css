@@ -1,0 +1,135 @@
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+}
+
+.input,
+.bouton {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.icon {
+    font-size: 25px;
+}
+
+.button {
+    text-align: center;
+    outline: none;
+    height: 35px;
+    width: 35px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: rgb(218, 20, 20);
+    color: white;
+}
+
+.left {
+    margin-right: 0px;
+}
+
+.right {
+    margin-left: 0px;
+}
+
+.form {
+    position: relative;
+}
+
+#svg_form_time {
+    height: 15px;
+    max-width: 80%;
+    margin: 40px auto 20px;
+    display: block;
+}
+
+#svg_form_time circle,
+#svg_form_time rect {
+    fill: white;
+}
+
+h2 {
+    width: 100%;
+    font-size: 28px;
+    text-align: center;
+    padding-bottom: 34px;
+}
+
+.label {
+    display: block;
+    width: 260px;
+    margin: 25px auto 0;
+    text-align: center;
+}
+
+.label .span {
+    font-size: 14px;
+    font-weight: 390;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    color: #505f75;
+    text-transform: uppercase;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(109, 93, 93, 0.4);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bouton {
+    display: block;
+    margin: 0 auto;
+    width: 260px;
+    height: 36px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.submit {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: -webkit-linear-gradient(left, #7579ff, #b224ef);
+}
+
+.submit:hover {
+    background: -webkit-linear-gradient(left, #b224ef, #7579ff);
+}
+
+.google {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: 300;
+    font-family: 'Nunito', sans-serif;
+    background: rgb(228, 28, 28);
+}
+
+.google:hover {
+    background: rgb(197, 33, 33);
+}
+
+.disabled {
+    display: none;
+}
+
+.arrows {
+    margin-top: 20px;
+    margin-left: 157px;
+    margin-right: 157px;
+    background-color: black;
+}
