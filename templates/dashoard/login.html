@@ -41,7 +41,8 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Connexion</h1>
                                 </div>
-                                <form class="user">
+                                <form action="{% url 'connexion' %}" method="post" class="user">
+                                    {% csrf_token %}
                                     <label class="form-group label">
                                         <span class="span">Pseudo</span>
                                         <input type="text" class="input" name="username">
@@ -55,7 +56,9 @@
                                     </button>
                                     <hr>
                                     <button href="#" class="bouton google">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                        <i class="fab fa-google fa-fw"
+                                           style="border: white solid 1px; border-radius: 50%; height: 21px; width: 21px; padding-top: 2px; padding-left: 1px;"></i>
+                                        Se connecter avec Google
                                     </button>
                                 </form>
                                 <hr>

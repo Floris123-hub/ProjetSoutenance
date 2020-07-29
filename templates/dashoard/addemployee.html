@@ -14,48 +14,38 @@
 
                 <section>
                     <a href="#IP" data-toggle="collapse">
-                        Informations personnelles
+                        Informations d'identité
                         <hr style="width: 200px;">
                     </a>
 
                     <div id="IP" class="collapse">
                         <label class="label">
                             <span class="span">Nom</span>
-                            <input type="text" name="nom" class="input">
+                            <input type="text" class="input" name="nom" required>
                         </label>
 
                         <label class="label">
-                            <span class="span">Prénoms(s)</span>
-                            <input type="text" name="prenoms" class="input">
+                            <span class="span">Prénom(s)</span>
+                            <input type="text" class="input" name="prenoms" required>
                         </label>
 
                         <div class="select is-rounded">
                             <label class="label">
                                 <span class="span">Sexe</span><br>
-                                <select name="sexe" required>
-                                    <option>M</option>
+                                <select name="sexe">
                                     <option>F</option>
+                                    <option>M</option>
                                 </select>
                             </label>
                         </div>
 
                         <label class="label">
                             <span class="span">Date de naissance</span>
-                            <input class="input" type="date" name="birthday" required>
+                            <input class="input" type="date" name="birthday">
                         </label>
-                    </div>
-                </section>
-
-                <section>
-                    <a href="#Ad" data-toggle="collapse">
-                        Adresse
-                        <hr style="width: 80px;">
-                    </a>
-
-                    <div id="Ad" class="collapse">
                         <label class="label">
                             <span class="span">Adresse de résidence</span>
-                            <input type="text" class="input" name="adresse" required>
+                            <input type="text" class="input" name="adresse">
                         </label>
 
                         <div class="control has-icons-left">
@@ -64,7 +54,7 @@
                                     <span class="span">Pays de résidence</span>
                                     <div>
                                         <i class="fas fa-globe"></i>
-                                        <select name="pays" required>
+                                        <select name="pays">
                                             <option>Bénin</option>
                                             <option>Ghana</option>
                                             <option>Togo</option>
@@ -77,26 +67,43 @@
 
                         <label class="label">
                             <span class="span">Ville</span>
-                            <input type="text" class="input" name="ville" required>
+                            <input type="text" class="input" name="ville">
                         </label>
                     </div>
                 </section>
 
                 <section>
-                    <a href="#IC" data-toggle="collapse">
-                        Informations contacts
-                        <hr style="width: 170px;">
+                    <a href="#Ad" data-toggle="collapse">
+                        Statut & Contacts
+                        <hr style="width: 80px;">
                     </a>
 
-                    <div id="IC" class="collapse">
+                    <div id="Ad" class="collapse">
                         <label class="label">
-                            <span class="span">E-mail</span>
-                            <input class="input" type="email" name="email" required>
+                            <span class="span">N° CIN</span>
+                            <input class="input" type="number" name="cin" maxlength="9" MIN="0">
+                        </label>
+
+                        <div class="select is-rounded">
+                            <label class="label">
+                                <span class="span">Status matrimoniel</span>
+                                <select name="statusMat">
+                                    <option>Célibataire</option>
+                                    <option>En couple</option>
+                                    <option>Marié(e)</option>
+                                    <option>Divorcé(e)</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <label class="label">
+                            <span class="span">Enfants</span>
+                            <input class="input" type="number" name="enfants" min="0">
                         </label>
 
                         <label class="label">
                             <span class="span">Téléphone</span>
-                            <input class="input" type="tel" name="mobile" required>
+                            <input class="input" type="tel" name="mobile">
                         </label>
 
                         <label class="label">
@@ -112,29 +119,49 @@
                 </section>
 
                 <section>
-                    <a href="#AI" data-toggle="collapse">Autres informations</a>
+                    <a href="#IC" data-toggle="collapse">
+                        Informations de dossier
+                        <hr style="width: 170px;">
+                    </a>
+
+                    <div id="IC" class="collapse">
+                        <label class="label">
+                            <span class="span">Filière</span>
+                            <input class="input" type="text" name="filiere">
+                        </label>
+
+                        <label class="label">
+                            <span class="span">CV</span>
+                            <input class="input" type="file" name="cv">
+                        </label>
+
+                        <label class="label">
+                            <span class="span">Lettre de recommandation</span>
+                            <input class="input" type="file" name="recommandation">
+                        </label>
+
+                        <label class="label">
+                            <span class="span">Lettre de motivation</span>
+                            <input class="input" type="file" name="motivation">
+                        </label>
+
+                        <label class="label">
+                            <span class="span">demande d'emploi</span>
+                            <input class="input" type="file" name="emploi">
+                        </label>
+                    </div>
+                </section>
+
+                <section>
+                    <a href="#AI" data-toggle="collapse">Statut & Poste</a>
                     <hr style="width: 160px;">
                     <div id="AI" class="collapse">
                         <label class="label">
-                            <span class="span">N° CIN</span>
-                            <input class="input" type="number" name="cin" required maxlength="9" MIN="0">
-                        </label>
-
-                        <div class="select is-rounded">
-                            <label class="label">
-                                <span class="span">Status matrimoniel</span>
-                                <select name="statusMat" required>
-                                    <option>Célibataire</option>
-                                    <option>En couple</option>
-                                    <option>Marié(e)</option>
-                                    <option>Divorcé(e)</option>
-                                </select>
-                            </label>
-                        </div>
-
-                        <label class="label">
-                            <span class="span">Enfants</span>
-                            <input class="input" type="number" name="enfants" min="0" required>
+                            <span class="span">Statut</span><br>
+                            <select name="TypeUtil">
+                                <option>Employé</option>
+                                <option>Stagiaire</option>
+                            </select>
                         </label>
 
                         <label class="label">
@@ -145,7 +172,8 @@
                         <div class="select is-rounded">
                             <label class="label">
                                 <span class="span">Département</span>
-                                <select name="departement" required>
+                                <select name="departement" style="max-width: 250px">
+                                    <option style="font-style: italic" selected disabled>--Département--</option>
                                     <option>Direction</option>
                                     <option>Service Comptabilité</option>
                                     <option>Ressources Humaines</option>
@@ -161,7 +189,8 @@
                         <div class="select is-rounded">
                             <label class="label">
                                 <span class="span">Fonction</span>
-                                <select name="fonction" required>
+                                <select name="fonction" style="max-width: 250px">
+                                    <option style="font-style: italic" selected disabled>--Fonction--</option>
                                     <option>Développeur(euse) Front-End</option>
                                     <option>Développeur(euse) Back-End</option>
                                     <option>Développeur(euse) Full Stack</option>
@@ -185,8 +214,8 @@
                         </div>
 
                         <label class="label">
-                            <span class="span">Lettre de Demande d'emploi</span>
-                            <input type="file" name="demande" required>
+                            <span class="span">E-mail</span>
+                            <input class="input" type="email" name="email">
                         </label>
                     </div>
 
@@ -195,33 +224,36 @@
                 <section>
 
                     <a href="#Dos" data-toggle="collapse">
-                        Dossier
+                        Contrat & Durée
                         <hr style="width: 70px;">
                     </a>
 
                     <div id="Dos" class="collapse">
                         <label class="label">
-                            <span class="span">Filière</span>
-                            <input class="input" type="text" name="filiere" required>
+                            <span class="span">Superviseur</span>
+                            <input class="input" type="text" name="superviseur">
                         </label>
 
                         <label class="label">
-                            <span class="span">CV</span>
-                            <input class="input" type="file" name="cv">
+                            <span class="span">Type de contract</span>
+                            <select name="contrat">
+                                <option>Contrat à durée Déterminée</option>
+                                <option>Contrat à durée Indéterminée</option>
+                                <option>Convention de stage</option>
+                                <option>Contrat de Prestation</option>
+                            </select>
                         </label>
 
                         <label class="label">
-                            <span class="span">Lettre de recommandation</span>
-                            <input class="input" type="file" name="recommandation" required>
+                            <span class="span">Date d'entrée (Fonction)</span>
+                            <input class="input" type="date" name="debutContrat" required>
                         </label>
 
                         <label class="label">
-                            <span class="span">Lettre de motivation</span>
-                            <input class="input" type="file" name="motivation" required>
+                            <span class="span">Date de Sortie (Fonction)</span>
+                            <input class="input" type="text" name="finContrat">
                         </label>
-
                     </div>
-
                 </section>
 
                 <section>

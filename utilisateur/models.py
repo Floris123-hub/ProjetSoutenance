@@ -113,9 +113,9 @@ class Utilisateur(models.Model):
     #                         STAGIAIRE                         #
     #############################################################
     Filiere = models.CharField(max_length=50, blank=True, verbose_name="Filière *")
-    CV = models.FileField(blank=True, upload_to='Fichiers/cv', verbose_name="Curriculum Vitae")
-    LettreDeRecommandation = models.FileField(blank=True, upload_to='Fichiers/recommandations', verbose_name="Lettre de recommandation")
-    LettreDeMotivation = models.FileField(blank=True, upload_to='Fichiers/motivations', verbose_name="Lettre de motivation")
+    CV = models.FileField(null=True, upload_to='Fichiers/cv', verbose_name="Curriculum Vitae")
+    LettreDeRecommandation = models.FileField(null=True, upload_to='Fichiers/recommandations', verbose_name="Lettre de recommandation")
+    LettreDeMotivation = models.FileField(null=True, upload_to='Fichiers/motivations', verbose_name="Lettre de motivation")
 
     #############################################################
     #                         EMPLOYE                           #

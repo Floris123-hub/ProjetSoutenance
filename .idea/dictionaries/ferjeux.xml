@@ -2,25 +2,54 @@
   <dictionary name="ferjeux">
     <words>
       <w>accordé</w>
+      <w>accueil</w>
+      <w>addemployee</w>
       <w>adresse</w>
+      <w>anniv</w>
       <w>arrivee</w>
       <w>attente</w>
+      <w>avec</w>
+      <w>avez</w>
+      <w>bouton</w>
       <w>browsable</w>
+      <w>bulma</w>
       <w>calendrier</w>
       <w>choix</w>
       <w>conge</w>
       <w>conges</w>
+      <w>connecter</w>
+      <w>connectez</w>
+      <w>contrat</w>
       <w>célibataire</w>
       <w>demande</w>
+      <w>departement</w>
       <w>divorcé</w>
       <w>duree</w>
+      <w>durée</w>
+      <w>définie</w>
+      <w>déjà</w>
+      <w>département</w>
+      <w>emploi</w>
       <w>employe</w>
+      <w>enfants</w>
+      <w>entrez</w>
+      <w>enverrons</w>
+      <w>espace</w>
       <w>fichiers</w>
       <w>filiere</w>
       <w>filière</w>
+      <w>fixe</w>
       <w>flatline</w>
+      <w>fonction</w>
+      <w>formulaire</w>
+      <w>fournir</w>
+      <w>identité</w>
+      <w>informations</w>
+      <w>inscrit</w>
+      <w>inscrivez</w>
       <w>internes</w>
       <w>lconf</w>
+      <w>leftbox</w>
       <w>lettre</w>
       <w>loginpage</w>
       <w>marié</w>
@@ -28,20 +57,41 @@
       <w>matrimoniel</w>
       <w>myusername</w>
       <w>naissance</w>
+      <w>numéro</w>
+      <w>osspo</w>
+      <w>oublié</w>
+      <w>panique</w>
       <w>passlib</w>
       <w>permis</w>
       <w>permissionnaire</w>
+      <w>poste</w>
       <w>prendre</w>
       <w>prenom</w>
+      <w>prenoms</w>
+      <w>professionnelles</w>
+      <w>prénoms</w>
       <w>pyzbar</w>
       <w>recommandation</w>
       <w>recommandations</w>
       <w>rejeté</w>
+      <w>rightbox</w>
+      <w>réinitialiser</w>
+      <w>résidence</w>
       <w>sexe</w>
+      <w>signin</w>
       <w>stagiaire</w>
+      <w>statut</w>
       <w>superviseur</w>
+      <w>triu</w>
+      <w>téléphone</w>
+      <w>undraw</w>
+      <w>urgence</w>
       <w>utilisateur</w>
       <w>utilisateurs</w>
+      <w>veuillez</w>
+      <w>votre</w>
+      <w>vous</w>
+      <w>êtes</w>
     </words>
   </dictionary>
 </component>

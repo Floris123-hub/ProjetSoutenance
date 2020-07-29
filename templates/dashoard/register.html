@@ -36,10 +36,11 @@
                         <div class="text-center">
                             <h1 class="h3 text-gray-900 mb-4">INSCRIPTION</h1>
                         </div>
-                        <form class="user">
+                        <form action="{% url 'inscription' %}" method="post" class="user">
+                            {% csrf_token %}
                             <div id="svg_wrap"></div>
                             <section>
-                                <label class=" form-group label">
+                                <label class="label">
                                     <span class="span">Nom</span>
                                     <input type="text" class="input" name="nom" required>
                                 </label>
@@ -75,7 +76,6 @@
                                             <div>
                                                 <i class="fas fa-globe"></i>
                                                 <select name="pays">
-                                                    <option style="font-style: italic" selected disabled>--Pays--</option>
                                                     <option>Bénin</option>
                                                     <option>Ghana</option>
                                                     <option>Togo</option>
@@ -175,9 +175,8 @@
                                 <div class="select is-rounded">
                                     <label class="label">
                                         <span class="span">Département</span>
-                                        <select name="departement" style="max-width: 250px">
-                                            <option style="font-style: italic"selected disabled>--Département--</option>
-                                            <option >Direction</option>
+                                        <select name="departement" style="max-width: 230px; text-align: center">
+                                            <option>Direction</option>
                                             <option>Service Comptabilité</option>
                                             <option>Ressources Humaines</option>
                                             <option>Production et Développement</option>
@@ -192,8 +191,7 @@
                                 <div class="select is-rounded">
                                     <label class="label">
                                         <span class="span">Fonction</span>
-                                        <select name="fonction" style="max-width: 250px">
-                                            <option style="font-style: italic" selected disabled>--Fonction--</option>
+                                        <select name="fonction" style="max-width: 230px; text-align: center">
                                             <option>Développeur(euse) Front-End</option>
                                             <option>Développeur(euse) Back-End</option>
                                             <option>Développeur(euse) Full Stack</option>
@@ -214,12 +212,12 @@
                                             <option>Assistant(e) de Direction Commercial(e)</option>
                                         </select>
                                     </label>
-
-                                    <label class="label">
-                                        <span class="span">E-mail</span>
-                                        <input class="input" type="email" name="email">
-                                    </label>
                                 </div>
+
+                                <label class="label">
+                                    <span class="span">E-mail</span>
+                                    <input class="input" type="email" name="email">
+                                </label>
                             </section>
 
                             <section>
@@ -230,7 +228,7 @@
 
                                 <label class="label">
                                     <span class="span">Type de contract</span>
-                                    <select name="contrat">
+                                    <select name="contrat" style="text-align: center; max-width: 300px">
                                         <option>Contrat à durée Déterminée</option>
                                         <option>Contrat à durée Indéterminée</option>
                                         <option>Convention de stage</option>
@@ -246,6 +244,23 @@
                                 <label class="label">
                                     <span class="span">Date de Sortie (Fonction)</span>
                                     <input class="input" type="text" name="finContrat">
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="label">
+                                    <span class="span">Pseudo</span>
+                                    <input class="input" type="text" name="username" required>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Mot de passe</span>
+                                    <input class="input" type="password" name="password1" required>
+                                </label>
+
+                                <label class="label">
+                                    <span class="span">Confirmer le mot de passe</span>
+                                    <input class="input" type="password" name="password2" required>
                                 </label>
                             </section>
 

@@ -21,20 +21,18 @@
     outline: none;
     height: 35px;
     width: 35px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 20px;
     background-color: rgb(218, 20, 20);
     color: white;
+    cursor: pointer;
 }
 
 .left {
-    margin-right: 0px;
+    margin-bottom: -35px;
 }
 
 .right {
-    margin-left: 0px;
+    margin-left: auto;
 }
 
 .form {
@@ -62,7 +60,7 @@ h2 {
 
 .label {
     display: block;
-    width: 260px;
+    max-width: 260px;
     margin: 25px auto 0;
     text-align: center;
 }
@@ -90,8 +88,8 @@ h2 {
 .bouton {
     display: block;
     margin: 0 auto;
-    width: 260px;
-    height: 36px;
+    width: 240px;
+    height: 40px;
     border-radius: 30px;
     color: #fff;
     font-size: 15px;
@@ -129,7 +127,8 @@ h2 {
 
 .arrows {
     margin-top: 20px;
-    margin-left: 157px;
-    margin-right: 157px;
-    background-color: black;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
 }
