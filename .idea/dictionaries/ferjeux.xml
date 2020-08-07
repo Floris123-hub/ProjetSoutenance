@@ -1,10 +1,14 @@
 <component name="ProjectDictionaryState">
   <dictionary name="ferjeux">
     <words>
+      <w>accepter</w>
       <w>accordé</w>
+      <w>accordée</w>
       <w>accueil</w>
       <w>addemployee</w>
       <w>adresse</w>
+      <w>ajout</w>
+      <w>ajouter</w>
       <w>anniv</w>
       <w>arrivee</w>
       <w>attente</w>
@@ -21,28 +25,40 @@
       <w>connectez</w>
       <w>contrat</w>
       <w>célibataire</w>
+      <w>dashoard</w>
+      <w>datatables</w>
+      <w>debutpause</w>
       <w>demande</w>
+      <w>demander</w>
+      <w>demandes</w>
       <w>departement</w>
       <w>divorcé</w>
       <w>duree</w>
       <w>durée</w>
+      <w>début</w>
       <w>définie</w>
       <w>déjà</w>
+      <w>départ</w>
       <w>département</w>
       <w>emploi</w>
       <w>employe</w>
+      <w>employé</w>
       <w>enfants</w>
       <w>entrez</w>
       <w>enverrons</w>
+      <w>erreur</w>
       <w>espace</w>
+      <w>faire</w>
       <w>fichiers</w>
       <w>filiere</w>
       <w>filière</w>
+      <w>finpause</w>
       <w>fixe</w>
       <w>flatline</w>
       <w>fonction</w>
       <w>formulaire</w>
       <w>fournir</w>
+      <w>historique</w>
       <w>identité</w>
       <w>informations</w>
       <w>inscrit</w>
@@ -51,28 +67,38 @@
       <w>lconf</w>
       <w>leftbox</w>
       <w>lettre</w>
+      <w>liste</w>
+      <w>listpermissions</w>
       <w>loginpage</w>
       <w>marié</w>
+      <w>marquer</w>
       <w>matricule</w>
       <w>matrimoniel</w>
+      <w>mettre</w>
       <w>myusername</w>
       <w>naissance</w>
       <w>numéro</w>
       <w>osspo</w>
+      <w>oublie</w>
       <w>oublié</w>
       <w>panique</w>
       <w>passlib</w>
       <w>permis</w>
       <w>permissionnaire</w>
+      <w>pointage</w>
       <w>poste</w>
       <w>prendre</w>
       <w>prenom</w>
       <w>prenoms</w>
       <w>professionnelles</w>
       <w>prénoms</w>
+      <w>présence</w>
       <w>pyzbar</w>
+      <w>période</w>
+      <w>qrscan</w>
       <w>recommandation</w>
       <w>recommandations</w>
+      <w>rejeter</w>
       <w>rejeté</w>
       <w>rightbox</w>
       <w>réinitialiser</w>
@@ -82,12 +108,14 @@
       <w>stagiaire</w>
       <w>statut</w>
       <w>superviseur</w>
+      <w>traitement</w>
       <w>triu</w>
       <w>téléphone</w>
       <w>undraw</w>
       <w>urgence</w>
       <w>utilisateur</w>
       <w>utilisateurs</w>
+      <w>valider</w>
       <w>veuillez</w>
       <w>votre</w>
       <w>vous</w>

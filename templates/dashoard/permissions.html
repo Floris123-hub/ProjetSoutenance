@@ -15,8 +15,10 @@
     </div>
     <div class="card-body row">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center">
                 <thead>
+
+                    <!-- Entête du tableau des permissions -->
                     <tr>
                         <th>N°</th>
                         <th>Permissionnaire</th>
@@ -28,16 +30,38 @@
                 </thead>
                 <tbody>
                     {% for list in listePermis %}
+
+                        <!-- Informations sur la permission -->
                         <tr>
+
+                            <!-- Numéro de la permission -->
                             <th scope="row">{{ list.Code_Permission }}</th>
+
+                            <!-- Permissionnaire -->
                             <td>{{ list.Permissionnaire }}</td>
+
+                            <!-- Date de demande de la permission -->
                             <td>{{ list.Date_Permission }}</td>
-                            <td>Du {{ list.Date_Debut }} à {{ list.heure_Debut }} au {{ list.Date_Fin }} à {{ list.heure_Fin }}</td>
+
+                            <!-- Période de la permission -->
+                            <td>Du <strong>{{ list.Date_Debut }}</strong> à <strong>{{ list.heure_Debut }}</strong><br> au <br><strong>{{ list.Date_Fin }}</strong> à <strong>{{ list.heure_Fin }}</strong></td>
+
+                            <!-- Motif de la permission -->
                             <td>{{ list.Motif }}</td>
+
+                            <!-- Buttons de validation -->
                             <td>
-                                <button type="button" class="btn btn-success"><i class="fas fa-check"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                <button type="button" class="btn btn-danger"><i class="fas fa-times"></i></button>
+                                {% if list.Status == "En attente" or list.Status == "None" %}
+                                    <!-- Button pour valider la demande -->
+                                    <button style="margin-right: 10px" title="Valider" type="button" class="btn btn-success" href=" {% url 'accepter' %}"> <i class="fas fa-check"></i> </button>
+
+                                    <!-- Button pour rejeter la demande -->
+                                    <button title="Rejeter" type="button" class="btn btn-danger" href=" {% url 'rejeter' %}"> <i class="fas fa-times"></i> </button>
+
+                                {% else %}
+                                    {{ list.Status }}
+                                {% endif %}
+
                             </td>
                           </tr>
                     {% endfor %}
@@ -46,7 +70,6 @@
         </div>
     </div>
 </div>
-<!-- /.container-fluid -->
 {% endblock %}
 
 {% block script %}

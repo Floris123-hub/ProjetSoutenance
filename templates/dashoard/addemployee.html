@@ -2,9 +2,12 @@
 {% block title %}
     <title>Dashboard - Ajouter un employé</title>
 {% endblock %}
-{% block content %}
+{% block css %}
     <link rel="stylesheet" href="../../static/dashboard/css/addemployee.css">
     <link href="../../static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
     <form action="{% url 'ajouter Employe' %}" method="post">
         {% csrf_token %}
         <div class="form">

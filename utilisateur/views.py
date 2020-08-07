@@ -123,45 +123,7 @@ class PresenceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
-def home(request):
-    template = loader.get_template('dashoard/login.html')
-    return HttpResponse(template.render(request=request))
-
-
-def login(request):
-    template = loader.get_template('dashoard/login.html')
-    if request.method == 'POST':
-        Myusername = request.POST.get('username')
-        Mypassword = request.POST.get('password')
-        # user = User.objects.get(username=Myusername)
-        user = authenticate(username=Myusername, password=Mypassword)
-        if user:
-            messages.success(request, "Connecté(e)", extra_tags='alert')
-            request.session["user_id"] = user.id
-            nom = Utilisateur.objects.get(user_id_id=user.id).Nom
-            prenom = Utilisateur.objects.get(user_id_id=user.id).Prenom
-            admin = Utilisateur.objects.get(user_id_id=user.id).admin
-            Count = Notes_Internes.objects.filter(Date=datetime.date.today())
-            print(Count)
-            # Count1 = Presence.objects.get(date=datetime.date.today())
-            # print(Count1)
-            badgeCount = Count.count()
-            print(badgeCount)
-            request.session["count"] = badgeCount
-            # request.session["count1"] = Count1
-            request.session["nom"] = nom
-            request.session["prenom"] = prenom
-            request.session["admin"] = admin
-            print("You're logged in !")
-
-            return redirect('espace utilisateur')
-            # return render(request, 'dashoard/index.html', {'popup': message})
-        else:
-            return redirect('erreur')
-    else:
-        return HttpResponse(template.render(request=request))
-
-
+# Inscription - Connexion - Déconnexion
 def register(request):
     if request.method == 'POST':
         nom = request.POST['nom']
@@ -220,176 +182,60 @@ def register(request):
         return HttpResponse(template.render(request=request))
 
 
+def login(request):
+    template = loader.get_template('dashoard/login.html')
+    if request.method == 'POST':
+        Myusername = request.POST.get('username')
+        Mypassword = request.POST.get('password')
+        user = authenticate(username=Myusername, password=Mypassword)
+        if user:
+            request.session["user_id"] = user.id
+            nom = Utilisateur.objects.get(user_id_id=user.id).Nom
+            prenom = Utilisateur.objects.get(user_id_id=user.id).Prenom
+            admin = Utilisateur.objects.get(user_id_id=user.id).admin
+            Count = Notes_Internes.objects.filter(Date=datetime.date.today())
+            print(Count)
+            # Count1 = Presence.objects.get(date=datetime.date.today())
+            # print(Count1)
+            badgeCount = Count.count()
+            print(badgeCount)
+            request.session["count"] = badgeCount
+            # request.session["count1"] = Count1
+            request.session["nom"] = nom
+            request.session["prenom"] = prenom
+            request.session["admin"] = admin
+            print("You're logged in !")
+            messages.success(request, "Connecté(e)", extra_tags='alert')
+            return redirect('espace utilisateur')
+            # return render(request, 'dashoard/index.html', {'popup': message})
+        else:
+            return redirect('erreur')
+    else:
+        return HttpResponse(template.render(request=request))
+
+
 def logout(request):
     try:
         del request.session['user_id']
     except KeyError:
         pass
-    messages.error(request, "Déconnexion réussie !", extra_tags='alert')
     return redirect('accueil')
 
 
-def profile(request):
-    emp_id = request.session["user_id"]
-    usr = User.objects.get(id=emp_id)
-    emp = Utilisateur.objects.get(user_id=emp_id)
-    anniv = str(emp.DateDeNaissance).split('-', 3)
-    entree = str(emp.Date_Entree).split('-', 3)
-    sortie = str(emp.Date_Sortie).split('-', 3)
-    return render(request, 'dashoard/profile.html', {'user': emp, 'usr': usr, 'anniv': anniv, 'entree': entree, 'sortie': sortie})
-
-
-def utilisateurs(request):
-    users = Utilisateur.objects.all()
-    return HttpResponse(users)
-
-
-def Listpermissions(request):
-    permis = Permission.objects.all().order_by('Date_Permission')
-    return render(request, 'dashoard/permissions.html', {'listePermis': permis})
-
-
-def conges(request):
-    emp_id = request.session["user_id"]
-    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    con = Permission.objects.order_by('Date_Permission').filter(Permissionnaire_id=emp, Status="Accordée")
-    return render(request, 'dashoard/mes_conges.html', {'conges': con})
-
-
-def tablePresence(request):
-    liste = Presence.objects.all().order_by('date', 'heureArrivee')
-    return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
-
-
-def userDashboard(request):
-    lstNotes = Notes_Internes.objects.all()
-    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
-
-
-def page404(request):
-    page = loader.get_template('dashoard/404.html')
-    return HttpResponse(page.render(request=request))
-
-
-def error(request):
-    page = loader.get_template('errorpages/wrong.html')
-    return HttpResponse(page.render(request=request))
-
-
-def addEmploye(request):
-    template = loader.get_template('dashoard/addemployee.html')
-    if request.method == 'POST':
-        nom = request.POST['nom']
-        prenoms = request.POST['prenoms']
-        sexe = request.POST['sexe']
-        Dnaissance = request.POST['birthday']
-        adresse = request.POST['adresse']
-        mail = request.POST['email']
-        ville = request.POST['ville']
-        pays = request.POST['pays']
-        mobile = request.POST['mobile']
-        Curgent = request.POST['contactUrgence']
-        TCurgent = request.POST['telUrgence']
-        cin = request.POST['cin']
-        statusMat = request.POST['statusMat']
-        enfants = request.POST['enfants']
-        fixe = request.POST['fixe']
-        departement = request.POST['departement']
-        fonction = request.POST['fonction']
-        demande = request.POST['demande']
-        filiere = request.POST['filiere']
-        cv = request.POST['cv']
-        recommandation = request.POST['recommandation']
-        motivation = request.POST['motivation']
-        pass1 = request.POST['password1']
-        pass2 = request.POST['password2']
-        username = request.POST['username']
-
-        if pass1 == pass2:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, "Le PSEUDO est déjà pris !", extra_tags='alert')
-            elif Utilisateur.objects.filter(Mail=mail).exists():
-                messages.error(request, "Erreur d'Adresse Mail !", extra_tags='alert')
-            else:
-                user = User.objects.create_user(username=username, password=pass1)
-                user.save()
-                utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
-                                                         Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
-                                                         Mobile=mobile,
-                                                         Nom_Contact_dUrgence=Curgent,
-                                                         Telephone_Contact_dUrgence=TCurgent,
-                                                         CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
-                                                         Telephone_Fixe=fixe,
-                                                         Departement=departement, Fonction=fonction,
-                                                         Lettre_Demande_Emploi=demande,
-                                                         Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
-                                                         LettreDeMotivation=motivation, user_id_id=user.id)
-                utilisateur.save()
-                messages.success(request, "Employé(e) bien ajouté(e) !", extra_tags='alert')
-                return redirect('espace utilisateur')
-        else:
-            messages.error(request, "Les mots de passe ne correspondent pas!", extra_tags='alert')
-        return redirect('ajouter Employe')
+def home(request):
+    template = loader.get_template('dashoard/login.html')
     return HttpResponse(template.render(request=request))
 
 
-def blank(request):
-    page = loader.get_template('dashoard/blank.html')
-    return HttpResponse(page.render(request=request))
+#                                             D_A_S_B_O_A_R_D  U_T_I_L_I_S_A_T_E_U_R
+
+# Notes de Service
+def userDashboard(request):
+    lstNotes = Notes_Internes.objects.all().order_by('-Date')
+    return render(request, 'dashoard/index.html', {'listeNotes': lstNotes})
 
 
-def buttons(request):
-    page = loader.get_template('dashoard/buttons.html')
-    return HttpResponse(page.render(request=request))
-
-
-def cards(request):
-    page = loader.get_template('dashoard/cards.html')
-    return HttpResponse(page.render(request=request))
-
-
-def charts(request):
-    page = loader.get_template('dashoard/charts.html')
-    return HttpResponse(page.render(request=request))
-
-
-def forgotPass(request):
-    page = loader.get_template('dashoard/forgot-password.html')
-    return HttpResponse(page.render(request=request))
-
-
-def demandePermis(request):
-    if request.method == 'POST':
-        dateP = datetime.datetime.now()
-        # permis = request.POST['permis']
-        emp_id = request.session["user_id"]
-        emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-        dateDebut = request.POST['dateDebut']
-        heureDebut = request.POST['heureDebut']
-        dateFin = request.POST['dateFin']
-        heureFin = request.POST['heureFin']
-        motif = request.POST['motif']
-        dateDebut = datetime.datetime.strptime(dateDebut, '%Y-%m-%d')
-
-        if dateDebut >= dateP + datetime.timedelta(days=2):
-            permission = Permission.objects.create(Permissionnaire_id=emp, Date_Permission=dateP,
-                                                   Date_Debut=dateDebut, heure_Debut=heureDebut,
-                                                   Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
-            permission.save()
-            messages.success(request, 'Demande envoyée avec succes !', extra_tags='alert')
-        else:
-            messages.error(request, "Erreur!!! La permission doit être demandée trois (03) jours plus tôt.", extra_tags='alert')
-            page = loader.get_template('dashoard/permissionForm.html')
-            return HttpResponse(page.render(request=request))
-    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
-    return render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
-
-
-def CodeQR(request):
-    page = loader.get_template('dashoard/qrcode.html')
-    return HttpResponse(page.render(request=request))
-
-
+# Faire la présence
 def qrscan(request):
     # Get user's position : lon and lat
     g = geocoder.ip('me')
@@ -449,6 +295,7 @@ def qrscan(request):
         return redirect('scan qr')
 
 
+# Marquer le début de la pause
 def PauseDej_Debut(request):
     debut = datetime.datetime.now()
     jour = datetime.date.today()
@@ -458,6 +305,7 @@ def PauseDej_Debut(request):
     return redirect('espace utilisateur')
 
 
+# Marquer la fin de la pause
 def PauseDej_Fin(request):
     fin = datetime.datetime.now()
     jour = datetime.date.today()
@@ -467,6 +315,7 @@ def PauseDej_Fin(request):
     return redirect('espace utilisateur')
 
 
+# Marquer le départ du service
 def Depart(request):
     depart = datetime.datetime.now()
     jour = datetime.date.today()
@@ -476,18 +325,131 @@ def Depart(request):
     return redirect('espace utilisateur')
 
 
-def affichageBouton(request):
+# Demander une permission
+def demandePermis(request):
+    if request.method == 'POST':
+        dateP = datetime.datetime.now()
+        # permis = request.POST['permis']
+        emp_id = request.session["user_id"]
+        emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+        dateDebut = request.POST['dateDebut']
+        heureDebut = request.POST['heureDebut']
+        dateFin = request.POST['dateFin']
+        heureFin = request.POST['heureFin']
+        motif = request.POST['motif']
+        dateDebut = datetime.datetime.strptime(dateDebut, '%Y-%m-%d')
+
+        if dateDebut >= dateP + datetime.timedelta(days=2):
+            permission = Permission.objects.create(Permissionnaire_id=emp, Date_Permission=dateP,
+                                                   Date_Debut=dateDebut, heure_Debut=heureDebut,
+                                                   Date_Fin=dateFin, heure_Fin=heureFin, Motif=motif)
+            permission.save()
+            messages.success(request, 'Demande envoyée avec succes !', extra_tags='alert')
+        else:
+            messages.error(request, "Erreur!!! La permission doit être demandée trois (03) jours plus tôt.", extra_tags='alert')
+            # page = loader.get_template('dashoard/permissionForm.html')
+            # return HttpResponse(page.render(request=request))
+    permissionnaire = Utilisateur.objects.only("Matricule", "Nom", "Prenom")
+    return render(request, 'dashoard/permissionForm.html', {'permissionnaire': permissionnaire})
+
+
+# Historique des Permissions
+def conges(request):
     emp_id = request.session["user_id"]
     emp = Utilisateur.objects.get(user_id=emp_id).Matricule
-    cond = Presence.objects.get(employe_id=emp, date=datetime.date.today)
-    return render(request, 'dashoard/qrcode.html', {'cond': cond})
+    con = Permission.objects.order_by('Date_Permission').filter(Permissionnaire_id=emp, Status="Accordée")
+    return render(request, 'dashoard/mes_conges.html', {'conges': con})
 
 
+#                                             D_A_S_B_O_A_R_D  A_D_M_I_N_I_S_T_R_A_T_E_U_R
+
+# Tableau de Présence
+def tablePresence(request):
+    liste = Presence.objects.all().order_by('date', 'heureArrivee')
+    return render(request, 'dashoard/pointPresence.html', {'listeP': liste})
+
+
+# Tableau des Demandes de Permission
+def Listpermissions(request):
+    permis = Permission.objects.all().order_by('Date_Permission')
+    return render(request, 'dashoard/permissions.html', {'listePermis': permis})
+
+
+# Valider la demande de Permission
+def Accepter(request):
+    pass
+
+
+# Rejeter la demande de Permission
+def Rejeter(request):
+    pass
+
+
+# Ajouter un Employé ou un Stagiaire
+def addEmploye(request):
+    template = loader.get_template('dashoard/addemployee.html')
+    if request.method == 'POST':
+        nom = request.POST['nom']
+        prenoms = request.POST['prenoms']
+        sexe = request.POST['sexe']
+        Dnaissance = request.POST['birthday']
+        adresse = request.POST['adresse']
+        mail = request.POST['email']
+        ville = request.POST['ville']
+        pays = request.POST['pays']
+        mobile = request.POST['mobile']
+        Curgent = request.POST['contactUrgence']
+        TCurgent = request.POST['telUrgence']
+        cin = request.POST['cin']
+        statusMat = request.POST['statusMat']
+        enfants = request.POST['enfants']
+        fixe = request.POST['fixe']
+        departement = request.POST['departement']
+        fonction = request.POST['fonction']
+        demande = request.POST['demande']
+        filiere = request.POST['filiere']
+        cv = request.POST['cv']
+        recommandation = request.POST['recommandation']
+        motivation = request.POST['motivation']
+        pass1 = request.POST['password1']
+        pass2 = request.POST['password2']
+        username = request.POST['username']
+
+        if pass1 == pass2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Le PSEUDO est déjà pris !", extra_tags='alert')
+            elif Utilisateur.objects.filter(Mail=mail).exists():
+                messages.error(request, "Erreur d'Adresse Mail !", extra_tags='alert')
+            else:
+                user = User.objects.create_user(username=username, password=pass1)
+                user.save()
+                utilisateur = Utilisateur.objects.create(Nom=nom, Prenom=prenoms, Sexe=sexe, DateDeNaissance=Dnaissance,
+                                                         Adresse=adresse, Mail=mail, Ville=ville, Pays=pays,
+                                                         Mobile=mobile,
+                                                         Nom_Contact_dUrgence=Curgent,
+                                                         Telephone_Contact_dUrgence=TCurgent,
+                                                         CIN=cin, Status_matrimoniel=statusMat, Enfants=enfants,
+                                                         Telephone_Fixe=fixe,
+                                                         Departement=departement, Fonction=fonction,
+                                                         Lettre_Demande_Emploi=demande,
+                                                         Filiere=filiere, CV=cv, LettreDeRecommandation=recommandation,
+                                                         LettreDeMotivation=motivation, user_id_id=user.id)
+                utilisateur.save()
+                messages.success(request, "Employé(e) bien ajouté(e) !", extra_tags='alert')
+                return redirect('espace utilisateur')
+        else:
+            messages.error(request, "Les mots de passe ne correspondent pas!", extra_tags='alert')
+        return redirect('ajouter Employe')
+    return HttpResponse(template.render(request=request))
+
+
+# Formulaire d'ajout de Note de Service
 def notesform(request):
     page = loader.get_template('dashoard/service-notes.html')
     return HttpResponse(page.render(request=request))
 
 
+# Traitement d'ajout de la Note de Service
 def notes(request):
     if request.method == 'POST':
         code = request.POST['codenote']
@@ -495,10 +457,73 @@ def notes(request):
         contenu = request.POST['contenu']
         note = Notes_Internes.objects.create(Code_Note=code, Titre=titre, Contenu=contenu)
         note.save()
-        messages.success(request, "La note a bien été envoyé !", extra_tags='alert')
+        messages.success(request, "La note a bien été envoyée !", extra_tags='alert')
     else:
         messages.error(request, "Quelque chose s'est mal passé :(", extra_tags='alert')
     return redirect('espace utilisateur')
+
+
+def utilisateurs(request):
+    users = Utilisateur.objects.all()
+    return HttpResponse(users)
+
+
+def page404(request):
+    page = loader.get_template('dashoard/404.html')
+    return HttpResponse(page.render(request=request))
+
+
+def error(request):
+    page = loader.get_template('errorpages/wrong.html')
+    return HttpResponse(page.render(request=request))
+
+
+def blank(request):
+    page = loader.get_template('dashoard/blank.html')
+    return HttpResponse(page.render(request=request))
+
+
+def buttons(request):
+    page = loader.get_template('dashoard/buttons.html')
+    return HttpResponse(page.render(request=request))
+
+
+def cards(request):
+    page = loader.get_template('dashoard/cards.html')
+    return HttpResponse(page.render(request=request))
+
+
+def charts(request):
+    page = loader.get_template('dashoard/charts.html')
+    return HttpResponse(page.render(request=request))
+
+
+def forgotPass(request):
+    page = loader.get_template('dashoard/forgot-password.html')
+    return HttpResponse(page.render(request=request))
+
+
+def CodeQR(request):
+    page = loader.get_template('dashoard/qrcode.html')
+    return HttpResponse(page.render(request=request))
+
+
+def affichageBouton(request):
+    emp_id = request.session["user_id"]
+    emp = Utilisateur.objects.get(user_id=emp_id).Matricule
+    cond = Presence.objects.get(employe_id=emp, date=datetime.date.today)
+    return render(request, 'dashoard/qrcode.html', {'cond': cond})
+
+
+# Profile de l'utilisateur
+def profile(request):
+    emp_id = request.session["user_id"]
+    usr = User.objects.get(id=emp_id)
+    emp = Utilisateur.objects.get(user_id=emp_id)
+    anniv = str(emp.DateDeNaissance).split('-', 3)
+    entree = str(emp.Date_Entree).split('-', 3)
+    sortie = str(emp.Date_Sortie).split('-', 3)
+    return render(request, 'dashoard/profile.html', {'user': emp, 'usr': usr, 'anniv': anniv, 'entree': entree, 'sortie': sortie})
 
 
 def tables(request):
