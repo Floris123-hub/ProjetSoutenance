@@ -371,18 +371,22 @@ def tablePresence(request):
 
 # Tableau des Demandes de Permission
 def Listpermissions(request):
-    permis = Permission.objects.all().order_by('Date_Permission')
+    permis = Permission.objects.all().order_by('-Code_Permission')
     return render(request, 'dashoard/permissions.html', {'listePermis': permis})
 
 
 # Valider la demande de Permission
-def Accepter(request):
-    pass
+def Accepter(request, pk):
+    Permission.objects.filter(Code_Permission=pk).update(Status="Accordée")
+    messages.success(request, "Permission accordée avec succès !", extra_tags='alert')
+    return redirect('permissions')
 
 
 # Rejeter la demande de Permission
-def Rejeter(request):
-    pass
+def Rejeter(request, pk):
+    Permission.objects.filter(Code_Permission=pk).update(Status="Rejetée")
+    messages.success(request, "Permission rejetée !", extra_tags='alert')
+    return redirect('permissions')
 
 
 # Ajouter un Employé ou un Stagiaire

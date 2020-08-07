@@ -162,7 +162,7 @@ class Permission(models.Model):
     Status = models.CharField(choices=STATUS_PERMISSION, max_length=10, default="En attente")
 
     def __str__(self):
-        return self.Code_Permission + " " + self.Permissionnaire
+        return str(self.Code_Permission) + " " + str(self.Permissionnaire)
 
 
 ###################################################################################

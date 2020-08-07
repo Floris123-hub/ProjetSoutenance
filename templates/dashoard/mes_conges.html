@@ -15,7 +15,7 @@
         </div>
         <div class="card-body row">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center">
                     <thead>
                         <tr>
                             <th>Demandée le</th>
@@ -28,7 +28,7 @@
                         {% for list in conges %}
                             <tr>
                                 <td>{{ list.Date_Permission }}</td>
-                                <td>Du {{ list.Date_Debut }} à {{ list.heure_Debut }} au {{ list.Date_Fin }} à {{ list.heure_Fin }}</td>
+                                <td>Du <strong>{{ list.Date_Debut }}</strong> à <strong>{{ list.heure_Debut }}</strong><br> au <br><strong>{{ list.Date_Fin }}</strong> à <strong>{{ list.heure_Fin }}</strong></td>
                                 <td>{{ list.Motif }}</td>
                                 <td>{{ list.Status }}</td>
                               </tr>

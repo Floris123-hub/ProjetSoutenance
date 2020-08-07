@@ -53,10 +53,10 @@
                             <td>
                                 {% if list.Status == "En attente" or list.Status == "None" %}
                                     <!-- Button pour valider la demande -->
-                                    <button style="margin-right: 10px" title="Valider" type="button" class="btn btn-success" href=" {% url 'accepter' %}"> <i class="fas fa-check"></i> </button>
+                                    <button style="margin-right: 10px" title="Valider" type="button" class="btn btn-success" ><a href="/validate/{{ list.Code_Permission }}"> <i style="color: white" class="fas fa-check"></i> </a></button>
 
                                     <!-- Button pour rejeter la demande -->
-                                    <button title="Rejeter" type="button" class="btn btn-danger" href=" {% url 'rejeter' %}"> <i class="fas fa-times"></i> </button>
+                                    <button title="Rejeter" type="button" class="btn btn-danger" > <a href="/reject/{{ list.Code_Permission }}"> <i style="color: white" class="fas fa-times"></i> </a> </button>
 
                                 {% else %}
                                     {{ list.Status }}

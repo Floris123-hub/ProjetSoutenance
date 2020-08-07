@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import path
 from utilisateur import views
 from rest_framework import routers
@@ -28,8 +29,8 @@ urlpatterns = [
     path('404/', views.page404, name='not found'),
     path('addEmploye/', views.addEmploye, name='ajouter Employe'),
     path('permissions/', views.Listpermissions, name='permissions'),
-    path('validate/', views.Accepter, name='accepter'),
-    path('reject/', views.Rejeter, name='rejeter'),
+    url(r'^validate/(?P<pk>\d+)$', views.Accepter, name='accepter'),
+    url(r'^reject/(?P<pk>\d+)$', views.Rejeter, name='rejeter'),
     path('calendrier/', views.conges, name='calendrier'),
     path('blank/', views.blank, name='page vierge'),
     path('buttons/', views.buttons, name='boutons'),
